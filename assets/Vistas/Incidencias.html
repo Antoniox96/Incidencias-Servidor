@@ -1,0 +1,7 @@
+<h1>Incidencias</h1>
+<h4 ng-show="Loading">Cargando...</h4>
+<ul ng-hide="Incidencias.length < 0" style="border: 1px solid black">
+	<li ng-repeat="Incidencia in Incidencias">
+	<h2>{{ Incidencia.id }} - {{ Incidencia.titulo }} - {{ Incidencia.categoria }}</h2>
+	</li>
+</ul>

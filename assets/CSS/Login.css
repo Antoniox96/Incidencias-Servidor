@@ -1,0 +1,37 @@
+* {
+	font-family: "Trebuchet MS", Arial;
+}
+
+#loginbox {
+	margin-top: 5%;
+	text-align: center;
+}
+
+#btn-login {
+	width: 100%;
+}
+
+#Logo {
+	max-width: 100%;
+	max-height: 100%;
+	margin-bottom: 10%;
+}
+
+.panel-body {
+	padding-top: 30px;
+}
+
+.panel-info {
+	border: 1px solid #337AB7;
+	box-shadow: #337AB7 1px 1px 5px;
+}
+
+.panel-heading {
+	background-color: #337AB7 !important;
+	color: white !important;
+	font-weight: bold !important;
+}
+
+.glyphicon {
+	color: black !important;
+}
