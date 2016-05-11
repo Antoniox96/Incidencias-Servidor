@@ -4,30 +4,47 @@ module.exports = {
 		
 	attributes: {
 
-		nombreUsuario: {
-			type: 'string',
-			required: 'true',
-			unique: true
+		NickName: {
+			type: 		'string',
+			size: 		20,
+			required: 	true,
+			unique: 	true,			
 		},
 
-		nombreReal: {
-			type: 'string',
-			required: 'true',
+
+		Password: {
+			type: 		'string',
+			size: 		255,
+			required: 	true,
 		},
 
-		apellidos: {
-			type: 'string',
-			required: 'true',
+		Rol: {
+			model: 	'Rol'
 		},
 
-		encryptedPassword: {
-			type: 'string',
+		Nombre: {
+			type: 		'string',
+			size: 		40,
+			required: 	true
 		},
 
-		toJSON: function () {
+		Apellidos: {
+			type: 		'string',
+			size: 		80,
+			required: 	true,
+		},
+
+		EMail: {
+			type: 		'string',
+			size: 		100,
+			required: 	true,
+			unique: 	true,
+		},
+
+		toJSON: function() {
 			var Usuario = this.toObject();
 			// Borramos la contraseña por motivos de seguridad ya que no nos interesa que se devuelva.
-			delete Usuario.encryptedPassword;
+			delete Usuario.Password;
 			return Usuario;
 		}
 
@@ -43,7 +60,7 @@ module.exports = {
 			bcrypt.hash(values.password, salt, function (err, hash) {
 
 				if(err) return next(err);
-				values.encryptedPassword = hash;
+				values.password = hash;
 				next();
 
 			});
@@ -53,7 +70,7 @@ module.exports = {
 
 	comparePassword : function (password, user, cb) {
 
-		bcrypt.compare(password, user.encryptedPassword, function (err, match) {
+		bcrypt.compare(password, user.Password, function (err, match) {
 			if (err) { cb(err); }
 			if (match) { cb(null, true); }
 			else { cb(err); }

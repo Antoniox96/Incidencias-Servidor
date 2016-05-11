@@ -1,14 +1,64 @@
-/**
- * Incidencia.js
- *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
- * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
- */
-
 module.exports = {
 
-  attributes: {
+	attributes: {
 
-  }
+		Titulo: {
+			type: 		'string',
+			size: 		150,
+			required: 	true	
+		},
+
+
+		Descripcion: {
+			type: 		'string',
+			size: 		255,
+			required: 	true,
+		},
+		
+		Tipo: {
+			type: 		'string',
+			enum: 	['Mantenimiento', 'Sistemas'],
+			defaultsTo: 	'Mantenimiento',
+		},
+
+		Estado: {
+			type: 		'string',
+			enum: 	['Sin Iniciar', 'En Proceso', 'Pendiente', 'Completada'],
+			defaultsTo: 	'Sin Iniciar',
+		},
+
+
+		Prioridad: {
+			type: 		'string',
+			enum: 	['Baja', 'Media', 'Alta'],
+			defaultsTo: 	'Baja',
+		},
+
+		Comun: {
+			type: 		'string',
+			enum: 	['Sí', 'No'],
+			defaultsTo: 	'No',
+		},
+
+		FechaInicio: {
+			type: 		'date',
+
+		},
+
+		FechaPrevista: {
+			type: 		'date',
+
+		},		
+
+		FechaFin: {
+			type: 		'date',
+
+		},
+
+		Operador: {
+			model: 	'Usuario', 
+		}
+
+	}
+
 };
-
