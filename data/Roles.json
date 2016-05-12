@@ -1,0 +1,20 @@
+[
+	{
+		"model":	"Rol",
+		"items":
+		[
+			{
+				"id":			1,
+				"Nombre":		"Supervisor"
+			},
+			{
+				"id":			2,
+				"Nombre":		"Operador"
+			},
+			{
+				"id":			3,
+				"Nombre":		"Colaborador"
+			}
+		]
+	}
+]

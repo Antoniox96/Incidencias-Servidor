@@ -1,4 +1,5 @@
 angular.module("AppIncidencias")
+
 	.factory('AuthenticationService', function() {
 		var auth = {
 			isLogged: false

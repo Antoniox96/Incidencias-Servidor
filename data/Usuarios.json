@@ -1,0 +1,34 @@
+[
+	{
+		"model":	"Usuario",
+		"items":
+		[
+			{
+				"id":			1,
+				"NickName":	"Supervisor",
+				"Password": 	"12345",
+				"Rol":			1,
+    				"Nombre":		"Intercontinental",
+				"Apellidos":		"Intercontinental",
+				"Email":		"Intercontinental1@gmail.com"
+			},
+			{
+				"id":			2,
+				"NickName":	"Operador",
+				"Password": 	"12345",
+				"Rol":			3,
+    				"Nombre":		"Intercontinental",
+				"Apellidos":		"Intercontinental",
+				"Email":		"Intercontinental2@gmail.com"
+			},
+			{
+				"id":			3,
+				"NickName":	"Colaborador",
+				"Password": 	"12345",
+				"Rol":			3,
+    				"Nombre":		"Intercontinental",
+				"Apellidos":		"Intercontinental",
+				"Email":		"Intercontinental3@gmail.com"
+			}		]
+	}
+]

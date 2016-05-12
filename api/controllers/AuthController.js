@@ -2,20 +2,20 @@ module.exports = {
 	
 	index: function (req, res) {
 
-		var nombreUsuario = req.param('username');
-		var password = req.param('password');
+		var NickName = req.param('username');
+		var Password = req.param('password');
 
-		if (!nombreUsuario || !password) {
+		if (!NickName || !Password) {
 			return res.json(401, {err: 'Usuario o Contraseña inválida.'});
 		}
 
-		Usuario.findOne({nombreUsuario: nombreUsuario}, function (err, user) {
+		Usuario.findOne({NickName: NickName}, function (err, user) {
 
 			if (!user) {
 				return res.json(401, {err: 'Nombre de Usuario inexistente.'});
 			}
 
-			Usuario.comparePassword(password, user, function (err, valid) {
+			Usuario.comparePassword(Password, user, function (err, valid) {
 				if (err) {
 					return res.json(403, {err: 'Permiso Denegado.'});
 				}
@@ -24,6 +24,7 @@ module.exports = {
 					return res.json(401, {err: 'Contraseña incorrecta.'});
 				} else {
 					res.json({ user: user, token: JWToken.issue({id : user.id }) });
+					sails.config.globals.rol = user.Rol;
 				}	
 			});
 

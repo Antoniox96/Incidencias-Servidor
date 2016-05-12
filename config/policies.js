@@ -11,6 +11,10 @@ module.exports.policies = {
 	// Se permite iniciar sesión sin haber iniciado sesión previamente.
 	'AuthController': {
 		'*': true 
+	},
+
+	'IncidenciaController': {
+		'*': ['isSupervisor']
 	}
 
 };
