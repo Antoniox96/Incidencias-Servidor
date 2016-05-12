@@ -34,7 +34,7 @@ module.exports = {
 			required: 	true,
 		},
 
-		EMail: {
+		Email: {
 			type: 		'string',
 			size: 		100,
 			required: 	true,
@@ -44,7 +44,7 @@ module.exports = {
 		toJSON: function() {
 			var Usuario = this.toObject();
 			// Borramos la contraseña por motivos de seguridad ya que no nos interesa que se devuelva.
-			delete Usuario.Password;
+			delete Usuario.EncryptedPassword;
 			return Usuario;
 		}
 
@@ -57,10 +57,10 @@ module.exports = {
 
 			if (err) { return next(err); }
 
-			bcrypt.hash(values.password, salt, function (err, hash) {
+			bcrypt.hash(values.Password, salt, function (err, hash) {
 
 				if(err) return next(err);
-				values.password = hash;
+				values.Password = hash;
 				next();
 
 			});

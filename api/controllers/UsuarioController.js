@@ -9,12 +9,9 @@ module.exports = {
 
 	create: function (req, res) {
 
-		if (req.body.password !== req.body.confirmPassword) {
-			return res.json(401, { err: 'Las contraseñas no coinciden.' });
-		}
-
 		Usuario.create(req.body).exec(function (err, user) {
 			if (err) {
+				console.log(err);
 				return res.json(err.status, {err: err});
 			}
 
