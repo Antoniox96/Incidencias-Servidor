@@ -16,7 +16,7 @@
 				"id":			2,
 				"NickName":	"Operador1",
 				"Password": 	"12345",
-				"Rol":			3,
+				"Rol":			2,
     				"Nombre":		"Intercontinental",
 				"Apellidos":		"Intercontinental",
 				"Email":		"Intercontinental2@gmail.com"
@@ -25,7 +25,7 @@
 				"id":			3,
 				"NickName":	"Operador2",
 				"Password": 	"12345",
-				"Rol":			3,
+				"Rol":			2,
     				"Nombre":		"Intercontinental",
 				"Apellidos":		"Intercontinental",
 				"Email":		"Intercontinental3@gmail.com"

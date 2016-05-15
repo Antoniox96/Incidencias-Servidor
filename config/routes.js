@@ -1,9 +1,7 @@
 module.exports.routes = {
 
-  /*
-  '/': {
-    view: 'homepage'
-  }
-  */
+	'GET r|^/Incidencia': [
+		'IncidenciaController.index'
+	]
 
 };

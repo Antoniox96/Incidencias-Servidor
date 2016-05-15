@@ -13,8 +13,8 @@ module.exports.policies = {
 		'*': true 
 	},
 
-	'IncidenciaController': {
+	/*'IncidenciaController': {
 		'*': ['isSupervisor']
-	}
+	}*/
 
 };
