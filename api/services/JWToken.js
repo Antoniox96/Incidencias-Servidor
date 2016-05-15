@@ -1,5 +1,5 @@
 var	jwt = require('jsonwebtoken'),
-	tokenSecret = "SecretToken";
+	tokenSecret = "IntercontinentalSecretToken";
 
 // Genera un token a partir de un payload.
 module.exports.issue = function(payload) {
@@ -12,6 +12,14 @@ module.exports.verify = function(token, callback) {
 		token,
 		tokenSecret,
 		{},
+		callback
+	);
+};
+
+// Decofidica el token.
+module.exports.decode = function(token, callback) {
+	return jwt.decode(
+		token,
 		callback
 	);
 };

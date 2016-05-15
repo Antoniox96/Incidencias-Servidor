@@ -25,7 +25,11 @@ module.exports = function (req, res, next) {
 
 	JWToken.verify(token, function (err, token) {
 		if (err) { return res.json(401, { err: '¡Token inválido!' }); }
-		req.token = token;
-		next();
+
+		Usuario.findOne(token.id).then(function (Usuario) {
+			req.Usuario = Usuario;
+			req.Rol = Usuario.Rol;
+			next();
+		})
 	});
 };
