@@ -4,14 +4,14 @@ module.exports = {
 
 		Nombre: {
 			type: 		'string',
-			size: 		25,
+			size: 		40,
 			required: 	true
 		},
 
-		Usuarios: {
-			collection: 'Usuario',
-			via: 'Rol'
-		}
+		Instalaciones: {
+			collection: 	'Instalacion',
+			via: 		'Departamento'
+		}	
 
 	}
 

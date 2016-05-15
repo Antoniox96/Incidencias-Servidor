@@ -55,6 +55,10 @@ module.exports = {
 
 		},
 
+		Instalacion: {
+			model: 	'Instalacion', 
+		},
+
 		Operador: {
 			model: 	'Usuario', 
 		}

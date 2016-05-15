@@ -1,0 +1,26 @@
+[
+	{
+		"model":	"Departamento",
+		"items":
+		[
+			{
+				"id":			1,
+				"Nombre":		"Departamento 1",
+				"Instalaciones":	[
+								{
+									"id":	1
+								} 
+							]
+			},
+			{
+				"id":			1,
+				"Nombre":		"Departamento 2",
+				"Instalaciones":	[
+								{
+									"id":	2
+								} 
+							]
+			}	
+		]
+	}
+]

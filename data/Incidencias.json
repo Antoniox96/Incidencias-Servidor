@@ -5,15 +5,31 @@
 		[
 			{
 				"id":			1,
-				"Titulo": 		"falla wifi",
-				"Descripcion": 	"contraseña erronera",
+				"Titulo": 		"Falla Wi-Fi",
+				"Descripcion": 	"Contraseña Errónea.",
 				"Tipo": 		"Sistemas",
 				"Estado": 		"Sin Iniciar",
 				"Prioridad": 	"Alta",
 				"Comun": 		"Sí",
-				"FechaInicio": 	"2016-05-05",
+				"FechaInicio": 	"2016-05-03",
 				"FechaPrevista": 	"2016-05-05",
-				"FechaFin": 		"2016-05-05"
+				"FechaFin": 		"2016-05-05",
+				"Instalacion": 	1,
+				"Operador": 	2
+			},
+			{
+				"id":			2,
+				"Titulo": 		"Cafetera Rota",
+				"Descripcion": 	"No enciende.",
+				"Tipo": 		"Mantenimiento",
+				"Estado": 		"Sin Iniciar",
+				"Prioridad": 	"Media",
+				"Comun": 		"No",
+				"FechaInicio": 	"2016-05-03",
+				"FechaPrevista": 	"2016-05-05",
+				"FechaFin": 		"2016-05-05",
+				"Instalacion": 	1,
+				"Operador": 	1
 			}
 		]
 	}
