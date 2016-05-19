@@ -64,6 +64,26 @@ module.exports = {
 				next();
 
 			});
+			
+		});
+
+	},
+
+	// Se encripta la contraseña antes de actualizar un usuario.
+	beforeUpdate : function (values, next) {
+
+		bcrypt.genSalt(10, function (err, salt) {
+
+			if (err) { return next(err); }
+
+			bcrypt.hash(values.Password, salt, function (err, hash) {
+
+				if(err) return next(err);
+				values.Password = hash;
+				next();
+
+			});
+			
 		});
 
 	},

@@ -12,55 +12,59 @@ module.exports = {
 		Descripcion: {
 			type: 		'string',
 			size: 		255,
-			required: 	true,
+			required: 	true
 		},
 		
 		Tipo: {
 			type: 		'string',
 			enum: 	['Mantenimiento', 'Sistemas'],
-			defaultsTo: 	'Mantenimiento',
+			defaultsTo: 	'Mantenimiento'
 		},
 
 		Estado: {
 			type: 		'string',
 			enum: 	['Sin Iniciar', 'En Proceso', 'Pendiente', 'Completada'],
-			defaultsTo: 	'Sin Iniciar',
+			defaultsTo: 	'Sin Iniciar'
 		},
 
 
 		Prioridad: {
 			type: 		'string',
 			enum: 	['Baja', 'Media', 'Alta'],
-			defaultsTo: 	'Baja',
+			defaultsTo: 	'Baja'
 		},
 
 		Comun: {
 			type: 		'string',
 			enum: 	['Sí', 'No'],
-			defaultsTo: 	'No',
+			defaultsTo: 	'No'
 		},
 
 		FechaInicio: {
-			type: 		'date',
+			type: 		'date'
 
 		},
 
 		FechaPrevista: {
-			type: 		'date',
+			type: 		'date'
 
 		},		
 
 		FechaFin: {
-			type: 		'date',
+			type: 		'date'
 
 		},
 
 		Instalacion: {
-			model: 	'Instalacion', 
+			model: 	'Instalacion'
 		},
 
 		Operador: {
-			model: 	'Usuario', 
+			model: 	'Usuario'
+		},
+
+		Propietario: {
+			model: 	'Usuario'
 		}
 
 	}

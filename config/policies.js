@@ -13,8 +13,8 @@ module.exports.policies = {
 		'*': true 
 	},
 
-	/*'IncidenciaController': {
-		'*': ['isSupervisor']
-	}*/
-
-};
+	'UsuarioController':{
+		'create': ['isAuthorized', 'isSupervisor'],
+		'updatePassword':['isAuthorized', 'isSupervisor']
+	}
+}

@@ -1,6 +1,6 @@
 module.exports = function (req, res, next) {
 
-	Rol.findOne( sails.config.globals.rol ).then(function(rol) {
+	Rol.findOne( req.Rol ).then(function(rol) {
 		if ( rol.Nombre === 'Operador' ) {
 			next();
 		}
