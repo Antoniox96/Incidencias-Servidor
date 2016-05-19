@@ -1,6 +1,6 @@
-﻿angular.module("AppIncidencias", ["ngRoute"])
+﻿angular.module("AppIncidencias", ["ngRoute", "ui.bootstrap"])
 	.config(function($httpProvider, $routeProvider) {
-		$httpProvider.interceptors.push('TokenInterceptor'),
+		$httpProvider.interceptors.push("TokenInterceptor"),
 		$routeProvider
 			.when("/login", {
 			 	controller: "AuthController",
@@ -13,11 +13,20 @@
 	 	            	access: { requiredLogin: true }
 			})
 			.otherwise({
-            			redirectTo: '/login'
+            			redirectTo: "/login"
 			});
 	})
 	.run(function($rootScope, $location, $window, AuthenticationService) {
     		$rootScope.$on("$routeChangeSuccess", function(event, nextRoute, currentRoute) {
+	    		
+	    		$rootScope.displayHeader = AuthenticationService.isLogged;	    	
+	    		$rootScope.displayFooter= AuthenticationService.isLogged;	    	
+
+	    		if ( nextRoute.loadedTemplateUrl === "Vistas/LogIn.html" ) {
+	    			$rootScope.displayHeader = false;
+		    		$rootScope.displayFooter = false;	    	
+	    		}
+
     			if ( nextRoute.access === undefined ) {
     				nextRoute.access = { requiredLogin: true };
     			}

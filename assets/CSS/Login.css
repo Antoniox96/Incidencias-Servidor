@@ -35,3 +35,18 @@
 .glyphicon {
 	color: black !important;
 }
+
+#errorbox .panel-heading {
+	background-color: #CC0000 !important;
+}
+
+#errorbox {
+	border: 1px solid #CC0000;
+	box-shadow: #CC0000 1px 1px 5px;
+	font-weight: bold !important;
+
+}
+
+#errorbox .panel-body {
+	padding-top: 10px;
+}

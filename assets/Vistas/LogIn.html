@@ -1,6 +1,14 @@
 ﻿<div class="container">
 	<div id="loginbox" class="mainbox col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
 		<img id="Logo" src="Imágenes/Logo.png" alt="InterContinental Mar Menor Golf Resort & Spa"/>
+		<div id="errorbox" ng-show="Error" class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Error</div>
+			</div>
+			<div class="panel-body">
+				{{ Error.err }}
+			</div>
+		</div>
 		<div class="panel panel-info" >
 			<div class="panel-heading">
 				<div class="panel-title">Gestión de Incidencias</div>
@@ -18,9 +26,10 @@
 					</div>
 					<div style="margin-top:10px" class="form-group">
 						<div class="col-sm-12 controls">
-							<a id="btn-login" class="btn btn-success" ng-click="LogIn(login.username, login.password)">Entrar</a>
+							<button type="submit" id="btn-login" class="btn btn-success" ng-click="LogIn(login.username, login.password)">Entrar</button>
 						</div>
 					</div>
+					<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
 				</form>
 			</div>
 		</div>

@@ -5,14 +5,20 @@ module.exports = {
 		var NickName = req.param('username');
 		var Password = req.param('password');
 
-		if (!NickName || !Password) {
-			return res.json(401, {err: 'Usuario o Contraseña inválida.'});
+		if ( !NickName && !Password ) {
+			return res.json(401, {err: 'No se han introducido datos.'});
+		}
+		else if (!NickName) {
+			return res.json(401, {err: 'No se ha introducido un usuario.'});
+		}
+		else if ( !Password ) {
+			return res.json(401, {err: 'No se ha introducido una contraseña.'})
 		}
 
 		Usuario.findOne({NickName: NickName}, function (err, user) {
 
 			if (!user) {
-				return res.json(401, {err: 'Nombre de Usuario inexistente.'});
+				return res.json(401, {err: 'El usuario introducido no existe.'});
 			}
 
 			Usuario.comparePassword(Password, user, function (err, valid) {
