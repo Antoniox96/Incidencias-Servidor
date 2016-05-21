@@ -4,31 +4,130 @@ module.exports = {
 
 		if ( req.Rol == '1' ) {
 
-			Incidencia.find().populateAll().then(function(Incidencias){
+			Incidencia.find().where({ or: [ { "Propietario": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
 
-				if (Incidencias) {
-					res.json(Incidencias);
-				} 
-				else { 
-					res.json(404, {err: 'No se han encontrado Incidencias.'});
-				}
+				.then(function(Incidencias){
+					
+					var IncidenciasJSON = [];
+					var Departamentos = [];
+					var FindDepartamento;
 
-			}).catch(function(error){ next(error); });
+					if (Incidencias){
+
+						Incidencias.forEach(function(Incidencia) {
+
+							IncidenciaJSON = { 
+								"Titulo": Incidencia.Titulo, 
+								"Descripcion": Incidencia.Descripcion, 
+								"Departamento": "", 
+								"Instalacion": Incidencia.Instalacion.Nombre,
+								"Tipo": Incidencia.Tipo, 
+								"Operador": Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos,
+								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
+								"Estado": Incidencia.Estado,
+								"Prioridad":Incidencia.Prioridad,
+								"FechaInicio": Incidencia.FechaInicio,
+								"FechaPrevista":Incidencia.FechaPrevista,
+								"FechaFin":Incidencia.FechaFin,
+								"Comun": Incidencia.Comun
+							}
+
+							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
+
+								.then(function(Departamento){
+
+									return Departamentos.push(Departamento.Nombre);
+
+								});
+
+							IncidenciasJSON.push(IncidenciaJSON);
+						})
+
+						return [IncidenciasJSON, FindDepartamento, Departamentos];
+
+
+					}
+					else { 
+						return null;
+						res.json(404, {err: 'No se han encontrado Incidencias.'});
+					}
+
+					return [IncidenciasJSON, FindDepartamento, Departamentos];
+
+				})
+
+				.spread(function(IncidenciasJSON, FindDepartamento, Departamentos) {
+
+					IncidenciasJSON.forEach(function(IncidenciaJSON, index) {
+						IncidenciaJSON.Departamento = Departamentos[index]
+					})
+					return res.json(IncidenciasJSON);
+				})
+
+				.catch(function(error){ next(error); });
 
 		}
 
 		else if ( req.Rol == '2' ) {
 
-			Incidencia.find().where({ or: [{ "Operador": req.Usuario.id }, { "Comun": "Sí" }] }).populateAll().then(function(Incidencias){
+			Incidencia.find().where({ or: [ { "Operador": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
 
-				if (Incidencias) {
-					res.json(Incidencias);
-				}
-				else { 
-					res.json(404, {err: 'No se han encontrado Incidencias.'});
-				}
+				.then(function(Incidencias){
+					
+					var IncidenciasJSON = [];
+					var Departamentos = [];
+					var FindDepartamento;
 
-			}).catch(function(error){ next(error); });
+					if (Incidencias){
+
+						Incidencias.forEach(function(Incidencia) {
+
+							IncidenciaJSON = { 
+								"Titulo": Incidencia.Titulo, 
+								"Descripcion": Incidencia.Descripcion, 
+								"Departamento": "", 
+								"Instalacion": Incidencia.Instalacion.Nombre,
+								"Tipo": Incidencia.Tipo, 
+								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
+								"Estado": Incidencia.Estado,
+								"Prioridad":Incidencia.Prioridad,
+								"FechaPrevista":Incidencia.FechaPrevista,
+								"Comun": Incidencia.Comun
+							}
+
+							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
+
+								.then(function(Departamento){
+
+									return Departamentos.push(Departamento.Nombre);
+
+								});
+
+							IncidenciasJSON.push(IncidenciaJSON);
+						})
+
+						return [IncidenciasJSON, FindDepartamento, Departamentos];
+
+
+					}
+					else { 
+						return null;
+						res.json(404, {err: 'No se han encontrado Incidencias.'});
+					}
+
+					return [IncidenciasJSON, FindDepartamento, Departamentos];
+
+				})
+
+				.spread(function(IncidenciasJSON, FindDepartamento, Departamentos) {
+
+					IncidenciasJSON.forEach(function(IncidenciaJSON, index) {
+						IncidenciaJSON.Departamento = Departamentos[index]
+					})
+					return res.json(IncidenciasJSON);
+				})
+
+				.catch(function(error){ next(error); });
 
 		}
 

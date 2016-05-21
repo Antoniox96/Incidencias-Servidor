@@ -10,17 +10,32 @@
 			.when("/", {
 			 	controller: "IncidenciasController",
 			 	templateUrl: "Vistas/Incidencias.html",
+		 	       	resolve: "ContentController.UserData",
 	 	            	access: { requiredLogin: true }
 			})
 			.otherwise({
             			redirectTo: "/login"
 			});
 	})
-	.run(function($rootScope, $location, $window, AuthenticationService) {
+	.run(function($rootScope, $location, $window, AuthenticationService, UserService) {
     		$rootScope.$on("$routeChangeSuccess", function(event, nextRoute, currentRoute) {
 	    		
 	    		$rootScope.displayHeader = AuthenticationService.isLogged;	    	
-	    		$rootScope.displayFooter= AuthenticationService.isLogged;	    	
+	    		$rootScope.displayFooter = AuthenticationService.isLogged;
+
+	    		if ( AuthenticationService.isLogged ) {
+		    		UserService.userData()
+			    		.success(function(data) {
+						$rootScope.NickName = data.NickName;
+						$rootScope.Nombre = data.Nombre;
+						$rootScope.Apellidos = data.Apellidos;
+						$rootScope.Email = data.Email;
+			    			$rootScope.Rol = data.Rol;
+			    		})
+			    		.error(function(error){
+			    			res.json(500, { err: 'Error al obtener datos del usuario.' });
+			    		});
+	    		}
 
 	    		if ( nextRoute.loadedTemplateUrl === "Vistas/LogIn.html" ) {
 	    			$rootScope.displayHeader = false;

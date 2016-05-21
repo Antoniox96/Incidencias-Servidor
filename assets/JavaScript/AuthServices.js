@@ -13,9 +13,15 @@ angular.module("AppIncidencias")
 			LogIn: function(username, password) {
 				return $http.post('/auth', { username: username, password: password });
 			},
+
+			userData: function() {
+				return $http.get('/Perfil');
+			},
 	 
 			LogOut: function() {
-	 
+	 			AuthenticationService.isLogged = false;
+				delete $window.sessionStorage.token;
+				$location.path("/login");
 			}
 		}
 	})

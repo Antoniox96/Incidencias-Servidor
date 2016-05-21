@@ -19,7 +19,7 @@
 		<script src="JavaScript/IncidenciasController.js"></script>
 	</head>
 	<body>
-		<header ng-controller="AuthController" ng-if="displayHeader" ng-include="'Vistas/Header.html'" data-ng-init="UserData()" class="page-header"></header>
+		<header ng-controller="HeaderController" ng-if="displayHeader" ng-include="'Vistas/Header.html'" class="page-header"></header>
 		<content ng-view></content>
 		<footer ng-include="'Vistas/Footer.html'" class="page-footer"></footer>
 	</body>

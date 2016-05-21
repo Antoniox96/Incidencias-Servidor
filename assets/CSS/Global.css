@@ -1,6 +1,6 @@
 * {
 	font-family: "Trebuchet MS", Arial;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 .page-header {
@@ -14,4 +14,8 @@
 .table {
 	table-layout: fixed;
  	word-wrap: break-word;
+}
+
+.table, table, th {
+	text-align: center;
 }

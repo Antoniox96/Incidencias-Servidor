@@ -1,32 +1,106 @@
-<div class="col-xs-12">
+<div ng-if="Rol == '1'" class="col-xs-15">
 	<div class="table-responsive">
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th class="col-md-1">#</th>
-				<th class="col-md-1">Título</th>
-				<th class="col-md-3">Descripción</th>
-				<th class="col-md-1">Departamento</th>
-				<th class="col-md-1">Instalación</th>
-				<th class="col-md-1">Tipo</th>
-				<th class="col-md-1">Operador</th>
-				<th class="col-md-1">Estado</th>
-				<th class="col-md-1">Creada</th>
-			</tr>
-		</thead>
-		<tbody ng-hide="Incidencias.length < 0">
-			<tr ng-repeat="Incidencia in Incidencias">
-				<th>{{ $index+1 }}</th>
-				<td>{{ Incidencia.Titulo }}</td>
-				<td>{{ Incidencia.Descripcion }}</td>
-				<td>{{ Incidencia.Departamento }}</td>
-				<td>{{ Incidencia.Instalacion }}</td>
-				<td>{{ Incidencia.Tipo }}</td>
-				<td>{{ Incidencia.Operador }}</td>
-				<td>{{ Incidencia.Estado }}</td>
-				<td>{{ Incidencia.FechaInicio | date:'dd/MM/yyyy' }}</td>
-			</tr>
-		</tbody>
-	</table>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="col-md-1">#</th>
+					<th class="col-md-1">Título</th>
+					<th class="col-md-3">Descripción</th>
+					<th class="col-md-1">Departamento</th>
+					<th class="col-md-1">Instalación</th>
+					<th class="col-md-1">Tipo</th>
+					<th class="col-md-1">Operador</th>
+					<th class="col-md-1">Colaborador</th>
+					<th class="col-md-1">Estado</th>
+					<th class="col-md-1">Prioridad</th>
+					<th class="col-md-1">Fecha Inicio</th>
+					<th class="col-md-1">Fecha Prevista</th>
+					<th class="col-md-1">Fecha Fin</th>
+				</tr>
+			</thead>
+			<tbody ng-hide="Incidencias.length < 0">
+				<tr ng-repeat="Incidencia in Incidencias">
+					<th>{{ $index+1 }}</th>
+					<td>{{ Incidencia.Titulo }}</td>
+					<td>{{ Incidencia.Descripcion }}</td>
+					<td>{{ Incidencia.Departamento }}</td>
+					<td>{{ Incidencia.Instalacion }}</td>
+					<td>{{ Incidencia.Tipo }}</td>
+					<td>{{ Incidencia.Operador }}</td>
+					<td>{{ Incidencia.Propietario }}</td>
+					<td>{{ Incidencia.Estado }}</td>
+					<td>{{ Incidencia.Prioridad }}</td>
+					<td>{{ Incidencia.FechaInicio | date:'dd/MM/yyyy' }}</td>
+					<td>{{ Incidencia.FechaPrevista | date:'dd/MM/yyyy' }}</td>
+					<td>{{ Incidencia.FechaFin | date:'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div ng-if="Rol == '2'" class="col-xs-12">
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="col-md-1">#</th>
+					<th class="col-md-1">Título</th>
+					<th class="col-md-3">Descripción</th>
+					<th class="col-md-1">Departamento</th>
+					<th class="col-md-1">Instalación</th>
+					<th class="col-md-1">Tipo</th>
+					<th class="col-md-1">Colaborador</th>
+					<th class="col-md-1">Estado</th>
+					<th class="col-md-1">Prioridad</th>
+					<th class="col-md-1">Fecha Prevista</th>
+				</tr>
+			</thead>
+			<tbody ng-hide="Incidencias.length < 0">
+				<tr ng-repeat="Incidencia in Incidencias">
+					<th>{{ $index+1 }}</th>
+					<td>{{ Incidencia.Titulo }}</td>
+					<td>{{ Incidencia.Descripcion }}</td>
+					<td>{{ Incidencia.Departamento }}</td>
+					<td>{{ Incidencia.Instalacion }}</td>
+					<td>{{ Incidencia.Tipo }}</td>
+					<td>{{ Incidencia.Propietario }}</td>
+					<td>{{ Incidencia.Estado }}</td>
+					<td>{{ Incidencia.Prioridad }}</td>
+					<td>{{ Incidencia.FechaPrevista | date:'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div ng-if="Rol == '3'" class="col-xs-12">
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="col-md-1">#</th>
+					<th class="col-md-1">Título</th>
+					<th class="col-md-3">Descripción</th>
+					<th class="col-md-1">Departamento</th>
+					<th class="col-md-1">Instalación</th>
+					<th class="col-md-1">Tipo</th>
+					<th class="col-md-1">Operador</th>
+					<th class="col-md-1">Estado</th>
+					<th class="col-md-1">Creada</th>
+				</tr>
+			</thead>
+			<tbody ng-hide="Incidencias.length < 0">
+				<tr ng-repeat="Incidencia in Incidencias">
+					<th>{{ $index+1 }}</th>
+					<td>{{ Incidencia.Titulo }}</td>
+					<td>{{ Incidencia.Descripcion }}</td>
+					<td>{{ Incidencia.Departamento }}</td>
+					<td>{{ Incidencia.Instalacion }}</td>
+					<td>{{ Incidencia.Tipo }}</td>
+					<td>{{ Incidencia.Operador }}</td>
+					<td>{{ Incidencia.Estado }}</td>
+					<td>{{ Incidencia.FechaInicio | date:'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
