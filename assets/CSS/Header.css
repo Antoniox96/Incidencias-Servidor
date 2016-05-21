@@ -16,3 +16,17 @@
 {
     font-size: 87px;
 }
+
+.navbar a span  {
+	margin-right: 5px;
+	margin-left: 5px;
+	color: white;
+}
+
+.navbar .glyphicon {
+	color: white !important;
+}
+
+.navbar .dropdown-toggle span {
+	font-weight: bold;
+}

@@ -1,7 +1,32 @@
-<h1>Incidencias</h1>
-<h4 ng-show="Loading">Cargando...</h4>
-<ul ng-hide="Incidencias.length < 0" style="border: 1px solid black">
-	<li ng-repeat="Incidencia in Incidencias">
-	<h2>{{ Incidencia.id }} - {{ Incidencia.Titulo }} - {{ Incidencia.Tipo }}</h2>
-	</li>
-</ul>
+<div class="col-xs-12">
+	<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th class="col-md-1">#</th>
+				<th class="col-md-1">Título</th>
+				<th class="col-md-3">Descripción</th>
+				<th class="col-md-1">Departamento</th>
+				<th class="col-md-1">Instalación</th>
+				<th class="col-md-1">Tipo</th>
+				<th class="col-md-1">Operador</th>
+				<th class="col-md-1">Estado</th>
+				<th class="col-md-1">Creada</th>
+			</tr>
+		</thead>
+		<tbody ng-hide="Incidencias.length < 0">
+			<tr ng-repeat="Incidencia in Incidencias">
+				<th>{{ $index+1 }}</th>
+				<td>{{ Incidencia.Titulo }}</td>
+				<td>{{ Incidencia.Descripcion }}</td>
+				<td>{{ Incidencia.Departamento }}</td>
+				<td>{{ Incidencia.Instalacion }}</td>
+				<td>{{ Incidencia.Tipo }}</td>
+				<td>{{ Incidencia.Operador }}</td>
+				<td>{{ Incidencia.Estado }}</td>
+				<td>{{ Incidencia.FechaInicio | date:'dd/MM/yyyy' }}</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>

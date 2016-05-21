@@ -16,7 +16,7 @@
 				"FechaFin": 		"2016-05-05",
 				"Instalacion": 	1,
 				"Operador": 	2,
-				"owner": 		4
+				"Propietario": 	4
 			},
 			{
 				"id":			2,
@@ -29,9 +29,9 @@
 				"FechaInicio": 	"2016-05-03",
 				"FechaPrevista": 	"2016-05-05",
 				"FechaFin": 		"2016-05-05",
-				"Instalacion": 	1,
+				"Instalacion": 	2,
 				"Operador": 	3,
-				"owner": 		5
+				"Propietario": 	5
 			}
 		]
 	}

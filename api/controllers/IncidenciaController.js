@@ -34,17 +34,63 @@ module.exports = {
 
 		else if ( req.Rol == '3' ) {
 
-			Incidencia.find().where({ or: [ { "owner": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll().then(function(Incidencias){
-				
-				if (Incidencias){
-					res.json(Incidencias);
-				}
-				else { 
-					res.json(404, {err: 'No se han encontrado Incidencias.'});
-				}
+			Incidencia.find().where({ or: [ { "Propietario": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
 
-			}).catch(function(error){next(error);});
+				.then(function(Incidencias){
+					
+					var IncidenciasJSON = [];
+					var Departamentos = [];
+					var FindDepartamento;
 
+					if (Incidencias){
+
+						Incidencias.forEach(function(Incidencia) {
+
+							IncidenciaJSON = { 
+								"Titulo": Incidencia.Titulo, 
+								"Descripcion": Incidencia.Descripcion, 
+								"Departamento": "", 
+								"Instalacion": Incidencia.Instalacion.Nombre,
+								"Tipo": Incidencia.Tipo, 
+								"Operador": Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos,
+								"Estado": Incidencia.Estado,
+								"FechaInicio": Incidencia.FechaInicio,
+								"Comun": Incidencia.Comun
+							}
+
+							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
+
+								.then(function(Departamento){
+
+									return Departamentos.push(Departamento.Nombre);
+
+								});
+
+							IncidenciasJSON.push(IncidenciaJSON);
+						})
+
+						return [IncidenciasJSON, FindDepartamento, Departamentos];
+
+
+					}
+					else { 
+						return null;
+						res.json(404, {err: 'No se han encontrado Incidencias.'});
+					}
+
+					return [IncidenciasJSON, FindDepartamento, Departamentos];
+
+				})
+
+				.spread(function(IncidenciasJSON, FindDepartamento, Departamentos) {
+
+					IncidenciasJSON.forEach(function(IncidenciaJSON, index) {
+						IncidenciaJSON.Departamento = Departamentos[index]
+					})
+					return res.json(IncidenciasJSON);
+				})
+
+				.catch(function(error){ next(error); });
 		}
 
 	},
@@ -104,7 +150,7 @@ module.exports = {
 		if ( req.Rol == '1' ) {
 
 			Incidencia.update(
-						{ id:req.params.id }, 
+						{ id:req.params.incidenciaId }, 
 						{
 							Titulo: req.body.Titulo,
 							Descripcion: req.body.Descripcion,

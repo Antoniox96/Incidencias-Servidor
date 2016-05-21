@@ -10,18 +10,18 @@
 				"Incidencias":	[
 								{
 									"id":	1
-								},
-								{
-									"id":	2
 								}
 							]
 			},
 			{
-				"id":			1,
+				"id":			2,
 				"Nombre":		"Instalación 2",
 				"Departamento": 	2,
-				"Incidencias":	[]
-
+				"Incidencias":	[
+								{
+									"id":	2
+								}
+							]
 			}		
 		]
 	}
