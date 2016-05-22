@@ -1,21 +1,18 @@
+@font-face {
+    font-family: "DIN Medium";
+    src: url("../Fuentes/DIN Medium.ttf");
+}
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: 	url('../Fuentes/glyphicons-halflings-regular.eot');
+  src: 	url('../Fuentes/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+         	url('../Fuentes/glyphicons-halflings-regular.woff') format('woff'),
+         	url('../Fuentes/glyphicons-halflings-regular.ttf') format('truetype'),
+         	url('../Fuentes/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
 * {
-	font-family: "Trebuchet MS", Arial;
+	font-family: "DIN Medium", 'Trebuchet MS', Arial;
 	font-size: 12px;
-}
-
-.page-header {
-	background-color: blue;
-}
-
-.btn {
-	font-weight: bold;
-}
-
-.table {
-	table-layout: fixed;
- 	word-wrap: break-word;
-}
-
-.table, table, th {
-	text-align: center;
 }

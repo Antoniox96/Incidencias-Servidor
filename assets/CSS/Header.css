@@ -14,7 +14,7 @@
 
 .icon-size
 {
-    font-size: 87px;
+    font-size: 50px;
 }
 
 .navbar a span  {
@@ -29,4 +29,11 @@
 
 .navbar .dropdown-toggle span {
 	font-weight: bold;
+}
+
+.dropdown-menu .navbar-login .row .glyphicon {
+    color: black !important;
+    margin-top: 2px;
+    margin-left: 5px;
+    float: left;
 }

@@ -56,7 +56,8 @@ module.exports = {
 		},
 
 		Instalacion: {
-			model: 	'Instalacion'
+			model: 	'Instalacion',
+			required: 	true
 		},
 
 		Operador: {

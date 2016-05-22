@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "bcrypt": "^0.8.6",
+    "bootstrap-select": "^1.10.0",
     "ejs": "2.3.4",
     "graceful-fs": "^4.1.4",
     "grunt": "0.4.5",
@@ -26,7 +27,8 @@
     "rc": "1.0.1",
     "sails": "~0.12.3",
     "sails-disk": "~0.10.9",
-    "sails-fixtures": "^1.0.8"
+    "sails-fixtures": "^1.0.8",
+    "textarea-autosize": "^0.4.2"
   },
   "scripts": {
     "debug": "node debug app.js",

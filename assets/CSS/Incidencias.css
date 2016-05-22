@@ -1,0 +1,39 @@
+.table {
+	table-layout: fixed;
+ 	word-wrap: break-word;
+}
+
+.table, table, th {
+	text-align: center;
+}
+
+.table tbody tr td {
+     vertical-align: middle;
+}
+
+.table tbody td:nth-child(1) {
+	font-weight: bold;
+}
+
+.table thead tr th:nth-child(1) {
+	width: 2%;
+}
+
+.table thead tr th:nth-child(2) {
+	width: 5%;
+}
+
+.table tbody tr td i {
+	margin-top: 4px;
+}
+
+#AddButton {
+	position: fixed;
+	left: 15px;
+	bottom: 65px;
+}
+
+#AddButton i {
+	text-align: left;
+	font-size: 15px;
+}

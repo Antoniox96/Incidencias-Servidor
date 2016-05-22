@@ -10,14 +10,13 @@
 			.when("/", {
 			 	controller: "IncidenciasController",
 			 	templateUrl: "Vistas/Incidencias.html",
-		 	       	resolve: "ContentController.UserData",
 	 	            	access: { requiredLogin: true }
 			})
 			.otherwise({
             			redirectTo: "/login"
 			});
 	})
-	.run(function($rootScope, $location, $window, AuthenticationService, UserService) {
+	.run(function($rootScope, $location, $window, $log, AuthenticationService, UserService) {
     		$rootScope.$on("$routeChangeSuccess", function(event, nextRoute, currentRoute) {
 	    		
 	    		$rootScope.displayHeader = AuthenticationService.isLogged;	    	
@@ -33,7 +32,7 @@
 			    			$rootScope.Rol = data.Rol;
 			    		})
 			    		.error(function(error){
-			    			res.json(500, { err: 'Error al obtener datos del usuario.' });
+			    			$log.info(500, { err: 'Error al obtener datos del usuario.' });
 			    		});
 	    		}
 

@@ -1,6 +1,6 @@
 module.exports = {
 
-	index: function (req, res, next) {
+	find: function (req, res, next) {
 
 		if ( req.Rol == '1' ) {
 
@@ -26,6 +26,7 @@ module.exports = {
 								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
 								"Estado": Incidencia.Estado,
 								"Prioridad":Incidencia.Prioridad,
+								"FechaCreacion": Incidencia.createdAt,
 								"FechaInicio": Incidencia.FechaInicio,
 								"FechaPrevista":Incidencia.FechaPrevista,
 								"FechaFin":Incidencia.FechaFin,
@@ -144,6 +145,11 @@ module.exports = {
 					if (Incidencias){
 
 						Incidencias.forEach(function(Incidencia) {
+							var Operador = "Sin Asignar";
+
+							if ( Incidencia.Operador != null ) {
+								Operador = Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos;
+							}
 
 							IncidenciaJSON = { 
 								"Titulo": Incidencia.Titulo, 
@@ -151,9 +157,9 @@ module.exports = {
 								"Departamento": "", 
 								"Instalacion": Incidencia.Instalacion.Nombre,
 								"Tipo": Incidencia.Tipo, 
-								"Operador": Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos,
+								"Operador": Operador,
 								"Estado": Incidencia.Estado,
-								"FechaInicio": Incidencia.FechaInicio,
+								"FechaCreacion": Incidencia.createdAt,
 								"Comun": Incidencia.Comun
 							}
 
@@ -196,7 +202,37 @@ module.exports = {
 
 	create: function (req, res) {
 
-		if ( req.Rol == '1' || req.Rol == '3' ) {
+		if ( req.Rol == '1' ) {
+
+			Incidencia.create({
+							Titulo: req.body.Titulo,
+							Descripcion: req.body.Descripcion,
+							Tipo: req.body.Tipo,
+							Estado: req.body.Estado,
+							Prioridad: req.body.Prioridad,
+							Comun: req.body.Comun,
+							FechaInicio: req.body.FechaInicio,
+							FechaPrevista: req.body.FechaPrevista,
+							FechaFin: req.body.FechaFin,
+							Instalacion: req.body.Instalacion,
+							Operador: req.body.Operador,
+							Propietario: req.Usuario
+						}
+			).exec(function (err, Incidencia) {
+
+				if (err) {
+					return res.json(err.status, {err: err});
+				}
+
+				if (Incidencia) {
+					res.json(200, { msg: 'Incidencia creada satisfactoriamente.' });
+				}
+			
+			});
+
+		}
+
+		else if ( req.Rol == '3' ) {
 
 			Incidencia.create({
 							Titulo: req.body.Titulo,

@@ -22,6 +22,10 @@
 	box-shadow: #337AB7 1px 1px 5px;
 }
 
+.panel-title {
+	font-weight: normal;
+}
+
 .panel-heading {
 	background-color: #337AB7 !important;
 	color: white !important;
@@ -39,8 +43,8 @@
 #errorbox {
 	border: 1px solid #CC0000;
 	box-shadow: #CC0000 1px 1px 5px;
-	font-weight: bold !important;
-
+	font-size: 16px !important;
+	font-weight: normal;
 }
 
 #errorbox .panel-body {
