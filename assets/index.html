@@ -5,11 +5,9 @@
 		<title>Gestión de Incidencias</title>
 		<script src="JavaScript/JQuery 2.2.4 Minified.js"></script>
 		<link rel="stylesheet" href="CSS/Bootstrap 3.3.6 Minified.css"/>
-		<link rel="stylesheet" href="CSS/bootstrap.min.css"/>
 		<link rel="stylesheet" href="CSS/Global.css"/>
 		<link rel="stylesheet" href="CSS/Login.css"/>
 		<link rel="stylesheet" href="CSS/Header.css"/>
-		<link rel="stylesheet" href="CSS/Footer.css"/>
 		<link rel="stylesheet" href="CSS/Incidencias.css"/>
 		<link rel="stylesheet" href="CSS/Formularios.css"/>
 		<script src="JavaScript/Bootstrap 3.3.6 Minified.js"></script>
@@ -22,7 +20,6 @@
 		<script src="JavaScript/AuthController.js"></script>
 		<script src="JavaScript/HeaderController.js"></script>
 		<script src="JavaScript/IncidenciasController.js"></script>
-		<script src="JavaScript/FormularioController.js"></script>
 		<script src="JavaScript/SupervisorController.js"></script>
 		<script src="JavaScript/OperadorController.js"></script>
 		<script src="JavaScript/ColaboradorController.js"></script>
@@ -30,6 +27,5 @@
 	<body>
 		<header ng-controller="HeaderController" ng-if="displayHeader" ng-include="'Vistas/Header.html'" class="page-header"></header>
 		<content ng-view></content>
-		<footer ng-include="'Vistas/Footer.html'" class="page-footer"></footer>
 	</body>
 </html>

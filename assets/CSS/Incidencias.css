@@ -23,6 +23,10 @@
 	width: 5%;
 }
 
+.table thead tr th:nth-child(3) {
+	width: 2%;
+}
+
 .table tbody tr td i {
 	margin-top: 4px;
 }
@@ -30,10 +34,19 @@
 #AddButton {
 	position: fixed;
 	left: 15px;
-	bottom: 65px;
+	bottom: 16px;
+	padding: 10px 15px 10px 15px;
 }
 
-#AddButton i {
+#AddButton i, EditButton i {
 	text-align: left;
 	font-size: 15px;
+}
+
+#EditButton {
+	padding: 5px 12px 5px 12px;
+}
+
+.glyphicon {
+	top: 0px !important;
 }

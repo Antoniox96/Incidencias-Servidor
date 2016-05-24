@@ -6,7 +6,6 @@ angular.module("AppIncidencias")
 					.success(function(data) {
 						AuthenticationService.isLogged = true;
 						$window.sessionStorage.token = data.token;
-						console.log(data.token);
 						$location.path("/");
 					}).error(function(status, data) {
 						$scope.Error = status;

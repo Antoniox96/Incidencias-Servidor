@@ -18,7 +18,7 @@
 	width: 100%;
 }
 
-.modal-footer #Crear {
+.modal-footer #Crear, .modal-footer #Editar {
 	float: left;
 	width: 150px;
 }

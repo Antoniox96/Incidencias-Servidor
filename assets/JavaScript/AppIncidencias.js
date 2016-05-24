@@ -20,7 +20,6 @@
     		$rootScope.$on("$routeChangeSuccess", function(event, nextRoute, currentRoute) {
 	    		
 	    		$rootScope.displayHeader = AuthenticationService.isLogged;	    	
-	    		$rootScope.displayFooter = AuthenticationService.isLogged;
 
 	    		if ( AuthenticationService.isLogged ) {
 		    		UserService.userData()
@@ -38,7 +37,6 @@
 
 	    		if ( nextRoute.loadedTemplateUrl === "Vistas/LogIn.html" ) {
 	    			$rootScope.displayHeader = false;
-		    		$rootScope.displayFooter = false;	    	
 	    		}
 
     			if ( nextRoute.access === undefined ) {
