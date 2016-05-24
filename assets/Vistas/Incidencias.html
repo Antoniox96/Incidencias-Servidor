@@ -4,7 +4,7 @@
 			<thead>
 				<tr>
 					<th class="col-md-1"></th>
-					<th class="col-md-1"></th>
+					<th class="col-md-1"><i class="glyphicon glyphicon-cog"/></th>
 					<th class="col-md-1">#</th>
 					<th class="col-md-1">Título</th>
 					<th class="col-md-3">Descripción</th>
@@ -21,6 +21,11 @@
 			<tbody ng-hide="Incidencias.length < 0">
 				<tr ng-repeat="Incidencia in Incidencias">
 					<td><i ng-if="Incidencia.Comun == 'Sí'"class="glyphicon glyphicon-eye-open"/></td>
+					<td>
+						<button id="EditButton" type="button" class="btn btn-default btn-lg" ng-click="EditarIncidencia(Incidencia.id)">
+							<i class="glyphicon glyphicon-pencil"/>
+						</button>
+					</td>
 					<td>{{ $index+1 }}</td>
 					<td>{{ Incidencia.Titulo }}</td>
 					<td>{{ Incidencia.Descripcion }}</td>
@@ -35,8 +40,10 @@
 				</tr>
 			</tbody>
 		</table>
-		<button type="button" class="btn btn-default btn-lg">
-			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</div>
+	<div>
+		<button id="AddButton" type="button" class="btn btn-default btn-lg" ng-click="CrearIncidencia()">
+			<i class="glyphicon glyphicon-plus"/>
 		</button>
 	</div>
 </div>
@@ -46,6 +53,7 @@
 			<thead>
 				<tr>
 					<th class="col-md-1"></th>
+					<th class="col-md-1"><i class="glyphicon glyphicon-cog"/></th>
 					<th class="col-md-1">#</th>
 					<th class="col-md-1">Título</th>
 					<th class="col-md-3">Descripción</th>
@@ -61,6 +69,11 @@
 			<tbody ng-hide="Incidencias.length < 0">
 				<tr ng-repeat="Incidencia in Incidencias">
 					<td><i ng-if="Incidencia.Comun == 'Sí'"class="glyphicon glyphicon-eye-open"/></td>
+					<td>
+						<button id="EditButton" type="button" class="btn btn-default btn-lg" ng-click="EditarIncidencia(Incidencia.id)">
+							<i class="glyphicon glyphicon-pencil"/>
+						</button>
+					</td>
 					<td>{{ $index+1 }}</td>
 					<td>{{ Incidencia.Titulo }}</td>
 					<td>{{ Incidencia.Descripcion }}</td>
