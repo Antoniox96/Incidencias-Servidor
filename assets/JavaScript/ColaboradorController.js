@@ -88,7 +88,7 @@ angular.module("AppIncidencias")
 		};
 
 		$scope.EditarIncidencia = function () {
-			$http.post('/Incidencia/' + IncidenciaID, { Titulo: $scope.Titulo, Descripcion: $scope.Descripcion, Instalacion: $scope.InstalacionSeleccionada })
+			$http.post('/Incidencia/' + IncidenciaID, { Titulo: $scope.Titulo, Descripcion: $scope.Descripcion, Tipo: $scope.TipoSeleccionado, Instalacion: $scope.InstalacionSeleccionada })
 				.success(function(data) {
 					$route.reload();
 				})
