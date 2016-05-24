@@ -26,6 +26,7 @@
 	</head>
 	<body>
 		<header ng-controller="HeaderController" ng-if="displayHeader" ng-include="'Vistas/Header.html'" class="page-header"></header>
-		<content ng-view></content>
+		<div id="Content" class="container" ng-view></div>
+		<footer ng-if="displayFooter" ng-include="'Vistas/Footer.html'" class="page-footer"></footer>
 	</body>
 </html>

@@ -1,20 +1,43 @@
+#Header {
+	height: 50px;
+}
+
+.navbar {
+	background-color: #337AB7 !important;
+	box-shadow: -1px 0px 5px blue;
+}
+
+.navbar-header, .navbar-nav {
+    line-height: 50px;
+    height: 50px;
+    padding-top: 0;
+}
+
+.navbar-header a {
+	 color: white !important;
+}
+
+.navbar-inverse {
+	border: none;
+}
+
 .navbar-login
 {
-    width: 305px;
-    padding: 10px;
-    padding-bottom: 0px;
+	 width: 305px;
+	 padding: 10px;
+	 padding-bottom: 0px;
 }
 
 .navbar-login-session
 {
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+	 padding: 10px;
+	 padding-bottom: 0px;
+	 padding-top: 0px;
 }
 
 .icon-size
 {
-    font-size: 50px;
+	font-size: 50px;
 }
 
 .navbar a span  {
@@ -32,8 +55,6 @@
 }
 
 .dropdown-menu .navbar-login .row .glyphicon {
-    color: black !important;
-    margin-top: 2px;
-    margin-left: 5px;
-    float: left;
+	color: black !important;
+	margin-right: 10px;
 }

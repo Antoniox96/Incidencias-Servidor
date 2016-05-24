@@ -382,6 +382,7 @@ module.exports = {
 		if ( req.Rol == '1' ) {
 
 			Incidencia.update(
+						{ id: Number(req.params.id) }, 		
 						{
 							Titulo: req.body.Titulo,
 							Descripcion: req.body.Descripcion,
@@ -412,6 +413,7 @@ module.exports = {
 		else if ( req.Rol == '2' ) {
 			
 			Incidencia.update(
+ 						{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
 						{ 
 							Estado:req.body.Estado 
 						}
@@ -430,10 +432,9 @@ module.exports = {
 		}
 
 		else if ( req.Rol == '3' ) {
-
 			Incidencia.update(
-							{ id: req.params.id },
-							{
+ 							{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
+ 							{
 								Titulo: req.body.Titulo,
 								Descripcion: req.body.Descripcion,
 								Tipo: req.body.Tipo,
@@ -461,6 +462,14 @@ module.exports = {
 			res.json(200, { Tipos });	
 		}
 
+	},
+
+	estadosIncidencia: function (req, res) {
+		var Estados = Incidencia.attributes.Estado.enum;
+
+		if ( req.Rol == '2' || req.Rol == '3' ) {
+			res.json(200, { Estados });	
+		}
 	}
 
 

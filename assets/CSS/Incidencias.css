@@ -3,8 +3,16 @@
  	word-wrap: break-word;
 }
 
+table td:nth-child(1) {
+	padding: 0px !important;
+}
+
 .table, table, th {
 	text-align: center;
+}
+
+.table th {
+	border-bottom: 1px solid black;
 }
 
 .table tbody tr td {
@@ -16,37 +24,148 @@
 }
 
 .table thead tr th:nth-child(1) {
-	width: 2%;
+	width: 3%;
 }
 
 .table thead tr th:nth-child(2) {
-	width: 5%;
-}
-
-.table thead tr th:nth-child(3) {
-	width: 2%;
+	width: 3%;
 }
 
 .table tbody tr td i {
 	margin-top: 4px;
 }
 
-#AddButton {
+#Acciones {
 	position: fixed;
-	left: 15px;
-	bottom: 16px;
-	padding: 10px 15px 10px 15px;
+	/*left: 1.5%;
+	top: 11.3%;*/
+	float: left;
+	width: 70px;
+	-webkit-border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	border-radius: 5px !important;
+	-webkit-box-shadow: 2px 3px 3px black;
+	-moz-box-shadow: 2px 3px 3px black;
+	box-shadow: 2px 3px 3px black;
 }
 
-#AddButton i, EditButton i {
-	text-align: left;
+#Acciones .btn {
+	height: 40px;
+}
+
+#Acciones .panel-heading i {
 	font-size: 15px;
+	color: white !important;
 }
 
-#EditButton {
-	padding: 5px 12px 5px 12px;
+#AddButton, #EditButton, #SinIniciarButton, #EnProcesoButton, #PendienteButton, #CompletadaButton {
+	padding: 10px 15px 10px 15px;
+	width: 100%;
+	border-radius: 0px;
+}
+
+#SinIniciarButton {
+	background-color: #E62E00;
+}
+
+#EditButton, #EnProcesoButton {
+	background-color: #F4DF27;
+}
+
+#PendienteButton {
+	background-color: #FF6600;
+}
+
+#AddButton, #CompletadaButton {
+	background-color: #00E600;
+}
+
+#SinIniciarButton:hover {
+	background-color: #B32400;
+}
+
+#EditButton:hover, #EnProcesoButton:hover {
+	background-color: #DAC50B;
+}
+
+#PendienteButton:hover {
+	background-color: #CC5200;
+}
+
+#AddButton:hover, #CompletadaButton:hover {
+	background-color: #00B300;
 }
 
 .glyphicon {
 	top: 0px !important;
+}
+
+.panel-table .panel-heading h1 {
+	text-align: center;
+	font-size: 20px;
+}
+
+.panel-table .panel-heading h1 {
+	line-height: 30px;
+	height: 30px;
+}
+
+.panel-table .panel-body {
+	padding: 0;
+}
+
+.panel-table .panel-body .table-bordered {
+	border-style: none;
+	margin: 0;
+}
+
+
+.panel-table .panel-body .table-bordered > thead > tr > th:last-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {
+	border-right: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {
+	border-left: 0px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td{
+	border-bottom: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr:first-of-type > th{
+	border-top: 0px;
+}
+
+.panel-table .panel-footer .pagination{
+	margin: 0; 
+}
+
+.panel-default > .panel-heading {
+	border-color: black;
+}
+
+.container .panel, .container table, .container th, .container tr, .container td {
+	border: none !important;
+	margin-top: 5px;
+}
+
+#Incidencias {
+	 -webkit-border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	border-radius: 5px !important;
+	-webkit-box-shadow: 2px 3px 5px black;
+	-moz-box-shadow: 2px 3px 5px black;
+	box-shadow: 2px 3px 5px black;
+	float: right;
+	padding: 0;
+}
+
+#Content {
+	width: 100%;
+}
+
+.Seleccionado {
+	background-color: #9CC2E0;
 }

@@ -83,7 +83,10 @@ angular.module("AppIncidencias")
 					console.log(error);
 				});
 
-			$route.reload();
+			$timeout(function() {
+				$route.reload();
+			}, 10 );
+
 			$uibModalInstance.close();
 		};
 
@@ -94,14 +97,20 @@ angular.module("AppIncidencias")
 				})
 				.error(function(error) {
 					console.log(error);
-				});
+				});	
 
-			$route.reload();
+			$timeout(function() {
+				$route.reload();
+			}, 10 );
+
 			$uibModalInstance.close();
 		};
 
 		$scope.Cancelar = function () {
 			$uibModalInstance.dismiss('cancel');
+			$timeout(function() {
+				$route.reload();
+			}, 10 );
 		};
 
 	});

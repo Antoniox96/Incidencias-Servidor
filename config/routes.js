@@ -6,6 +6,10 @@ module.exports.routes = {
 
 	'GET r|^/TiposIncidencia': [
 		'IncidenciaController.tiposIncidencia'
+	],
+
+	'GET r|^/EstadosIncidencia': [
+		'IncidenciaController.estadosIncidencia'
 	]
 
 };

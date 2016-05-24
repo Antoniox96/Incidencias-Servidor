@@ -1,8 +1,9 @@
 angular.module("AppIncidencias")
 
-	.controller("IncidenciasController", function ($scope, $http, $rootScope, $uibModal) {
+	.controller("IncidenciasController", function ($scope, $window, $http, $route, $timeout, $rootScope, $log, $uibModal) {
 
 		$scope.Incidencias = [];
+		$scope.IncidenciaSeleccionada;
 
 		if ( $scope.Incidencias.length == 0 ) {
 			$http.get("/Incidencia")
@@ -14,11 +15,28 @@ angular.module("AppIncidencias")
 				});
 		}
 
+		$scope.setIncidenciaSeleccionada = function(Incidencia) {
+			for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
+				if ( $scope.Incidencias[i].id == Incidencia ) {
+					if ( $scope.Incidencias[i].Comun == 'No' ) {
+						if ( Incidencia != $scope.IncidenciaSeleccionada) {
+							$scope.IncidenciaSeleccionada = Incidencia;
+						}
+						else {
+							$scope.IncidenciaSeleccionada = null;
+						}
+					}
+					else {
+						$scope.IncidenciaSeleccionada = null;
+					}
+				}
+			}
+		}
+
 		$scope.CrearIncidencia = function () {
 
 			if ( $rootScope.Rol == '1' ) {
 				$uibModal.open({
-					animation: $scope.animationsEnabled,
 					templateUrl: "Vistas/Formularios/Supervisor/Crear Incidencia.html",
 					controller: 'SupervisorController',
 					size: 'md',
@@ -30,7 +48,6 @@ angular.module("AppIncidencias")
 
 			else if ( $rootScope.Rol == '3' ) {
 				$uibModal.open({
-					animation: $scope.animationsEnabled,
 					templateUrl: "Vistas/Formularios/Colaborador/Crear Incidencia.html",
 					controller: 'ColaboradorController',
 					size: 'md',
@@ -42,33 +59,82 @@ angular.module("AppIncidencias")
 
 		};
 
-		$scope.EditarIncidencia = function (IncidenciaID) {
+		$scope.EditarIncidencia = function (Estado) {
 			
-			if ( $rootScope.Rol == '1' ) {
-				$uibModal.open({
-					animation: $scope.animationsEnabled,
-					templateUrl: "Vistas/Formularios/Supervisor/Editar Incidencia.html",
-					controller: 'SupervisorController',
-					scope: $scope,
-					size: 'md',
-					resolve: {
-						IncidenciaID: IncidenciaID
+			if ( $scope.IncidenciaSeleccionada != null ) {
+				if ( $rootScope.Rol == '1' ) {
+					$uibModal.open({
+						templateUrl: "Vistas/Formularios/Supervisor/Editar Incidencia.html",
+						controller: 'SupervisorController',
+						scope: $scope,
+						size: 'md',
+						resolve: {
+							IncidenciaID: $scope.IncidenciaSeleccionada
+						}
+					});
+				}
+
+				else if ( $rootScope.Rol == '2' ) {
+
+					$scope.EstadosIncidencia = "";
+					$scope.EstadoSeleccionado = "";
+
+					$scope.getEstadosIncidencia = function() {
+						$http.get('/EstadosIncidencia')
+							.success(function(data) {
+								$scope.EstadosIncidencia = data.Estados;
+							})
+							.error(function(error) {
+								console.log(error);
+							})
+					};
+
+					$scope.setEstadoIncidencia = function(Estado) {
+						for ( var i = 0 ; i < $scope.EstadosIncidencia.length ; i++ ) {
+							if ( Estado == $scope.EstadosIncidencia[i] ) {
+								$scope.EstadoSeleccionado = $scope.EstadosIncidencia[i];
+							}
+						}
 					}
-				});
-			}
 
-			else if ( $rootScope.Rol == '3' ) {
-				$uibModal.open({
-					animation: $scope.animationsEnabled,
-					templateUrl: "Vistas/Formularios/Colaborador/Editar Incidencia.html",
-					controller: 'ColaboradorController',
-					size: 'md',
-					resolve: {
-						IncidenciaID: IncidenciaID
-					}			
-			   	});
-			}
+					$scope.getEstadosIncidencia();
 
+					$timeout(function() {
+						$scope.setEstadoIncidencia(Estado);
+					}, 50);
+
+					$timeout(function() {
+						if ( $scope.EstadoSeleccionado != null && $scope.EstadoSeleccionado != "" ) {
+							$http.post('/Incidencia/' + $scope.IncidenciaSeleccionada, { Estado: $scope.EstadoSeleccionado })
+								.success(function(data) {
+									$route.reload();
+								})
+								.error(function(error) {
+									console.log(error);
+								});	
+
+							$timeout(function() {
+								$route.reload();
+							}, 10 );
+						}
+					}, 50);
+
+				}
+
+				else if ( $rootScope.Rol == '3' ) {
+					$uibModal.open({
+						templateUrl: "Vistas/Formularios/Colaborador/Editar Incidencia.html",
+						controller: 'ColaboradorController',
+						size: 'md',
+						resolve: {
+							IncidenciaID: $scope.IncidenciaSeleccionada
+						}			
+				   	});
+				}
+			}
+			else {
+					$window.alert('No se ha seleccionado ninguna incidencia.');
+			}
 		};
 
 	});

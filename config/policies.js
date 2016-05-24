@@ -16,5 +16,9 @@ module.exports.policies = {
 	'UsuarioController':{
 		'create': ['isAuthorized', 'isSupervisor'],
 		'updatePassword':['isAuthorized', 'isSupervisor']
-	}
+	},
+
+	'IncidenciaController':{
+		'update': ['isAuthorized']
+	},
 }
