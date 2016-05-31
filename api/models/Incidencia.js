@@ -41,17 +41,19 @@ module.exports = {
 		},
 
 		FechaInicio: {
-			type: 		'date'
+			type: 		'date',
+			defaulsTo: 	null
 
 		},
 
 		FechaPrevista: {
-			type: 		'date'
-
+			type: 		'date',
+			defaultsTo: 	null
 		},		
 
 		FechaFin: {
-			type: 		'date'
+			type: 		'date',
+			defaultsTo: 	null
 
 		},
 
@@ -68,6 +70,52 @@ module.exports = {
 			model: 	'Usuario'
 		}
 
+	},
+
+	beforeCreate: function (values, cb){
+
+		if ( values.Operador ) {
+			values.FechaInicio = new Date();
+			cb();
+		}
+
+		else{ 
+			cb(); 
+		}
+
+	},
+
+	beforeUpdate: function (values, cb) {
+
+		if ( values.Rol == '1' ) {
+
+			if ( values.Operador != 'Sin Asignar' ) {
+				values.FechaInicio = new Date();
+				cb();
+			}
+
+			else{ 
+				cb(); 
+			}
+			
+		}
+
+		else if ( values.Rol == '2' ) {
+
+			if ( values.Estado == 'Completada' ) {
+			    	values.FechaFin = new Date();
+			    	cb();
+		    	}
+
+		    	else{ 
+		    		cb(); 
+		    	}
+		}
+
+		else{
+	    		cb();
+	    	}
+	    
 	}
 
 };

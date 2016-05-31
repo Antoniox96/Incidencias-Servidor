@@ -29,4 +29,44 @@
 		<div id="Content" class="container" ng-view></div>
 		<footer ng-if="displayFooter" ng-include="'Vistas/Footer.html'" class="page-footer"></footer>
 	</body>
+	<script>
+		$(function () {
+
+			var Fondos = [
+				'url(Imágenes/Fondo-1.jpg)', 
+		     		'url(Imágenes/Fondo-2.jpg)', 
+		     		'url(Imágenes/Fondo-3.jpg)', 
+		     		'url(Imágenes/Fondo-4.jpg)', 
+		     		'url(Imágenes/Fondo-5.jpg)'
+			];
+
+			var FondoActual = 0;
+
+			function nextBackground() {
+
+				if ( FondoActual < Fondos.length ) {
+					FondoActual++;
+				}
+				else {
+					FondoActual = 0;
+				}
+
+				$('body').css({ 
+							'background': Fondos[FondoActual],
+							'background-position': 'center center',
+							'background-size': '100%'
+						});
+
+				setTimeout(nextBackground, 60000);
+			}
+
+			setTimeout(nextBackground, 60000);
+
+			$('body').css({ 
+						'background': Fondos[FondoActual],
+						'background-position': 'center center',
+						'background-size': '100%'
+					});
+		});
+	</script>
 </html>
