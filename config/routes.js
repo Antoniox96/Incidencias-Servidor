@@ -10,6 +10,11 @@ module.exports.routes = {
 
 	'GET r|^/EstadosIncidencia': [
 		'IncidenciaController.estadosIncidencia'
+	],
+
+	'GET r|^/Departamento': [
+		'UbicacionController.load',
+ 		'DepartamentoController.find'
 	]
 
 };

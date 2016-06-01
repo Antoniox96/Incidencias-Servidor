@@ -8,7 +8,7 @@ angular.module("AppIncidencias")
 		if ( $scope.Incidencias.length == 0 ) {
 			$http.get("/Incidencia")
 				.success(function (data) {
-					$scope.Incidencias = data;
+					$scope.Incidencias = data.IncidenciasJSON;
 				})
 				.error(function (error) {
 					$scope.Error = error;
@@ -16,9 +16,10 @@ angular.module("AppIncidencias")
 		}
 
 		$scope.setIncidenciaSeleccionada = function(Incidencia) {
-			for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
-				if ( $scope.Incidencias[i].id == Incidencia ) {
-					if ( $scope.Incidencias[i].Comun == 'No' ) {
+
+			if ( $rootScope.Rol == '1' ) {
+				for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
+					if ( $scope.Incidencias[i].id == Incidencia ) {
 						if ( Incidencia != $scope.IncidenciaSeleccionada) {
 							$scope.IncidenciaSeleccionada = Incidencia;
 						}
@@ -26,8 +27,22 @@ angular.module("AppIncidencias")
 							$scope.IncidenciaSeleccionada = null;
 						}
 					}
-					else {
-						$scope.IncidenciaSeleccionada = null;
+				}
+			}
+			else {
+				for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
+					if ( $scope.Incidencias[i].id == Incidencia ) {
+						if ( $scope.Incidencias[i].Comun == 'No' ) {
+							if ( Incidencia != $scope.IncidenciaSeleccionada) {
+								$scope.IncidenciaSeleccionada = Incidencia;
+							}
+							else {
+								$scope.IncidenciaSeleccionada = null;
+							}
+						}
+						else {
+							$scope.IncidenciaSeleccionada = null;
+						}
 					}
 				}
 			}

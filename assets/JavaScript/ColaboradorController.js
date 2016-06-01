@@ -3,17 +3,19 @@ angular.module("AppIncidencias")
 	.controller('ColaboradorController', function ($scope, $route, $routeParams, $http, $timeout, $uibModalInstance, IncidenciaID) {
 
 		$scope.DepartamentoSeleccionado;
+		$scope.UbicacionSeleccionada;
 		$scope.InstalacionSeleccionada;
-		$scope.Departamentos = "";
+		$scope.Departamentos = [];
 		$scope.TiposIncidencia = "";
 		$scope.TipoSeleccionado;
 
 		$scope.getDepartamentos = function() {
 			$http.get('/Departamento')
 				.success(function(data) {
-					$scope.Departamentos = data;
+					$scope.Departamentos = data.DepartamentosJSON;
 					$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
-					$scope.InstalacionSeleccionada = $scope.Departamentos[0].Instalaciones[0];
+					$scope.UbicacionSeleccionada = $scope.Departamentos[0].Ubicaciones[0];
+					$scope.InstalacionSeleccionada = $scope.Departamentos[0].Ubicaciones[0].Instalaciones[0];
 				})
 				.error(function(error) {
 					console.log(error);
@@ -31,20 +33,28 @@ angular.module("AppIncidencias")
 				})
 		};
 
+		$scope.setUbicacion = function() {
+			$scope.UbicacionSeleccionada = $scope.Departamentos[$scope.DepartamentoSeleccionado.id - 1].Ubicaciones[0];
+			$scope.setInstalacion();
+		};
+
 		$scope.setInstalacion = function() {
-			$scope.InstalacionSeleccionada = $scope.Departamentos[$scope.DepartamentoSeleccionado.id-1].Instalaciones[0];
+			$scope.InstalacionSeleccionada =$scope.UbicacionSeleccionada.Instalaciones[0];		
 		};
 
 		$scope.setDepartamento = function(InstalacionID) {
 			$timeout(function() {
-					for ( var i = 0 ; i < $scope.Departamentos.length ; i++ ) {
-						for ( var n = 0 ; n < $scope.Departamentos[i].Instalaciones.length ; n++ ) {
-							if ( $scope.Departamentos[i].Instalaciones[n].id == InstalacionID ) {
+				for ( var i = 0 ; i < $scope.Departamentos.length ; i++ ) {
+					for ( var n = 0 ; n < $scope.Departamentos[i].Ubicaciones.length ; n++ ) {
+						for ( var m = 0 ; m < $scope.Departamentos[i].Ubicaciones[n].Instalaciones.length ; m++ ){
+							if ( $scope.Departamentos[i].Ubicaciones[n].Instalaciones[m].id == InstalacionID ) {
 								$scope.DepartamentoSeleccionado = $scope.Departamentos[i];	
-								$scope.InstalacionSeleccionada = $scope.Departamentos[i].Instalaciones[n];
-							}						
-						}
+								$scope.UbicacionSeleccionada = $scope.Departamentos[i].Ubicaciones[n];
+								$scope.InstalacionSeleccionada = $scope.Departamentos[i].Ubicaciones[n].Instalaciones[m];
+							}
+						}						
 					}
+				}
 			}, 10 );
 		}
 

@@ -6,18 +6,18 @@ module.exports = {
 
 			Incidencia.find().populateAll()
 
-				.then(function(Incidencias){
+				.then(function(Incidencias) {
 					
 					var IncidenciasJSON = [];
+					var Ubicaciones = [];
+					var FindUbicacion;
 					var Departamentos = [];
-					var FindDepartamento;
 
-					if (Incidencias){
+					if (Incidencias) {
 
 						Incidencias.forEach(function(Incidencia) {
 							
 							var Operador = "Sin Asignar";
-
 							if ( Incidencia.Operador != null ) {
 								Operador = Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos;
 							}
@@ -26,11 +26,12 @@ module.exports = {
 								"id": Incidencia.id,
 								"Titulo": Incidencia.Titulo, 
 								"Descripcion": Incidencia.Descripcion, 
-								"Departamento": "", 
+								"Departamento": "",
+								"Ubicacion":"", 
 								"Instalacion": Incidencia.Instalacion.Nombre,
 								"Tipo": Incidencia.Tipo, 
 								"Operador": Operador,
-								"Propietario": Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
+								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
 								"Estado": Incidencia.Estado,
 								"Prioridad":Incidencia.Prioridad,
 								"FechaCreacion": Incidencia.createdAt,
@@ -40,39 +41,37 @@ module.exports = {
 								"Comun": Incidencia.Comun
 							}
 
-							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
-
-								.then(function(Departamento){
-
-									return Departamentos.push(Departamento.Nombre);
+							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
+								
+								.then(function(Ubicacion) {
+									return (Ubicaciones.push(Ubicacion.Nombre),Departamentos.push(Ubicacion.Departamento.Nombre) );
 
 								});
 
 							IncidenciasJSON.push(IncidenciaJSON);
 						})
 
-						return [IncidenciasJSON, FindDepartamento, Departamentos];
-
-
+						return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 					}
 					else { 
 						return null;
 						res.json(404, {err: 'No se han encontrado Incidencias.'});
 					}
 
-					return [IncidenciasJSON, FindDepartamento, Departamentos];
+					return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 
 				})
 
-				.spread(function(IncidenciasJSON, FindDepartamento, Departamentos) {
+				.spread(function(IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos) {
 
 					IncidenciasJSON.forEach(function(IncidenciaJSON, index) {
-						IncidenciaJSON.Departamento = Departamentos[index]
+						IncidenciaJSON.Ubicacion = Ubicaciones[index];
+						IncidenciaJSON.Departamento = Departamentos[index];
 					})
-					return res.json(IncidenciasJSON);
+					return res.json(200, { IncidenciasJSON });
 				})
 
-				.catch(function(error){ next(error); });
+				.catch(function(error) { next(error); });
 
 		}
 
@@ -80,13 +79,14 @@ module.exports = {
 
 			Incidencia.find().where({ or: [ { "Operador": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
 
-				.then(function(Incidencias){
+				.then(function(Incidencias) {
 					
 					var IncidenciasJSON = [];
+					var Ubicaciones = [];
+					var FindUbicacion;
 					var Departamentos = [];
-					var FindDepartamento;
 
-					if (Incidencias){
+					if (Incidencias) {
 
 						Incidencias.forEach(function(Incidencia) {
 
@@ -95,6 +95,7 @@ module.exports = {
 								"Titulo": Incidencia.Titulo, 
 								"Descripcion": Incidencia.Descripcion, 
 								"Departamento": "", 
+								"Ubicacion":"",
 								"Instalacion": Incidencia.Instalacion.Nombre,
 								"Tipo": Incidencia.Tipo, 
 								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
@@ -104,18 +105,18 @@ module.exports = {
 								"Comun": Incidencia.Comun
 							}
 
-							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
+							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
 
-								.then(function(Departamento){
+								.then(function(Ubicacion) {
 
-									return Departamentos.push(Departamento.Nombre);
+									return ( Ubicaciones.push(Ubicacion.Nombre),Departamentos.push(Ubicacion.Departamento.Nombre) );
 
 								});
 
 							IncidenciasJSON.push(IncidenciaJSON);
 						})
 
-						return [IncidenciasJSON, FindDepartamento, Departamentos];
+						return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 
 
 					}
@@ -124,19 +125,20 @@ module.exports = {
 						res.json(404, {err: 'No se han encontrado Incidencias.'});
 					}
 
-					return [IncidenciasJSON, FindDepartamento, Departamentos];
+					return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 
 				})
 
-				.spread(function(IncidenciasJSON, FindDepartamento, Departamentos) {
+				.spread(function(IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos) {
 
 					IncidenciasJSON.forEach(function(IncidenciaJSON, index) {
-						IncidenciaJSON.Departamento = Departamentos[index]
+						IncidenciaJSON.Departamento = Departamentos[index];
+						IncidenciaJSON.Ubicacion = Ubicaciones[index];
 					})
 					return res.json(IncidenciasJSON);
 				})
 
-				.catch(function(error){ next(error); });
+				.catch(function(error) { next(error); });
 
 		}
 
@@ -144,13 +146,14 @@ module.exports = {
 
 			Incidencia.find().where({ or: [ { "Propietario": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
 
-				.then(function(Incidencias){
+				.then(function(Incidencias) {
 					
 					var IncidenciasJSON = [];
+					var Ubicaciones = [];
+					var FindUbicacion;
 					var Departamentos = [];
-					var FindDepartamento;
 
-					if (Incidencias){
+					if (Incidencias) {
 
 						Incidencias.forEach(function(Incidencia) {
 							var Operador = "Sin Asignar";
@@ -164,6 +167,7 @@ module.exports = {
 								"Titulo": Incidencia.Titulo, 
 								"Descripcion": Incidencia.Descripcion, 
 								"Departamento": "", 
+								"Ubicacion":"",
 								"Instalacion": Incidencia.Instalacion.Nombre,
 								"Tipo": Incidencia.Tipo, 
 								"Operador": Operador,
@@ -172,18 +176,18 @@ module.exports = {
 								"Comun": Incidencia.Comun
 							}
 
-							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
+							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
 
-								.then(function(Departamento){
+								.then(function(Ubicacion) {
 
-									return Departamentos.push(Departamento.Nombre);
+									return ( Ubicaciones.push(Ubicacion.Nombre),Departamentos.push(Ubicacion.Departamento.Nombre) );
 
 								});
 
 							IncidenciasJSON.push(IncidenciaJSON);
 						})
 
-						return [IncidenciasJSON, FindDepartamento, Departamentos];
+						return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 
 
 					}
@@ -192,19 +196,20 @@ module.exports = {
 						res.json(404, {err: 'No se han encontrado Incidencias.'});
 					}
 
-					return [IncidenciasJSON, FindDepartamento, Departamentos];
+					return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 
 				})
 
-				.spread(function(IncidenciasJSON, FindDepartamento, Departamentos) {
+				.spread(function(IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos) {
 
 					IncidenciasJSON.forEach(function(IncidenciaJSON, index) {
-						IncidenciaJSON.Departamento = Departamentos[index]
+						IncidenciaJSON.Departamento = Departamentos[index];
+						IncidenciaJSON.Ubicacion = Ubicaciones[index];
 					})
 					return res.json(IncidenciasJSON);
 				})
 
-				.catch(function(error){ next(error); });
+				.catch(function(error) { next(error); });
 		}
 
 	},
@@ -249,12 +254,13 @@ module.exports = {
 
 		else if ( req.Rol == '3' ) {
 
+			var Operador = "Sin asignar";
 			Incidencia.create({
 							Titulo: req.body.Titulo,
 							Descripcion: req.body.Descripcion,
 							Tipo: req.body.Tipo,
 							Instalacion: req.body.Instalacion,
-							Operador: "Sin Asignar",
+							Operador: Operador,
 							Propietario: req.Usuario
 						}
 			).exec(function (err, Incidencia) {
@@ -279,17 +285,17 @@ module.exports = {
 
 	findOne: function (req, res, next) {
 
-		if ( req.Rol == '1'){
+		if ( req.Rol == '1') {
 
 		Incidencia.findOne(req.params.id).populateAll()
 
-				.then(function(Incidencia){
+				.then(function(Incidencia) {
 					
 					var IncidenciaJSON = [];
 					var DepartamentoIncidencia;
 					var FindDepartamento;
 
-					if (Incidencia){
+					if (Incidencia) {
 
 							DatosIncidencia = { 
 								"id":Incidencia.id,
@@ -310,7 +316,7 @@ module.exports = {
 
 							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
 
-								.then(function(Departamento){
+								.then(function(Departamento) {
 
 									DepartamentoIncidencia = Departamento.Nombre;
 									return DepartamentoIncidencia;
@@ -336,14 +342,14 @@ module.exports = {
 					IncidenciaJSON.Departamento = FindDepartamento;
 					return res.json(IncidenciaJSON);
 
-				}).catch(function(error){ next(error); });
+				}).catch(function(error) { next(error); });
 
 		}
-		else if ( req.Rol == '2' ){
+		else if ( req.Rol == '2' ) {
 
-			Incidencia.findOne(req.params.id).then(function(Incidencia){
+			Incidencia.findOne(req.params.id).then(function(Incidencia) {
 
-				if (Incidencia){
+				if (Incidencia) {
 
 					res.json({ "id": Incidencia.id, "Estado": Incidencia.Estado });
 
@@ -353,14 +359,14 @@ module.exports = {
 				}
 
 
-			}).catch(function(error){ next(error); });
+			}).catch(function(error) { next(error); });
 
 		}
 
-		else if ( req.Rol == '3' ){
-			Incidencia.findOne(req.params.id).populateAll().then(function(Incidencia){
+		else if ( req.Rol == '3' ) {
+			Incidencia.findOne(req.params.id).populateAll().then(function(Incidencia) {
 
-				if (Incidencia){
+				if (Incidencia) {
 
 					res.json({ 	"id": Incidencia.id, 
 							"Titulo": Incidencia.Titulo, 
@@ -375,7 +381,7 @@ module.exports = {
 				}
 
 
-			}).catch(function(error){ next(error); });
+			}).catch(function(error) { next(error); });
 		}
 		else {
 			return res.json(403, {err: 'Permiso denegado.'});
@@ -385,87 +391,92 @@ module.exports = {
 
 	update: function (req, res) {
 
-		Incidencia.findOne(req.params.id).populateAll().then(function(incidencia) {
+		Incidencia.findOne(req.params.id).populateAll().then(function(incidencia) {	
 
-			if ( incidencia ) {
+		if ( incidencia ) {	
 
-				if ( req.Rol == '1' ) {
+			if ( req.Rol == '1' ) {
 
-					Incidencia.update(
-								{ id: Number(req.params.id) }, 		
-								{
-									Titulo: req.body.Titulo,
-									Descripcion: req.body.Descripcion,
-									Tipo: req.body.Tipo,
-									Estado: req.body.Estado,
-									Prioridad: req.body.Prioridad,
-									Comun: req.body.Comun,
-									FechaInicio: req.body.FechaInicio,
-									FechaPrevista: req.body.FechaPrevista,
-									FechaFin: req.body.FechaFin,
-									Instalacion: req.body.Instalacion,
-									Operador: req.body.Operador,
-								}
-					).exec(function (err, updated){
+				Incidencia.update(
+							{ id: Number(req.params.id) }, 		
+							{
+								Titulo: req.body.Titulo,
+								Descripcion: req.body.Descripcion,
+								Tipo: req.body.Tipo,
+								Estado: req.body.Estado,
+								Prioridad: req.body.Prioridad,
+								Comun: req.body.Comun,
+								FechaInicio: req.body.FechaInicio,
+								FechaPrevista: req.body.FechaPrevista,
+								FechaFin: req.body.FechaFin,
+								Instalacion: req.body.Instalacion,
+								Operador: req.body.Operador,
+							}
+				).exec(function (err, updated) {
 
-						if (err) {
-							return err;
-						}
+					if (err) {
+						return err;
+					}
 
-						if (updated) {
-							res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
-						}
+					if (updated) {
+						res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
+					}
 
-					});
-
-				}
-
-				else if ( req.Rol == '2' ) {
-					
-					Incidencia.update(
-		 						{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
-								{ 
-									Estado:req.body.Estado 
-								}
-					).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated){
-
-						if (err) {
-						 	return err;
-						}
-
-						if (updated) {
-							res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
-						}
-
-					});
-
-				}
-
-				else if ( req.Rol == '3' ) {
-					Incidencia.update(
-		 							{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
-		 							{
-										Titulo: req.body.Titulo,
-										Descripcion: req.body.Descripcion,
-										Tipo: req.body.Tipo,
-										Instalacion: req.body.Instalacion,
-									}
-					).exec(function (err, updated){
-
-						if (err) {
-						 	return err;
-						}
-
-						if (updated) {
-							res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
-						}
-
-					});
-				}
+				});
 
 			}
 
-		}).catch(function(error){ next(error); });
+			else if ( req.Rol == '2' ) {
+				
+				Incidencia.update(
+	 						{ id: Number(req.params.id), Operador: Number(req.Usuario.id) }, 		
+							{ 	
+								FechaFin:"",
+								Estado:req.body.Estado 
+							}
+				).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated) {
+
+					if (err) {
+					 	return err;
+					}
+
+					if (updated) {
+						res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
+					}
+
+				});
+
+			}
+
+			else if ( req.Rol == '3' ) {
+				Incidencia.update(
+	 							{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
+	 							{
+									Titulo: req.body.Titulo,
+									Descripcion: req.body.Descripcion,
+									Tipo: req.body.Tipo,
+									Instalacion: req.body.Instalacion,
+								}
+				).exec(function (err, updated) {
+
+					if (err) {
+					 	return err;
+					}
+
+					if (updated) {
+						res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
+					}
+
+				});
+			}
+			else {
+					return res.json(403, {err: 'No tiene Permiso.'});
+			}
+
+		}
+
+		}).catch(function(error) { next(error); });
+
 		
 	},
 
@@ -483,6 +494,22 @@ module.exports = {
 
 		if ( req.Rol == '2' || req.Rol == '3' ) {
 			res.json(200, { Estados });	
+		}
+	},
+
+	delete: function (req, res, next) {
+
+		if ( req.Rol == '1' ) {
+
+			Incidencia.destroy({ id:Number(req.params.id) }).exec(function(deleted) {
+				if (deleted) {
+					return res.negotiate(deleted);
+				}
+				else{
+					res.json(200,{deleted});
+				}
+			});
+
 		}
 	}
 

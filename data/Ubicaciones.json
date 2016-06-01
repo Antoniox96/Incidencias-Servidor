@@ -1,0 +1,200 @@
+[
+	{
+		"model":	"Ubicacion",
+		"items":
+		[
+			
+			{
+				"id":			1,
+				"Nombre":		"Nomad",
+				"Departamento": 1,
+				"Instalaciones":	[
+								{ "id": 1 },
+								{ "id": 2 },
+								{ "id": 3 }
+							]
+			},
+			{
+				"id":			2,
+				"Nombre":		"Mizu",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 4 },
+								{ "id": 5 },
+								{ "id": 6 }
+							]
+			},
+			{
+				"id":			3,
+				"Nombre":		"Club House",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 7 },
+								{ "id": 8 },
+								{ "id": 9 }
+							]
+			},
+			{
+				"id":			4,
+				"Nombre":		"Club House Saurines",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 10 },
+								{ "id": 11 },
+								{ "id": 12 }
+							]
+			},
+			{
+				"id":			5,
+				"Nombre":		"Fontana di Pietra",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 13 },
+								{ "id": 14 },
+								{ "id": 15 }
+							]
+			},
+			{
+				"id":			6,
+				"Nombre":		"The Clover",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 16 },
+								{ "id": 17 },
+								{ "id": 18 }
+							]
+			},
+			{
+				"id":			7,
+				"Nombre":		"Al Fresco",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 19 },
+								{ "id": 20 },
+								{ "id": 21 }
+							]
+			},
+			{
+				"id":			8,
+				"Nombre":		"Olivo",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 22 },
+								{ "id": 23 },
+								{ "id": 24 }
+							]
+			},
+			{
+				"id":			9,
+				"Nombre":		"Kid's Club",
+				"Departamento":	1,
+				"Instalaciones":	[
+								{ "id": 25 },
+								{ "id": 26 },
+								{ "id": 27 }
+							]
+			},
+			{
+				"id":			10,
+				"Nombre":		"Banquetes",
+				"Departamento":	1,
+				"Instalaciones":	[]
+			},
+
+
+			{
+				"id":			11,
+				"Nombre":		"Fase I",
+				"Departamento":	2,
+				"Instalaciones":	[	
+								{ "id": 28 },
+								{ "id": 29 },
+								{ "id": 30 }
+							]
+			},
+			{
+				"id":			12,
+				"Nombre":		"Fase II",
+				"Departamento":	2,
+				"Instalaciones":	[	
+								{ "id": 31  }
+							]
+			},
+			{
+				"id":			13,
+				"Nombre":		"Fase III",
+				"Departamento":	2,
+				"Instalaciones":	[	
+								{ "id": 32 }
+							]
+			},
+			{
+				"id":			14,
+				"Nombre":		"Paseo Driving Range",
+				"Departamento":	2,
+				"Instalaciones":	[	
+								{ "id": 33 }
+							]
+			},
+
+
+			{
+				"id":			15,
+				"Nombre":		"Instalacion",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id": 34 }
+							]
+			},
+			{
+				"id":			16,
+				"Nombre":		"Habitacion",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id": 35 }
+							]
+			},
+			{
+				"id":			17,
+				"Nombre":		"Zona Comun Privada",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id": 36 }
+							]
+			},
+			{
+				"id":			18,
+				"Nombre":		"Zona Comun Publica",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id":  37}
+							]
+			},
+			{
+				"id":			19,
+				"Nombre":		"Spa",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id":38  }
+							]
+			},
+			{
+				"id":			20,
+				"Nombre":		"Piscina",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id": 39 }
+							]
+			},
+			{
+				"id":			21,
+				"Nombre":		"Fuente",
+				"Departamento":	3,
+				"Instalaciones":	[	
+								{ "id": 40 }
+							]
+			}
+
+		]
+	}
+]

@@ -13,11 +13,16 @@
 		</div>
 		<div class="form-group">
 			<p>Departamento</p>
-			<select id="Departamento" class="form-control" ng-model="DepartamentoSeleccionado" ng-change="setInstalacion()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+			<select id="Departamento" class="form-control" ng-model="DepartamentoSeleccionado" ng-change="setUbicacion()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+		</div>
+		<div class="form-group">
+			<p>Ubicación</p>
+			<select id="Ubicacion" class="form-control" ng-model="UbicacionSeleccionada" ng-change="setInstalacion()" ng-options="Ubicacion.Nombre for Ubicacion in DepartamentoSeleccionado.Ubicaciones track by Ubicacion.id">
+			</select>
 		</div>
 		<div class="form-group">
 			<p>Instalación</p>
-			<select id="Instalacion" class="form-control" ng-model="InstalacionSeleccionada" ng-options="Instalacion.Nombre for Instalacion in DepartamentoSeleccionado.Instalaciones track by Instalacion.id"></select>
+			<select id="Instalacion" class="form-control" ng-model="InstalacionSeleccionada" ng-options="Instalacion.Nombre for Instalacion in UbicacionSeleccionada.Instalaciones track by Instalacion.id"></select>
 		</div>
 		<div class="form-group">
 			<p>Tipo</p>

@@ -8,8 +8,8 @@ module.exports = {
 			required: 	true
 		},
 
-		Departamento: {
-			model:  	'Departamento'
+		Ubicacion: {
+			model:  	'Ubicacion'
 		},
 
 		Incidencias: {

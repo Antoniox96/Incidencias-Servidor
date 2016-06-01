@@ -1,54 +1,75 @@
 <div ng-if="Rol == '1'" class="col-xs-15">
-	<div class="table-responsive">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th class="col-md-1"></th>
-					<th class="col-md-1"><i class="glyphicon glyphicon-cog"/></th>
-					<th class="col-md-1">#</th>
-					<th class="col-md-1">Título</th>
-					<th class="col-md-3">Descripción</th>
-					<th class="col-md-1">Departamento</th>
-					<th class="col-md-1">Instalación</th>
-					<th class="col-md-1">Tipo</th>
-					<th class="col-md-1">Operador</th>
-					<th class="col-md-1">Estado</th>
-					<th class="col-md-1">Prioridad</th>
-					<th class="col-md-1">Fecha Inicio</th>
-					<th class="col-md-1">Fecha Fin</th>
-				</tr>
-			</thead>
-			<tbody ng-hide="Incidencias.length < 0">
-				<tr ng-repeat="Incidencia in Incidencias">
-					<td><i ng-if="Incidencia.Comun == 'Sí'"class="glyphicon glyphicon-eye-open"/></td>
-					<td>
-						<button id="EditButton" type="button" class="btn btn-default btn-lg" ng-click="EditarIncidencia(Incidencia.id)">
-							<i class="glyphicon glyphicon-pencil"/>
-						</button>
-					</td>
-					<td>{{ $index+1 }}</td>
-					<td>{{ Incidencia.Titulo }}</td>
-					<td>{{ Incidencia.Descripcion }}</td>
-					<td>{{ Incidencia.Departamento }}</td>
-					<td>{{ Incidencia.Instalacion }}</td>
-					<td>{{ Incidencia.Tipo }}</td>
-					<td>{{ Incidencia.Operador }}</td>
-					<td>{{ Incidencia.Estado }}</td>
-					<td>{{ Incidencia.Prioridad }}</td>
-					<td>{{ Incidencia.FechaInicio | date:'dd/MM/yyyy' }}</td>
-					<td>{{ Incidencia.FechaFin | date:'dd/MM/yyyy' }}</td>
-				</tr>
-			</tbody>
-		</table>
+	<div id="Incidencias" class="panel panel-default panel-table col col-xs-11">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col col-xs-12">
+					<h1 class="panel-title">Listado de Incidencias</h1>
+				</div>
+			</div>
+		  </div>
+		  <div class="panel-body">
+			 <table class="table table-bordered table-list">
+				<thead>
+					<tr>
+						<th class="col-md-1"></th>
+						<th class="col-md-1">#</th>
+						<th class="col-md-1">Título</th>
+						<th class="col-md-1">Descripción</th>
+						<th class="col-md-1">Departamento</th>
+						<th class="col-md-1">Ubicación</th>
+						<th class="col-md-1">Instalación</th>
+						<th class="col-md-1">Tipo</th>
+						<th class="col-md-1">Operador</th>
+						<th class="col-md-1">Estado</th>
+						<th class="col-md-1">Prioridad</th>
+						<th class="col-md-1">FechaInicio</th>
+						<th class="col-md-1">FechaFin</th>
+					</tr>
+				</thead>
+				<tbody ng-hide="Incidencias.length < 0">
+					<tr 	ng-click="setIncidenciaSeleccionada(Incidencia.id);" 
+						ng-class="{Seleccionado: IncidenciaSeleccionada === Incidencia.id}" 
+						ng-repeat="Incidencia in Incidencias">
+						<td><i ng-if="Incidencia.Comun == 'Sí'" class="glyphicon glyphicon-eye-open"/></td>
+						<td>{{ $index+1 }}</td>
+						<td>{{ Incidencia.Titulo }}</td>
+						<td>{{ Incidencia.Descripcion }}</td>
+						<td>{{ Incidencia.Departamento }}</td>
+						<td>{{ Incidencia.Ubicacion }}</td>
+						<td>{{ Incidencia.Instalacion }}</td>
+						<td>{{ Incidencia.Tipo }}</td>
+						<td>{{ Incidencia.Operador }}</td>
+						<td>{{ Incidencia.Estado }}</td>
+						<td>{{ Incidencia.Prioridad }}</td>
+						<td>{{ Incidencia.FechaInicio | date:'dd/MM/yyyy HH:mm' }}</td>
+						<td>{{ Incidencia.FechaFin | date:'dd/MM/yyyy HH:mm' }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div>
-		<button id="AddButton" type="button" class="btn btn-default btn-lg" ng-click="CrearIncidencia()">
-			<i class="glyphicon glyphicon-plus"/>
-		</button>
+	<div id="Acciones" class="panel panel-default panel-table">
+		<div class="panel-heading">
+			<div class="row">
+				<div>
+					<h1 class="panel-title text-center"><i class="glyphicon glyphicon-cog"/></h1>
+				</div>
+			</div>
+	  	</div>
+	  	<div class="panel-body text-center">
+			<button id="AddButton" type="button" class="btn" ng-click="CrearIncidencia()">
+				<i class="glyphicon glyphicon-plus"/>
+			</button>
+		</div>
+		<div class="panel-body text-center">
+			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)">
+				<i class="glyphicon glyphicon-pencil"/>
+			</button>
+		</div>
 	</div>
 </div>
 <div ng-if="Rol == '2'" class="col-xs-12">
-<div id="Incidencias" class="panel panel-default panel-table col col-xs-11">
+	<div id="Incidencias" class="panel panel-default panel-table col col-xs-11">
 		<div class="panel-heading">
 			<div class="row">
 				<div class="col col-xs-12">
@@ -65,6 +86,7 @@
 						<th class="col-md-1">Título</th>
 						<th class="col-md-2">Descripción</th>
 						<th class="col-md-1">Departamento</th>
+						<th class="col-md-1">Ubicación</th>
 						<th class="col-md-1">Instalación</th>
 						<th class="col-md-1">Tipo</th>
 						<th class="col-md-1">Colaborador</th>
@@ -82,6 +104,7 @@
 						<td>{{ Incidencia.Titulo }}</td>
 						<td>{{ Incidencia.Descripcion }}</td>
 						<td>{{ Incidencia.Departamento }}</td>
+						<td>{{ Incidencia.Ubicacion }}</td>
 						<td>{{ Incidencia.Instalacion }}</td>
 						<td>{{ Incidencia.Tipo }}</td>
 						<td>{{ Incidencia.Propietario }}</td>
@@ -135,6 +158,7 @@
 						<th class="col-md-1">Título</th>
 						<th class="col-md-2">Descripción</th>
 						<th class="col-md-1">Departamento</th>
+						<th class="col-md-1">Ubicación</th>
 						<th class="col-md-1">Instalación</th>
 						<th class="col-md-1">Tipo</th>
 						<th class="col-md-1">Operador</th>
@@ -151,6 +175,7 @@
 						<td>{{ Incidencia.Titulo }}</td>
 						<td>{{ Incidencia.Descripcion }}</td>
 						<td>{{ Incidencia.Departamento }}</td>
+						<td>{{ Incidencia.Ubicacion }}</td>
 						<td>{{ Incidencia.Instalacion }}</td>
 						<td>{{ Incidencia.Tipo }}</td>
 						<td>{{ Incidencia.Operador }}</td>

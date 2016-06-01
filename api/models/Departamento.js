@@ -8,8 +8,8 @@ module.exports = {
 			required: 	true
 		},
 
-		Instalaciones: {
-			collection: 	'Instalacion',
+		Ubicaciones: {
+			collection: 	'Ubicacion',
 			via: 		'Departamento'
 		}	
 
