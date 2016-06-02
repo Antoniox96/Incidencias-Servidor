@@ -492,8 +492,16 @@ module.exports = {
 	estadosIncidencia: function (req, res) {
 		var Estados = Incidencia.attributes.Estado.enum;
 
-		if ( req.Rol == '2' || req.Rol == '3' ) {
+		if ( req.Rol == '1' || req.Rol == '2' || req.Rol == '3' ) {
 			res.json(200, { Estados });	
+		}
+	},
+
+	prioridadesIncidencia: function (req, res) {
+		var Prioridades = Incidencia.attributes.Prioridad.enum;
+
+		if ( req.Rol == '1' ) {
+			res.json(200, { Prioridades });	
 		}
 	},
 

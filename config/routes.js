@@ -12,6 +12,10 @@ module.exports.routes = {
 		'IncidenciaController.estadosIncidencia'
 	],
 
+	'GET r|^/PrioridadesIncidencia': [
+		'IncidenciaController.prioridadesIncidencia'
+	],
+
 	'GET r|^/Departamento': [
 		'UbicacionController.load',
  		'DepartamentoController.find'

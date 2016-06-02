@@ -54,7 +54,7 @@ angular.module("AppIncidencias")
 				$uibModal.open({
 					templateUrl: "Vistas/Formularios/Supervisor/Crear Incidencia.html",
 					controller: 'SupervisorController',
-					size: 'md',
+					size: 'lg',
 					resolve: {
 						IncidenciaID: null
 					}
@@ -82,7 +82,7 @@ angular.module("AppIncidencias")
 						templateUrl: "Vistas/Formularios/Supervisor/Editar Incidencia.html",
 						controller: 'SupervisorController',
 						scope: $scope,
-						size: 'md',
+						size: 'lg',
 						resolve: {
 							IncidenciaID: $scope.IncidenciaSeleccionada
 						}

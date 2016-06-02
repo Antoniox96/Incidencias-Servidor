@@ -9,8 +9,9 @@
 .modal-body div textarea {
 	resize: none;
 	box-sizing: border-box;
-	max-height: 165px;
-	min-height: 55px;
+	max-height: 90px;
+	min-height: 34px;
+	height: 34px;
 	overflow-x: hidden;
 }
 
@@ -29,7 +30,7 @@
 }
 
 .form-group {
-	padding-right: 10px;
+	padding-right: 5px;
 }
 
 option {
