@@ -1,5 +1,44 @@
 module.exports = {
 
+	findOperadores: function(req, res, next) { 
+
+		if ( req.Rol =='1' ) {
+
+			Usuario.find().where({ Rol: 2 }).then(function(Operadores) {
+
+				if (Operadores) {
+
+					var OperadoresJSON = [];
+
+					Operadores.forEach(function(Operador) {
+
+						OperadorJSON = {
+							"ID": Operador.id,
+							"Nombre": Operador.Nombre,
+							"Apellidos": Operador.Apellidos
+						}
+
+						OperadoresJSON.push(OperadorJSON);
+					});
+
+					res.json(200, { Operadores: OperadoresJSON });
+
+				}
+				else { 
+					res.json(404, {err: 'No se han encontrado Operadores.'});
+				}
+				
+
+			}).catch(function(error) { next(error); });
+
+		}
+		else {
+
+			return res.json(403, {err: 'Permiso denegado.'});
+		
+		}
+	},
+
 	create: function (req, res) {
 
 		Usuario.create(req.body).exec(function (err, user) {
@@ -18,7 +57,7 @@ module.exports = {
 
 	currentUser: function(req, res) {
 
-		Usuario.findOne(Number(req.Usuario.id)).then(function(Usuario){
+		Usuario.findOne(Number(req.Usuario.id)).then(function(Usuario) {
 	
 			if (Usuario) {
 
@@ -30,7 +69,7 @@ module.exports = {
 	
 			}
 	
-		}).catch(function(error){ next(error); });
+		}).catch(function(error) { next(error); });
 
 	},
 
@@ -40,7 +79,7 @@ module.exports = {
 					{ id: req.body.UsuarioId },
 					{ Password: req.body.newPassword }
 
-		).exec(function(err,updated){
+		).exec(function(err,updated) {
 
 			if (err) {
 				return err;
@@ -59,7 +98,7 @@ module.exports = {
 					{ id: req.Usuario.id },
 					{ Password: req.body.newPassword }
 
-		).exec(function(err,updated){
+		).exec(function(err,updated) {
 
 			if (err) {
 				return err;

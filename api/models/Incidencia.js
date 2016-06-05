@@ -73,8 +73,7 @@ module.exports = {
 	},
 
 	beforeCreate: function (values, cb){
-
-		if ( values.Operador ) {
+		if ( values.Operador && values.FechaInicio == null || values.FechaInicio == null ) {
 			values.FechaInicio = new Date();
 			cb();
 		}

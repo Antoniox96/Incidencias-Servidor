@@ -12,6 +12,11 @@ angular.module("AppIncidencias")
 		$scope.PrioridadSeleccionada;
 		$scope.EstadosIncidencia;
 		$scope.EstadoSeleccionado;
+		$scope.Operadores;
+		$scope.OperadorSeleccionado;
+		$scope.FechaInicio;
+		$scope.FechaPrevista;
+		$scope.FechaFin;
 
 		$scope.getDepartamentos = function() {
 			$http.get('/Departamento')
@@ -54,6 +59,18 @@ angular.module("AppIncidencias")
 				.success(function(data) {
 					$scope.EstadosIncidencia = data.Estados;
 					$scope.EstadoSeleccionado = $scope.EstadosIncidencia[0];
+				})
+				.error(function(error) {
+					console.log(error);
+				})
+		};
+
+		$scope.getOperadores = function() {
+			$http.get('/Operadores')
+				.success(function(data) {
+					$scope.Operadores = data.Operadores;
+					$scope.Operadores.unshift({"Nombre": "Sin ", "Apellidos": "Asignar"});
+					$scope.OperadorSeleccionado = $scope.Operadores[0];
 				})
 				.error(function(error) {
 					console.log(error);
@@ -112,7 +129,20 @@ angular.module("AppIncidencias")
 		};
 
 		$scope.CrearIncidencia = function () {
-			$http.post('/Incidencia', { Titulo: $scope.Titulo, Descripcion: $scope.Descripcion, Tipo: $scope.TipoSeleccionado, Instalacion: $scope.InstalacionSeleccionada })
+			$http.post('/Incidencia', { 
+								Titulo: $scope.Titulo, 
+						    		Descripcion: $scope.Descripcion, 
+					    			Departamento: $scope.DepartamentoSeleccionado, 
+					    			Ubicacion: $scope.UbicacionSeleccionada, 
+					    			Instalacion: $scope.InstalacionSeleccionada, 
+					    			Tipo: $scope.TipoSeleccionado, 
+					    			Prioridad: $scope.PrioridadSeleccionada, 
+					    			Estado: $scope.EstadoSeleccionado, 
+					    			Operador: $scope.OperadorSeleccionado.ID, 
+					    			FechaInicio: $scope.FechaInicio, 
+					    			FechaPrevista: $scope.FechaPrevista, 
+					    			FechaFin: $scope.FechaFin
+					    		})
 				.success(function(data) {
 					$route.reload();
 				})
@@ -128,7 +158,20 @@ angular.module("AppIncidencias")
 		};
 
 		$scope.EditarIncidencia = function () {
-			$http.post('/Incidencia/' + IncidenciaID, { Titulo: $scope.Titulo, Descripcion: $scope.Descripcion, Tipo: $scope.TipoSeleccionado, Instalacion: $scope.InstalacionSeleccionada })
+			$http.post('/Incidencia/' + IncidenciaID, { 
+								Titulo: $scope.Titulo, 
+						    		Descripcion: $scope.Descripcion, 
+					    			Departamento: $scope.DepartamentoSeleccionado, 
+					    			Ubicacion: $scope.UbicacionSeleccionada, 
+					    			Instalacion: $scope.InstalacionSeleccionada, 
+					    			Tipo: $scope.TipoSeleccionado, 
+					    			Prioridad: $scope.PrioridadSeleccionada, 
+					    			Estado: $scope.EstadoSeleccionado, 
+					    			Operador: $scope.OperadorSeleccionado, 
+					    			FechaInicio: $scope.FechaInicio, 
+					    			FechaPrevista: $scope.FechaPrevista, 
+					    			FechaFin: $scope.FechaFin
+					    		})
 				.success(function(data) {
 					$route.reload();
 				})
