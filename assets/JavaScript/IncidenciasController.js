@@ -8,7 +8,6 @@ angular.module("AppIncidencias")
 		if ( $scope.Incidencias.length == 0 ) {
 			$http.get("/Incidencia")
 				.success(function (data) {
-					console.log(data);
 					$scope.Incidencias = data.IncidenciasJSON;
 				})
 				.error(function (error) {
@@ -151,6 +150,24 @@ angular.module("AppIncidencias")
 			else {
 					$window.alert('No se ha seleccionado ninguna incidencia.');
 			}
+		};
+
+		$scope.BorrarIncidencia = function () {
+			if ( $rootScope.Rol == '1' ) {
+				$http.delete('/Incidencia/' + $scope.IncidenciaSeleccionada)
+
+					.success(function(data) {
+							$route.reload();
+					})
+					.error(function(error) {
+						console.log(error);
+					});	
+
+				$timeout(function() {
+					$route.reload();
+				}, 10 );
+			}
+
 		};
 
 	});

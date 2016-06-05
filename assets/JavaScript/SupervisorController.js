@@ -77,6 +77,21 @@ angular.module("AppIncidencias")
 				})
 		};
 
+		$scope.getIncidencia = function () {
+			$http.get('/Incidencia/' + IncidenciaID)
+				.success(function(data) {
+					$scope.Titulo = data.Titulo;
+					$scope.Descripcion = data.Descripcion;
+					$scope.Instalacion = data.Instalacion;
+					$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
+					$scope.setDepartamento(data.Instalacion.id);
+					$scope.setTipoIncidencia(data.Tipo);
+				})
+				.error(function(error) {
+					console.log(error);
+				});
+		};
+
 		$scope.setUbicacion = function() {
 			$scope.UbicacionSeleccionada = $scope.Departamentos[$scope.DepartamentoSeleccionado.id - 1].Ubicaciones[0];
 			$scope.setInstalacion();
@@ -99,7 +114,7 @@ angular.module("AppIncidencias")
 						}						
 					}
 				}
-			}, 10 );
+			}, 50 );
 		}
 
 
@@ -110,7 +125,37 @@ angular.module("AppIncidencias")
 							$scope.TipoSeleccionado = $scope.TiposIncidencia[i];
 						}
 					}
-			}, 10 );
+			}, 50 );
+		}
+
+		$scope.setPrioridadIncidencia = function(Prioridad) {
+			$timeout(function() {
+					for ( var i = 0 ; i < $scope.PrioridadesIncidencia.length ; i++ ) {
+						if ( $scope.PrioridadesIncidencia[i] == Prioridad ) {
+							$scope.PrioridadSeleccionada = $scope.PrioridadesIncidencia[i];
+						}
+					}
+			}, 50 );
+		}
+
+		$scope.setEstadoIncidencia = function(Estado) {
+			$timeout(function() {
+					for ( var i = 0 ; i < $scope.EstadosIncidencia.length ; i++ ) {
+						if ( $scope.EstadosIncidencia[i] == Estado ) {
+							$scope.EstadoSeleccionado = $scope.EstadosIncidencia[i];
+						}
+					}
+			}, 50 );
+		}
+
+		$scope.setOperadorIncidencia = function(Operador) {
+			$timeout(function() {
+					for ( var i = 0 ; i < $scope.OperadoresIncidencia.length ; i++ ) {
+						if ( $scope.OperadoresIncidencia[i] == Operador ) {
+							$scope.OperadorSeleccionado = $scope.OperadoresIncidencia[i];
+						}
+					}
+			}, 50 );
 		}
 
 		$scope.getIncidencia = function () {
@@ -122,6 +167,9 @@ angular.module("AppIncidencias")
 					$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
 					$scope.setDepartamento(data.Instalacion.id);
 					$scope.setTipoIncidencia(data.Tipo);
+					$scope.setPrioridadIncidencia(data.Prioridad);
+					$scope.setEstadoIncidencia(data.Estado);
+					$scope.setOperadorIncidencia(data.Operador);
 				})
 				.error(function(error) {
 					console.log(error);
@@ -152,7 +200,7 @@ angular.module("AppIncidencias")
 
 			$timeout(function() {
 				$route.reload();
-			}, 10 );
+			}, 50 );
 
 			$uibModalInstance.close();
 		};
@@ -181,7 +229,7 @@ angular.module("AppIncidencias")
 
 			$timeout(function() {
 				$route.reload();
-			}, 10 );
+			}, 50 );
 
 			$uibModalInstance.close();
 		};
@@ -190,7 +238,7 @@ angular.module("AppIncidencias")
 			$uibModalInstance.dismiss('cancel');
 			$timeout(function() {
 				$route.reload();
-			}, 10 );
+			}, 50 );
 		};
 
 	});

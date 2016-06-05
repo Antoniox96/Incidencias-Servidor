@@ -287,62 +287,62 @@ module.exports = {
 
 		if ( req.Rol == '1') {
 
-		Incidencia.findOne(req.params.id).populateAll()
+			Incidencia.findOne(req.params.id).populateAll()
 
-				.then(function(Incidencia) {
-					
-					var IncidenciaJSON = [];
-					var DepartamentoIncidencia;
-					var FindDepartamento;
+					.then(function(Incidencia) {
+						
+						var IncidenciaJSON = [];
+						var DepartamentoIncidencia;
+						var FindDepartamento;
 
-					if (Incidencia) {
+						if (Incidencia) {
 
-							DatosIncidencia = { 
-								"id":Incidencia.id,
-								"Titulo": Incidencia.Titulo, 
-								"Descripcion": Incidencia.Descripcion, 
-								"Departamento": "", 
-								"Instalacion": { "id": Incidencia.Instalacion.id, "Nombre": Incidencia.Instalacion.Nombre },
-								"Tipo": Incidencia.Tipo, 
-								"Operador": Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos,
-								"Estado": Incidencia.Estado,
-								"Prioridad":Incidencia.Prioridad,
-								"FechaInicio": Incidencia.FechaInicio,
-								"FechaPrevista":Incidencia.FechaPrevista,
-								"FechaFin":Incidencia.FechaFin,
-								"Comun": Incidencia.Comun,
-								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos
-							}
+								DatosIncidencia = { 
+									"id":Incidencia.id,
+									"Titulo": Incidencia.Titulo, 
+									"Descripcion": Incidencia.Descripcion, 
+									"Departamento": "", 
+									"Instalacion": { "id": Incidencia.Instalacion.id, "Nombre": Incidencia.Instalacion.Nombre },
+									"Tipo": Incidencia.Tipo, 
+									"Operador": Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos,
+									"Estado": Incidencia.Estado,
+									"Prioridad":Incidencia.Prioridad,
+									"FechaInicio": Incidencia.FechaInicio,
+									"FechaPrevista":Incidencia.FechaPrevista,
+									"FechaFin":Incidencia.FechaFin,
+									"Comun": Incidencia.Comun,
+									"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos
+								}
 
-							FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
+								FindDepartamento = Departamento.findOne(Incidencia.Instalacion.Departamento)
 
-								.then(function(Departamento) {
+									.then(function(Departamento) {
 
-									DepartamentoIncidencia = Departamento.Nombre;
-									return DepartamentoIncidencia;
+										DepartamentoIncidencia = Departamento.Nombre;
+										return DepartamentoIncidencia;
 
-								});
+									});
 
-							IncidenciaJSON.push(DatosIncidencia);
+								IncidenciaJSON.push(DatosIncidencia);
+
+							return [IncidenciaJSON, FindDepartamento];
+
+
+						}
+						else { 
+							res.json(404, {err: 'No se han encontrado Incidencias.'});
+						}
 
 						return [IncidenciaJSON, FindDepartamento];
 
+					})
 
-					}
-					else { 
-						res.json(404, {err: 'No se han encontrado Incidencias.'});
-					}
+					.spread(function(IncidenciaJSON, FindDepartamento) {
 
-					return [IncidenciaJSON, FindDepartamento];
+						IncidenciaJSON.Departamento = FindDepartamento;
+						return res.json(IncidenciaJSON);
 
-				})
-
-				.spread(function(IncidenciaJSON, FindDepartamento) {
-
-					IncidenciaJSON.Departamento = FindDepartamento;
-					return res.json(IncidenciaJSON);
-
-				}).catch(function(error) { next(error); });
+					}).catch(function(error) { next(error); });
 
 		}
 		else if ( req.Rol == '2' ) {

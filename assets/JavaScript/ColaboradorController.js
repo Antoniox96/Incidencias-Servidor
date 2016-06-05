@@ -55,7 +55,7 @@ angular.module("AppIncidencias")
 						}						
 					}
 				}
-			}, 10 );
+			}, 50 );
 		}
 
 
@@ -66,7 +66,7 @@ angular.module("AppIncidencias")
 							$scope.TipoSeleccionado = $scope.TiposIncidencia[i];
 						}
 					}
-			}, 10 );
+			}, 50 );
 		}
 
 		$scope.getIncidencia = function () {
@@ -95,7 +95,7 @@ angular.module("AppIncidencias")
 
 			$timeout(function() {
 				$route.reload();
-			}, 10 );
+			}, 50 );
 
 			$uibModalInstance.close();
 		};
@@ -111,7 +111,7 @@ angular.module("AppIncidencias")
 
 			$timeout(function() {
 				$route.reload();
-			}, 10 );
+			}, 50 );
 
 			$uibModalInstance.close();
 		};
@@ -120,7 +120,7 @@ angular.module("AppIncidencias")
 			$uibModalInstance.dismiss('cancel');
 			$timeout(function() {
 				$route.reload();
-			}, 10 );
+			}, 50 );
 		};
 
 	});

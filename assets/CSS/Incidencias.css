@@ -58,13 +58,13 @@ table td:nth-child(1) {
 	color: white !important;
 }
 
-#AddButton, #EditButton, #SinIniciarButton, #EnProcesoButton, #PendienteButton, #CompletadaButton {
+#AddButton, #EditButton, #SinIniciarButton, #EnProcesoButton, #PendienteButton, #CompletadaButton, #DeleteButton {
 	padding: 10px 15px 10px 15px;
 	width: 100%;
 	border-radius: 0px;
 }
 
-#SinIniciarButton {
+#SinIniciarButton, #DeleteButton {
 	background-color: #E62E00;
 }
 
@@ -80,7 +80,7 @@ table td:nth-child(1) {
 	background-color: #00E600;
 }
 
-#SinIniciarButton:hover {
+#SinIniciarButton:hover, #DeleteButton:hover {
 	background-color: #B32400;
 }
 

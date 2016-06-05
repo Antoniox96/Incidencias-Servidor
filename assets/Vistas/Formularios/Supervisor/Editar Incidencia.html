@@ -1,6 +1,6 @@
-<div id="Formulario" ng-init="getDepartamentos(); getIncidencia(); getTiposIncidencia();">
+<div id="Formulario" ng-init="getDepartamentos(); getIncidencia(); getTiposIncidencia(); getPrioridadesIncidencia(); getEstadosIncidencia(); getOperadores();">
 	<div class="modal-header">
-		<h3 class="modal-title text-center">Editar Incidencia</h3>
+		<h3 class="modal-title text-center">Crear Incidencia</h3>
 	</div>
 	<div class="modal-body">
 		<div class="form-group">
@@ -28,13 +28,39 @@
 			<p>Tipo</p>
 			<select id="Tipo" class="form-control" ng-model="TipoSeleccionado" ng-options="TipoIncidencia for TipoIncidencia in TiposIncidencia track by TipoIncidencia"></select>
 		</div>
+		<div class="form-group">
+			<p>Prioridad</p>
+			<select id="Prioridad" class="form-control" ng-model="PrioridadSeleccionada" ng-options="PrioridadIncidencia for PrioridadIncidencia in PrioridadesIncidencia track by PrioridadIncidencia"></select>
+		</div>
+		<div class="form-group">
+			<p>Estado</p>
+			<select id="Estado" class="form-control" ng-model="EstadoSeleccionado" ng-options="EstadoIncidencia for EstadoIncidencia in EstadosIncidencia track by EstadoIncidencia"></select>
+		</div>
+		<div class="form-group">
+			<p>Operador</p>
+			<select id="Operador" class="form-control" ng-model="OperadorSeleccionado" ng-options="Operador.Nombre + ' ' + Operador.Apellidos for Operador in Operadores track by Operador.ID"></select>
+		</div>
+		<div class="form-group">
+			<p>Fecha de Inicio</p>
+			<input id="FechaInicio" type="datetime-local" class="form-control" ng-model="FechaInicio"/>
+		</div>
+		<div class="form-group">
+			<p>Fecha Prevista</p>
+			<input id="FechaPrevista" type="datetime-local" class="form-control" ng-model="FechaPrevista"/>
+		</div>
+		<div class="form-group">
+			<p>Fecha de Finalización</p>
+			<input id="FechaFin" type="datetime-local" class="form-control" ng-model="FechaFin"/>
+		</div>
 	</div>
 	  <div style="clear: both"></div>
 	<div class="modal-footer">
-		<button id="Editar" class="btn btn-primary" type="button" ng-click="EditarIncidencia()">Editar</button>
+		<button id="Crear" class="btn btn-primary" type="button" ng-click="CrearIncidencia()">Crear</button>
 		<button id="Cancelar" class="btn btn-danger" type="button" ng-click="Cancelar()">Cancelar</button>
 	</div>
 </div>
 <script>
 	$('textarea.js-auto-size').textareaAutoSize();
+	$('.modal-body .form-group').css({ 'width': '45%', 'float': 'left' });
+	$('.modal-body .form-group:nth-child(2n+2)').css({ 'float': 'right', 'margin-right': '0px' });
 </script>
