@@ -135,7 +135,7 @@ module.exports = {
 						IncidenciaJSON.Departamento = Departamentos[index];
 						IncidenciaJSON.Ubicacion = Ubicaciones[index];
 					})
-					return res.json(IncidenciasJSON);
+					return res.json(200, { IncidenciasJSON });
 				})
 
 				.catch(function(error) { next(error); });
@@ -206,7 +206,7 @@ module.exports = {
 						IncidenciaJSON.Departamento = Departamentos[index];
 						IncidenciaJSON.Ubicacion = Ubicaciones[index];
 					})
-					return res.json(IncidenciasJSON);
+					return res.json(200, { IncidenciasJSON });
 				})
 
 				.catch(function(error) { next(error); });

@@ -8,6 +8,7 @@ angular.module("AppIncidencias")
 		if ( $scope.Incidencias.length == 0 ) {
 			$http.get("/Incidencia")
 				.success(function (data) {
+					console.log(data);
 					$scope.Incidencias = data.IncidenciasJSON;
 				})
 				.error(function (error) {
