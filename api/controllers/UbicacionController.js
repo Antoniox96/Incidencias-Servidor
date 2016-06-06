@@ -1,10 +1,10 @@
 module.exports = {
 	
-	load: function (req, res, next){
+	load: function(req, res, next){
 
 		Ubicacion.find().populateAll().then(function(Ubicaciones){
 
-			if (Ubicaciones) {
+			if(Ubicaciones){
 
 				req.Ubicaciones;
 				UbicacionesJSON = [];
@@ -12,19 +12,19 @@ module.exports = {
 				Ubicaciones.forEach(function(Ubicacion){
 
 					UbicacionJSON = {
-						"id":Ubicacion.id,
-						"Nombre":Ubicacion.Nombre,
-						"Departamento":Ubicacion.Departamento.id,
-						"Instalaciones":[]
+						"id": 			Ubicacion.id,
+						"Nombre": 		Ubicacion.Nombre,
+						"Departamento": Ubicacion.Departamento.id,
+						"Instalaciones": 	[]
 					};
 
 					Ubicacion.Instalaciones.forEach(function(instalacion){
 
 						UbicacionJSON.Instalaciones.push({ 
-													id:instalacion.id,
-													Nombre:instalacion.Nombre,
-													Ubicacion:instalacion.Ubicacion
-												});
+								id: 		instalacion.id, 
+								Nombre: 	instalacion.Nombre, 
+								Ubicacion: 	instalacion.Ubicacion
+						});
 
 					});
 
@@ -36,20 +36,19 @@ module.exports = {
 				next();
 
 			}
-
 		}).catch(function(error){next(error);});
-	
 	},
 
 	create: function (req, res, next){
 
-		if ( req.Rol == '1' ) {
+		if( req.Rol == '1' ){
 
 			Ubicacion.count().exec(function(err, count){
 				Ubicacion.create({
-								id: count + 1,
-								Nombre: req.body.Nombre,
-								Ubicaciones: []
+								id:  			count +1,
+								Nombre: 		req.body.Nombre,
+								Departamento: 	req.body.Departamento,
+								Instalaciones: 	[]
 							       }
 				).exec(function (err, Ubicacion) {
 
@@ -58,15 +57,12 @@ module.exports = {
 					}
 
 					if (Ubicacion) {
-						res.json(200, { msg: 'Ubicación creada satisfactoriamente.' });
+						res.json(200, { msg: 'Ubicacion creada satisfactoriamente.' });
 					}
 				
 				});
 			});
-
-			
 		}
-
 		else {
 			return res.json(403, {err: 'Permiso denegado.'});
 		}
@@ -81,10 +77,18 @@ module.exports = {
 
 			if ( req.Rol == '1' ) {
 
+				var DepartamentoID = Number(Ubicacion.Departamento.id);
+				
+				if( DepartamentoID != req.body.Departamento ){
+
+					DepartamentoID = req.body.Departamento;
+				}
+
 				Ubicacion.update(
 							{ id: Number(req.params.id) }, 		
 							{
-								Nombre: req.body.Nombre
+								Nombre: req.body.Nombre,
+								Departamento: DepartamentoID
 							}
 				).exec(function (err, updated){
 
@@ -93,13 +97,12 @@ module.exports = {
 					}
 
 					if (updated) {
-						res.json(200, { msg: 'La ubicación ha sido actualizada satisfactoriamente.' });
+						res.json(200, { msg: 'La ubicación ha sido actualizada satisfactoriamente.' });	
 					}
 
 				});
 
 			}
-
 			else {
 				return res.json(403, {err: 'Permiso denegado.'});
 			}
@@ -131,3 +134,4 @@ module.exports = {
 	}
 
 };
+

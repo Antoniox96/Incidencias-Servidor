@@ -515,7 +515,207 @@ module.exports = {
 			});
 
 		}
-	}
+	},
 
+	estadistica: function(req, res, next){
+
+		if( req.Rol == '1' ){
+		
+			req.count;
+			Incidencia.count().then(function(count){
+				req.count = count;
+			}).catch(function(error){ next(error); });
+
+			Incidencia.find().then(function(Incidencias){
+
+				if(Incidencias){
+	
+					var tipo1 = 0; var tipo2 = 0;
+					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
+					var comunSi = 0; var comunNo = 0;
+					var IncidenciaSinAsignar = 0;
+
+					Incidencias.forEach(function(incidencia){
+
+						if(incidencia.Tipo == 'Sistemas'){
+							tipo1++;
+						}
+						else{tipo2++;}
+
+						if(incidencia.Estado == 'Sin Iniciar'){
+							estado1++;
+						}
+						else if(incidencia.Estado == 'En Proceso'){
+							estado2++;	
+						}
+						else if(incidencia.Estado == 'Pendiente'){
+							estado3++;
+						}
+						else if(incidencia.Estado == 'Completada'){
+							estado4++;
+						}
+
+						if(incidencia.Comun == 'Sí'){
+							comunSi++;
+						}
+						else if(incidencia.Comun == 'No'){
+							comunNo++;
+						}
+
+						if( !incidencia.Operador ){
+							IncidenciaSinAsignar++;
+						} 
+					});
+					var informe = {
+
+						Total: 			req.count,
+						SinAsignar: 		IncidenciaSinAsignar,
+						DeSistemas: 		tipo1,
+						DeMantenimiento: 	tipo2,
+						ComunesSi: 		comunSi,
+						ComunesNo: 		comunNo,
+						SinIniciar: 			estado1,
+						EnProceso: 		estado2,
+						Pendiente: 			estado3,
+						Completadas: 		estado4
+
+					}
+
+					res.json(200, { informe });
+				}
+
+			}).catch(function(error){ next(error); });
+
+		}
+		else {
+			return res.json(403, {err: 'Permiso denegado.'});
+		}
+	},
+	
+	estadisticaByUsuario: function(req, res, next) {
+
+		if( req.Rol == '1' ){
+
+			Incidencia.find().where({
+
+					FechaInicio: 	{ '>=': req.body.FechaInicio	},
+					FechaFin: 		{ '<=': req.body.FechaFin	},
+					Operador: 		  req.body.Operador	
+
+				}).then(function(Incidencias){
+
+					var total = 0;
+					var sistemas = 0; var mantenimiento = 0;
+					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
+
+					Incidencias.forEach(function(incidencia){
+
+						if(incidencia.Estado == 'Sin Iniciar'){
+							estado1++;
+						}
+						else if(incidencia.Estado == 'En Proceso'){
+							estado2++;	
+						}
+						else if(incidencia.Estado == 'Pendiente'){
+							estado3++;
+						}
+						else if(incidencia.Estado == 'Completada'){
+							estado4++;
+						}
+
+
+					});
+
+					var estadisticaByOperador = {
+
+						Total: 			Incidencias.length,
+						SinIniciar: 			estado1,
+						EnProceso: 			estado2,
+						Pendiente: 			estado3,
+						Completadas: 		estado4
+
+					}
+
+					res.json(200, { estadisticaByOperador });
+
+			}).catch(function(error){ next(error); });
+
+		}
+		else {
+
+			return res.json(403, {err: 'Permiso denegado.'});
+
+		}
+			
+	},
+
+	estadisticaByInstalacion: function(req, res, next){
+
+		if( req.Rol == '1' ){
+		
+			Incidencia.find().where({
+
+					FechaInicio: 	{ '>=': req.body.FechaInicio	},
+					FechaFin: 		{ '<=': req.body.FechaFin	},
+					Instalacion: 		  req.body.Instalacion	
+
+				}).then(function(Incidencias){
+
+					var total = 0;
+					var sistemas = 0; var mantenimiento = 0;
+					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
+					var IncidenciaSinAsignar = 0;
+
+					Incidencias.forEach(function(incidencia){
+						console.log(incidencia);
+						if(incidencia.Tipo == 'Sistemas'){
+							sistemas++;
+						}
+						else{mantenimiento++;}
+
+						if(incidencia.Estado == 'Sin Iniciar'){
+							estado1++;
+						}
+						else if(incidencia.Estado == 'En Proceso'){
+							estado2++;	
+						}
+						else if(incidencia.Estado == 'Pendiente'){
+							estado3++;
+						}
+						else if(incidencia.Estado == 'Completada'){
+							estado4++;
+						}
+
+						if( !incidencia.Operador ){
+							IncidenciaSinAsignar++;
+						}
+
+					});
+
+					var estadisticaByInstalacion = {
+
+						Total: 			Incidencias.length,
+						SinAsignar: 		IncidenciaSinAsignar,
+						DeSistemas: 		sistemas,
+						DeMantenimiento: 	mantenimiento,
+						SinIniciar: 			estado1,
+						EnProceso: 			estado2,
+						Pendiente: 			estado3,
+						Completadas: 		estado4
+
+					}
+
+					res.json(200, { estadisticaByInstalacion });
+
+			}).catch(function(error){ next(error); });
+
+		}
+		else {
+
+			return res.json(403, {err: 'Permiso denegado.'});
+
+		}
+
+	}	
 
 }

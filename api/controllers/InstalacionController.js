@@ -1,15 +1,15 @@
-
 module.exports = {
 
 	create: function (req, res, next){
 
-		if ( req.Rol == '1' ) {
+		if( req.Rol == '1' ){
 
-			Instalacion.count().exec(function(err, count){
+			Instalacion.count().exec(function(err, count){	
 				Instalacion.create({
-								id: count + 1,
-								Nombre: req.body.Nombre,
-								Incidencias: []
+								id: 			count + 1,
+								Nombre: 		req.body.Nombre,
+								Ubicacion: 		req.body.Ubicacion,
+								Incidencias: 	[]
 							       }
 				).exec(function (err, Instalacion) {
 
@@ -21,13 +21,12 @@ module.exports = {
 						res.json(200, { msg: 'Instalacion creada satisfactoriamente.' });
 					}
 				
-				});
+				});	
 			});
-
-			
+	
 		}
-
 		else {
+
 			return res.json(403, {err: 'Permiso denegado.'});
 		}
 
@@ -39,7 +38,7 @@ module.exports = {
 
 			Instalacion.findOne(req.params.id).then(function(Instalacion) {	
 
-				if ( Instalacion ) {	
+			if ( Instalacion ) {	
 
 					var UbicacionID = Number(Instalacion.Ubicacion.id);
 					
@@ -49,10 +48,10 @@ module.exports = {
 					}
 
 					Instalacion.update(
-								{ id: Number(req.params.id) }, 		
+								{ 	id: Number(req.params.id) }, 		
 								{
-									Nombre: req.body.Nombre,
-									Ubicacion: UbicacionID
+									Nombre: 	req.body.Nombre,
+									Ubicacion: 	UbicacionID
 								}
 					).exec(function (err, updated){
 
@@ -66,21 +65,21 @@ module.exports = {
 
 					});
 
-				}
-
-				}).catch(function(error){ next(error); });	
-
 			}
 
-			else {
-				return res.json(403, {err: 'Permiso denegado.'});
-			}
+			}).catch(function(error){ next(error); });
+
+		}
+
+		else {
+			return res.json(403, {err: 'Permiso denegado..'});
+		}
 
 	},
 
 	delete: function (req, res, next) {
 
-		if ( req.Rol == '1' ) {
+		if( req.Rol == '1' ) {
 
 			Instalacion.destroy({ id:Number(req.params.id) }).exec(function(deleted){
 				if (deleted){
@@ -92,10 +91,9 @@ module.exports = {
 			});
 
 		}
-
 		else {
 			return res.json(403, {err: 'Permiso denegado.'});
 		}
-	}
+	}	
 
 };
