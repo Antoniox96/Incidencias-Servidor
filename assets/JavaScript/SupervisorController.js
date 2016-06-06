@@ -90,8 +90,8 @@ angular.module("AppIncidencias")
 					$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
 					$scope.setOperadorIncidencia(data.IncidenciaJSON.Operador);
 					$scope.FechaInicio = new Date(data.IncidenciaJSON.FechaInicio);
-					$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaInicio);
-					$scope.FechaFin = new Date(data.IncidenciaJSON.FechaInicio);
+					$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaPrevista);
+					$scope.FechaFin = new Date(data.IncidenciaJSON.FechaFin);
 
 				})
 				.error(function(error) {
