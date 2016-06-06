@@ -18,27 +18,34 @@ module.exports = {
 						Incidencias.forEach(function(Incidencia) {
 							
 							var Operador = "Sin Asignar";
+
 							if ( Incidencia.Operador != null ) {
 								Operador = Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos;
 							}
 
+							var Propietario = "Usuario Eliminado";
+
+							if ( Incidencia.Propietario != null ) {
+								Propietario = Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos;
+							}
+
 							IncidenciaJSON = { 
-								"id": Incidencia.id,
-								"Titulo": Incidencia.Titulo, 
-								"Descripcion": Incidencia.Descripcion, 
-								"Departamento": "",
-								"Ubicacion":"", 
-								"Instalacion": Incidencia.Instalacion.Nombre,
-								"Tipo": Incidencia.Tipo, 
-								"Operador": Operador,
-								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
-								"Estado": Incidencia.Estado,
-								"Prioridad":Incidencia.Prioridad,
-								"FechaCreacion": Incidencia.createdAt,
-								"FechaInicio": Incidencia.FechaInicio,
-								"FechaPrevista":Incidencia.FechaPrevista,
-								"FechaFin":Incidencia.FechaFin,
-								"Comun": Incidencia.Comun
+								"id": 			Incidencia.id,
+								"Titulo": 		Incidencia.Titulo, 
+								"Descripcion": 	Incidencia.Descripcion, 
+								"Departamento": 	"",
+								"Ubicacion": 	"", 
+								"Instalacion": 	Incidencia.Instalacion.Nombre,
+								"Tipo": 		Incidencia.Tipo, 
+								"Operador": 	Operador,
+								"Propietario": 	Propietario,
+								"Estado": 		Incidencia.Estado,
+								"Prioridad": 	Incidencia.Prioridad,
+								"FechaCreacion": 	Incidencia.createdAt,
+								"FechaInicio": 	Incidencia.FechaInicio,
+								"FechaPrevista": 	Incidencia.FechaPrevista,
+								"FechaFin": 		Incidencia.FechaFin,
+								"Comun": 		Incidencia.Comun
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
@@ -90,19 +97,25 @@ module.exports = {
 
 						Incidencias.forEach(function(Incidencia) {
 
+							var Propietario = "Usuario Eliminado";
+
+							if ( Incidencia.Propietario != null ) {
+								Propietario = Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos;
+							}
+
 							IncidenciaJSON = {
-								"id": Incidencia.id,
-								"Titulo": Incidencia.Titulo, 
-								"Descripcion": Incidencia.Descripcion, 
-								"Departamento": "", 
-								"Ubicacion":"",
-								"Instalacion": Incidencia.Instalacion.Nombre,
-								"Tipo": Incidencia.Tipo, 
-								"Propietario":Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos,
-								"Estado": Incidencia.Estado,
-								"Prioridad":Incidencia.Prioridad,
-								"FechaPrevista":Incidencia.FechaPrevista,
-								"Comun": Incidencia.Comun
+								"id": 			Incidencia.id,
+								"Titulo": 		Incidencia.Titulo, 
+								"Descripcion": 	Incidencia.Descripcion, 
+								"Departamento": 	"", 
+								"Ubicacion": 	"",
+								"Instalacion": 	Incidencia.Instalacion.Nombre,
+								"Tipo": 		Incidencia.Tipo, 
+								"Propietario": 	Propietario,
+								"Estado": 		Incidencia.Estado,
+								"Prioridad": 	Incidencia.Prioridad,
+								"FechaPrevista": 	Incidencia.FechaPrevista,
+								"Comun": 		Incidencia.Comun
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()

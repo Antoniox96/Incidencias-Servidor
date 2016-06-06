@@ -19,7 +19,8 @@ module.exports = {
 		},
 
 		Rol: {
-			model: 	'Rol'
+			model: 	'Rol',
+			required: true
 		},
 
 		Nombre: {

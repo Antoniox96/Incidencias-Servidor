@@ -23,6 +23,10 @@ module.exports.routes = {
 
 	'GET r|^/Operadores': [
 		'UsuarioController.findOperadores'
+	],
+
+	'POST r|^/ActualizarDatos':[
+		'UsuarioController.updateUsuario'
 	]
 
 };
