@@ -86,11 +86,11 @@ angular.module("AppIncidencias")
 
 		$scope.CrearIncidencia = function () {
 			$http.post('/Incidencia', { 
-											Titulo: $scope.Titulo, 
-											Descripcion: $scope.Descripcion, 
-											Tipo: $scope.TipoSeleccionado, 
-											Instalacion: $scope.InstalacionSeleccionada.id
-									       })
+								Titulo: $scope.Titulo, 
+								Descripcion: $scope.Descripcion, 
+								Tipo: $scope.TipoSeleccionado, 
+								Instalacion: $scope.InstalacionSeleccionada.id
+			       				})
 				.success(function(data) {
 					$route.reload();
 			          })

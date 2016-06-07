@@ -1,110 +1,99 @@
 angular.module("AppIncidencias")
 
-	.controller('SupervisorController', function ($scope, $filter, $route, $routeParams, $http, $timeout, $uibModalInstance, IncidenciaID) {
+	.controller('SupervisorController', function ($scope, $filter, $route, $routeParams, $http, $timeout, $uibModalInstance, IncidenciaID, SupervisorService) {
 
-		$scope.DepartamentoSeleccionado;
-		$scope.UbicacionSeleccionada;
-		$scope.InstalacionSeleccionada;
-		$scope.Departamentos = [];
-		$scope.TiposIncidencia;
-		$scope.TipoSeleccionado;
-		$scope.PrioridadesIncidencia;
-		$scope.PrioridadSeleccionada;
-		$scope.EstadosIncidencia;
-		$scope.EstadoSeleccionado;
-		$scope.Operadores;
-		$scope.OperadorSeleccionado;
-		$scope.FechaInicio;
-		$scope.FechaPrevista;
-		$scope.FechaFin;
-		$scope.DatosCargados = 0;
+		$scope.DatosCargados = false;
 
-		$scope.getDepartamentos = function() {
-			$http.get('/Departamento')
+		$scope.cargarDatos = function() {
+
+			SupervisorService.getDepartamentos()
+
 				.success(function(data) {
+
 					$scope.Departamentos = data.DepartamentosJSON;
 					$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
 					$scope.UbicacionSeleccionada = $scope.Departamentos[0].Ubicaciones[0];
 					$scope.InstalacionSeleccionada = $scope.Departamentos[0].Ubicaciones[0].Instalaciones[0];
-					$scope.DatosCargados++;
+
+					SupervisorService.getOperadores()
+
+						.success(function(data) {
+
+							$scope.Operadores = data.Operadores;
+							$scope.Operadores.unshift({"Nombre": "Sin ", "Apellidos": "Asignar", "ID": 0});
+							$scope.OperadorSeleccionado = $scope.Operadores[0];
+
+							SupervisorService.getEstadosIncidencia()
+
+								.success(function(data) {
+
+									$scope.EstadosIncidencia = data.Estados;
+									$scope.EstadoSeleccionado = $scope.EstadosIncidencia[0];
+
+									SupervisorService.getPrioridadesIncidencia()
+
+										.success(function(data) {
+
+											$scope.PrioridadesIncidencia = data.Prioridades;
+											$scope.PrioridadSeleccionada = $scope.PrioridadesIncidencia[0];
+
+											SupervisorService.getTiposIncidencia()
+
+												.success(function(data) {
+
+													$scope.TiposIncidencia = data.Tipos;
+													$scope.TipoSeleccionado = $scope.TiposIncidencia[0];
+
+													SupervisorService.getIncidencia(IncidenciaID)
+
+														.success(function(data) {
+															$scope.Titulo = data.IncidenciaJSON.Titulo;
+															$scope.Descripcion = data.IncidenciaJSON.Descripcion;
+															$scope.Instalacion = data.IncidenciaJSON.Instalacion;
+															$scope.setDepartamento(data.IncidenciaJSON.Instalacion.ID);
+															$scope.setTipoIncidencia(data.IncidenciaJSON.Tipo);
+															$scope.setPrioridadIncidencia(data.IncidenciaJSON.Prioridad);
+															$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
+															$scope.setOperadorIncidencia(data.IncidenciaJSON.Operador);
+															$scope.FechaInicio = new Date(data.IncidenciaJSON.FechaInicio);
+															$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaPrevista);
+															$scope.FechaFin = new Date(data.IncidenciaJSON.FechaFin);
+
+															$scope.DatosCargados = true;
+
+														})
+														.error(function(error) {
+															console.log(error);
+														});
+
+												})
+												.error(function(error) {
+													console.log(error);
+												})
+
+										})
+										.error(function(error) {
+											console.log(error);
+										})
+
+								})
+
+								.error(function(error) {
+									console.log(error);
+								})
+
+						})
+
+						.error(function(error) {
+							console.log(error);
+						})
+
 				})
+
 				.error(function(error) {
 					console.log(error);
 				})
-		};
 
-		$scope.getTiposIncidencia = function() {
-			$http.get('/TiposIncidencia')
-				.success(function(data) {
-					$scope.TiposIncidencia = data.Tipos;
-					$scope.TipoSeleccionado = $scope.TiposIncidencia[0];
-					$scope.DatosCargados++;
-				})
-				.error(function(error) {
-					console.log(error);
-				})
-		};
-
-
-		$scope.getPrioridadesIncidencia = function() {
-			$http.get('/PrioridadesIncidencia')
-				.success(function(data) {
-					$scope.PrioridadesIncidencia = data.Prioridades;
-					$scope.PrioridadSeleccionada = $scope.PrioridadesIncidencia[0];
-					$scope.DatosCargados++;
-				})
-				.error(function(error) {
-					console.log(error);
-				})
-		};
-
-		$scope.getEstadosIncidencia = function() {
-			$http.get('/EstadosIncidencia')
-				.success(function(data) {
-					$scope.EstadosIncidencia = data.Estados;
-					$scope.EstadoSeleccionado = $scope.EstadosIncidencia[0];
-					$scope.DatosCargados++;
-				})
-				.error(function(error) {
-					console.log(error);
-				})
-		};
-
-		$scope.getOperadores = function() {
-			$http.get('/Operadores')
-				.success(function(data) {
-					$scope.Operadores = data.Operadores;
-					$scope.Operadores.unshift({"Nombre": "Sin ", "Apellidos": "Asignar", "ID": 0});
-					$scope.OperadorSeleccionado = $scope.Operadores[0];
-					$scope.DatosCargados++;
-				})
-				.error(function(error) {
-					console.log(error);
-				})
-		};
-
-		$scope.getIncidencia = function () {
-			$http.get('/Incidencia/' + IncidenciaID)
-				.success(function(data) {
-					$scope.Titulo = data.IncidenciaJSON.Titulo;
-					$scope.Descripcion = data.IncidenciaJSON.Descripcion;
-					$scope.Instalacion = data.IncidenciaJSON.Instalacion;
-					$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
-					if ( $scope.DatosCargados == 5 ) {
-						$scope.setDepartamento(data.IncidenciaJSON.Instalacion.ID);
-						$scope.setTipoIncidencia(data.IncidenciaJSON.Tipo);
-						$scope.setPrioridadIncidencia(data.IncidenciaJSON.Prioridad);
-						$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
-						$scope.setOperadorIncidencia(data.IncidenciaJSON.Operador);
-					}
-					$scope.FechaInicio = new Date(data.IncidenciaJSON.FechaInicio);
-					$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaPrevista);
-					$scope.FechaFin = new Date(data.IncidenciaJSON.FechaFin);
-
-				})
-				.error(function(error) {
-					console.log(error);
-				});
 		};
 
 		$scope.setUbicacion = function() {
@@ -156,7 +145,6 @@ angular.module("AppIncidencias")
 		}
 
 		$scope.setOperadorIncidencia = function(Operador) {
-			console.log($scope.Operadores);
 			for ( var i = 0 ; i < $scope.Operadores.length ; i++ ) {
 				if ( $scope.Operadores[i].ID == Operador.ID ) {
 					$scope.OperadorSeleccionado = $scope.Operadores[i];
@@ -165,51 +153,33 @@ angular.module("AppIncidencias")
 		}
 
 		$scope.CrearIncidencia = function () {
-			$http.post('/Incidencia', { 
-								Titulo: $scope.Titulo, 
-						    		Descripcion: $scope.Descripcion, 
-					    			Departamento: $scope.DepartamentoSeleccionado, 
-					    			Ubicacion: $scope.UbicacionSeleccionada, 
-					    			Instalacion: $scope.InstalacionSeleccionada, 
-					    			Tipo: $scope.TipoSeleccionado, 
-					    			Prioridad: $scope.PrioridadSeleccionada, 
-					    			Estado: $scope.EstadoSeleccionado, 
-					    			Operador: $scope.OperadorSeleccionado.ID, 
-					    			FechaInicio: $scope.FechaInicio, 
-					    			FechaPrevista: $scope.FechaPrevista, 
-					    			FechaFin: $scope.FechaFin
-					    		})
+
+			SupervisorService.CrearIncidencia($scope)
+
 				.success(function(data) {
+					$uibModalInstance.close();
 					$route.reload();
 			          })
 			          .error(function(error) {
+       					$uibModalInstance.close();
 			          	$route.reload();
 			          });
 
-			$uibModalInstance.close();
 		};
 
 		$scope.EditarIncidencia = function () {
-			$http.post('/Incidencia/' + IncidenciaID, { 
-								Titulo: $scope.Titulo, 
-						    		Descripcion: $scope.Descripcion, 
-					    			Instalacion: $scope.InstalacionSeleccionada.id, 
-					    			Tipo: $scope.TipoSeleccionado, 
-					    			Prioridad: $scope.PrioridadSeleccionada, 
-					    			Estado: $scope.EstadoSeleccionado, 
-					    			Operador: $scope.OperadorSeleccionado.ID, 
-					    			FechaInicio: $scope.FechaInicio, 
-					    			FechaPrevista: $scope.FechaPrevista, 
-					    			FechaFin: $scope.FechaFin
-					    		})
+
+			SupervisorService.EditarIncidencia($scope, IncidenciaID)
+			
 				.success(function(data) {
+					$uibModalInstance.close();
 					$route.reload();
 			          })
 			          .error(function(error) {
+       					$uibModalInstance.close();
 			          	$route.reload();
 			          });
 
-			$uibModalInstance.close();
 		};
 
 		$scope.Cancelar = function () {
