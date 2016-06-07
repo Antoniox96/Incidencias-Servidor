@@ -109,7 +109,7 @@
 				</thead>
 				<tbody ng-hide="Incidencias.length < 0">
 					<tr 	ng-click="setIncidenciaSeleccionada(Incidencia.id);" 
-						ng-class="{Seleccionado: IncidenciaSeleccionada === Incidencia.id && Incidencia.Comun == 'No'}" 
+						ng-class="{Seleccionado: IncidenciaSeleccionada === Incidencia.id }" 
 						ng-repeat="Incidencia in Incidencias">
 						<td><i ng-if="Incidencia.Comun == 'Sí'" class="glyphicon glyphicon-eye-open"/></td>
 						<td>{{ $index+1 }}</td>
@@ -180,7 +180,7 @@
 				</thead>
 				<tbody ng-hide="Incidencias.length < 0">
 					<tr 	ng-click="setIncidenciaSeleccionada(Incidencia.id);" 
-						ng-class="{Seleccionado: IncidenciaSeleccionada === Incidencia.id && Incidencia.Comun == 'No'}" 
+						ng-class="{Seleccionado: IncidenciaSeleccionada === Incidencia.id}" 
 						ng-repeat="Incidencia in Incidencias">
 						<td><i ng-if="Incidencia.Comun == 'Sí'" class="glyphicon glyphicon-eye-open"/></td>
 						<td>{{ $index+1 }}</td>

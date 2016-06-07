@@ -102,6 +102,12 @@ module.exports = {
 								Propietario = Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos;
 							}
 
+							var ComunEditable = 'No';
+
+							if ( Incidencia.Operador.id == req.Usuario.id && Incidencia.Comun == "Sí" ) {
+								ComunEditable = 'Sí';
+							}
+
 							IncidenciaJSON = {
 								"id": 			Incidencia.id,
 								"Titulo": 		Incidencia.Titulo, 
@@ -114,7 +120,12 @@ module.exports = {
 								"Estado": 		Incidencia.Estado,
 								"Prioridad": 	Incidencia.Prioridad,
 								"FechaPrevista": 	Incidencia.FechaPrevista,
-								"Comun": 		Incidencia.Comun
+								"Comun": 		Incidencia.Comun,
+								"ComunEditable": ComunEditable
+							}
+
+							if ( Incidencia.Comun == 'No' ) {
+								delete IncidenciaJSON.ComunEditable;
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
@@ -174,6 +185,12 @@ module.exports = {
 								Operador = Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos;
 							}
 
+							var ComunEditable = 'No';
+
+							if ( Incidencia.Propietario.id == req.Usuario.id && Incidencia.Comun == "Sí" ) {
+								ComunEditable = 'Sí';
+							}
+
 							IncidenciaJSON = {
 								"id": Incidencia.id,
 								"Titulo": Incidencia.Titulo, 
@@ -185,7 +202,12 @@ module.exports = {
 								"Operador": Operador,
 								"Estado": Incidencia.Estado,
 								"FechaCreacion": Incidencia.createdAt,
-								"Comun": Incidencia.Comun
+								"Comun": Incidencia.Comun,
+								"ComunEditable": ComunEditable
+							}
+
+							if ( Incidencia.Comun == 'No' ) {
+								delete IncidenciaJSON.ComunEditable;
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
@@ -431,7 +453,7 @@ module.exports = {
 								Estado: 	req.body.Estado,
 								Rol: 		req.Rol
 							}
-				).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated) {
+				).exec(function (err, updated) {
 
 					if (err) {
 						res.json(404, { msg: 'Error al actualizar la incidencia.' });

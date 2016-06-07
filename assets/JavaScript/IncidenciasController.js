@@ -34,7 +34,7 @@ angular.module("AppIncidencias")
 			else {
 				for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
 					if ( $scope.Incidencias[i].id == Incidencia ) {
-						if ( $scope.Incidencias[i].Comun == 'No' ) {
+						if ( $scope.Incidencias[i].Comun == 'No' || $scope.Incidencias[i].ComunEditable == 'Sí' ) {
 							if ( Incidencia != $scope.IncidenciaSeleccionada) {
 								$scope.IncidenciaSeleccionada = Incidencia;
 							}
