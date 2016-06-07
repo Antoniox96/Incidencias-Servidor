@@ -44,27 +44,29 @@ angular.module("AppIncidencias")
 													$scope.TiposIncidencia = data.Tipos;
 													$scope.TipoSeleccionado = $scope.TiposIncidencia[0];
 
-													SupervisorService.getIncidencia(IncidenciaID)
+													if ( IncidenciaID != null ) {
+														SupervisorService.getIncidencia(IncidenciaID)
 
-														.success(function(data) {
-															$scope.Titulo = data.IncidenciaJSON.Titulo;
-															$scope.Descripcion = data.IncidenciaJSON.Descripcion;
-															$scope.Instalacion = data.IncidenciaJSON.Instalacion;
-															$scope.setDepartamento(data.IncidenciaJSON.Instalacion.ID);
-															$scope.setTipoIncidencia(data.IncidenciaJSON.Tipo);
-															$scope.setPrioridadIncidencia(data.IncidenciaJSON.Prioridad);
-															$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
-															$scope.setOperadorIncidencia(data.IncidenciaJSON.Operador);
-															$scope.FechaInicio = new Date(data.IncidenciaJSON.FechaInicio);
-															$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaPrevista);
-															$scope.FechaFin = new Date(data.IncidenciaJSON.FechaFin);
+															.success(function(data) {
+																$scope.Titulo = data.IncidenciaJSON.Titulo;
+																$scope.Descripcion = data.IncidenciaJSON.Descripcion;
+																$scope.Instalacion = data.IncidenciaJSON.Instalacion;
+																$scope.setDepartamento(data.IncidenciaJSON.Instalacion.ID);
+																$scope.setTipoIncidencia(data.IncidenciaJSON.Tipo);
+																$scope.setPrioridadIncidencia(data.IncidenciaJSON.Prioridad);
+																$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
+																$scope.setOperadorIncidencia(data.IncidenciaJSON.Operador);
+																$scope.FechaInicio = new Date(data.IncidenciaJSON.FechaInicio);
+																$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaPrevista);
+																$scope.FechaFin = new Date(data.IncidenciaJSON.FechaFin);
 
-															$scope.DatosCargados = true;
+																$scope.DatosCargados = true;
 
-														})
-														.error(function(error) {
-															console.log(error);
-														});
+															})
+															.error(function(error) {
+																console.log(error);
+															});
+													}
 
 												})
 												.error(function(error) {
