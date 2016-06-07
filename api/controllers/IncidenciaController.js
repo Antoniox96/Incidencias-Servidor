@@ -397,6 +397,7 @@ module.exports = {
 				Incidencia.update(
 							{ id: Number(req.params.id) }, 		
 							{
+								id: 			req.params.id,
 								Titulo: 		req.body.Titulo,
 								Descripcion: 	req.body.Descripcion,
 								Tipo: 			req.body.Tipo,
@@ -407,6 +408,7 @@ module.exports = {
 								FechaFin: 		req.body.FechaFin,
 								Instalacion: 	req.body.Instalacion,
 								Operador: 		req.body.Operador,
+								Rol: 			req.Rol
 							}
 				).exec(function (err, updated){
 
@@ -427,8 +429,8 @@ module.exports = {
 				Incidencia.update(
 	 						{ id: Number(req.params.id), Operador: Number(req.Usuario.id) }, 		
 							{ 	
-								FechaFin:"",
-								Estado:req.body.Estado 
+								Estado: 	req.body.Estado,
+								Rol: 		req.Rol
 							}
 				).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated) {
 
@@ -448,10 +450,11 @@ module.exports = {
 				Incidencia.update(
 	 							{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
 	 							{
-									Titulo: req.body.Titulo,
-									Descripcion: req.body.Descripcion,
-									Tipo: req.body.Tipo,
-									Instalacion: req.body.Instalacion,
+									Titulo: 		req.body.Titulo,
+									Descripcion: 	req.body.Descripcion,
+									Tipo: 			req.body.Tipo,
+									Instalacion: 	req.body.Instalacion,
+									Rol: 			req.Rol
 								}
 				).exec(function (err, updated) {
 
@@ -474,6 +477,42 @@ module.exports = {
 		}).catch(function(error) { next(error); });
 
 		
+	},
+
+	updateComun: function(req, res, next) {
+
+		Incidencia.findOne(req.params.IncidenciaId).populateAll().then(function(incidencia) {	
+
+			if ( incidencia ) {	
+
+				if ( req.Rol == '1' ) {
+					Incidencia.update(
+								{ id: Number(req.params.IncidenciaId) }, 		
+								{
+									Comun: req.body.Comun
+								}
+					).exec(function (err, updated){
+
+						if (err) {
+							res.json(404, { msg: 'Ha ocurrido un error al actualizar la incidencia.' });
+						}
+
+						if (updated) {
+							res.json(200, { msg: 'La Incidencia ha sido actualizada satisfactoriamente.' });
+						}
+
+					});
+
+				}
+
+				else {
+						return res.json(403, {err: 'Permiso denegado.'});
+				}
+
+			}
+
+			}).catch(function(error) { next(error); });
+
 	},
 
 	tiposIncidencia: function (req, res) {

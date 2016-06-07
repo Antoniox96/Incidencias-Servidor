@@ -69,7 +69,7 @@ angular.module("AppIncidencias")
 			$http.get('/Operadores')
 				.success(function(data) {
 					$scope.Operadores = data.Operadores;
-					$scope.Operadores.unshift({"Nombre": "Sin ", "Apellidos": "Asignar"});
+					$scope.Operadores.unshift({"Nombre": "Sin ", "Apellidos": "Asignar", "ID": 0});
 					$scope.OperadorSeleccionado = $scope.Operadores[0];
 				})
 				.error(function(error) {
@@ -121,7 +121,7 @@ angular.module("AppIncidencias")
 						}						
 					}
 				}
-			}, 50 );
+			}, 100 );
 		}
 
 
@@ -132,7 +132,7 @@ angular.module("AppIncidencias")
 							$scope.TipoSeleccionado = $scope.TiposIncidencia[i];
 						}
 					}
-			}, 50 );
+			}, 100 );
 		}
 
 		$scope.setPrioridadIncidencia = function(Prioridad) {
@@ -142,7 +142,7 @@ angular.module("AppIncidencias")
 							$scope.PrioridadSeleccionada = $scope.PrioridadesIncidencia[i];
 						}
 					}
-			}, 50 );
+			}, 100 );
 		}
 
 		$scope.setEstadoIncidencia = function(Estado) {
@@ -152,7 +152,7 @@ angular.module("AppIncidencias")
 							$scope.EstadoSeleccionado = $scope.EstadosIncidencia[i];
 						}
 					}
-			}, 50 );
+			}, 100 );
 		}
 
 		$scope.setOperadorIncidencia = function(Operador) {
@@ -162,7 +162,7 @@ angular.module("AppIncidencias")
 							$scope.OperadorSeleccionado = $scope.Operadores[i];
 						}
 					}
-			}, 50 );
+			}, 100 );
 		}
 
 		$scope.CrearIncidencia = function () {
@@ -189,14 +189,12 @@ angular.module("AppIncidencias")
 
 			$timeout(function() {
 				$route.reload();
-			}, 50 );
+			}, 100 );
 
 			$uibModalInstance.close();
 		};
 
 		$scope.EditarIncidencia = function () {
-						console.log($scope.InstalacionSeleccionada);
-
 			$http.post('/Incidencia/' + IncidenciaID, { 
 								Titulo: $scope.Titulo, 
 						    		Descripcion: $scope.Descripcion, 
@@ -218,7 +216,7 @@ angular.module("AppIncidencias")
 
 			$timeout(function() {
 				$route.reload();
-			}, 50 );
+			}, 100 );
 
 			$uibModalInstance.close();
 		};
@@ -227,7 +225,7 @@ angular.module("AppIncidencias")
 			$uibModalInstance.dismiss('cancel');
 			$timeout(function() {
 				$route.reload();
-			}, 50 );
+			}, 100 );
 		};
 
 	});

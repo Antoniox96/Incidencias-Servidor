@@ -58,17 +58,24 @@
 	  	</div>
 	  	<div class="panel-body text-center">
 			<button id="AddButton" type="button" class="btn" ng-click="CrearIncidencia()">
-				<i class="glyphicon glyphicon-plus"/>
+				<i class="fa fa-plus"/>
 			</button>
 		</div>
 		<div class="panel-body text-center">
 			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)">
-				<i class="glyphicon glyphicon-pencil"/>
+				<i class="fa fa-pencil"/>
+			</button>
+		</div>
+		<div class="panel-body text-center">
+			<button id="ComunButton" type="button" class="btn" ng-click="setUnsetComun()">
+				<i ng-if="IncidenciaSeleccionada == null" class="fa fa-gears"/>
+				<i ng-if="Comun == 'Sí'" class="fa fa-lock"/>
+				<i ng-if="Comun == 'No'" class="fa fa-unlock-alt"/>
 			</button>
 		</div>
 		<div class="panel-body text-center">
 			<button id="DeleteButton" type="button" class="btn" ng-click="BorrarIncidencia()">
-				<i class="glyphicon glyphicon-trash"/>
+				<i class="fa fa-trash"/>
 			</button>
 		</div>
 	</div>
@@ -206,7 +213,7 @@
 		</div>
 		<div class="panel-body text-center">
 			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)">
-				<i class="glyphicon glyphicon-pencil"/>
+				<i class="fa fa-pencil"/>
 			</button>
 		</div>
 	</div>

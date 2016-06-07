@@ -3,7 +3,7 @@ angular.module("AppIncidencias")
 	.controller("IncidenciasController", function ($scope, $window, $http, $route, $timeout, $rootScope, $log, $uibModal) {
 
 		$scope.Incidencias = [];
-		$scope.IncidenciaSeleccionada;
+		$scope.IncidenciaSeleccionada = null;
 
 		if ( $scope.Incidencias.length == 0 ) {
 			$http.get("/Incidencia")
@@ -22,9 +22,11 @@ angular.module("AppIncidencias")
 					if ( $scope.Incidencias[i].id == Incidencia ) {
 						if ( Incidencia != $scope.IncidenciaSeleccionada) {
 							$scope.IncidenciaSeleccionada = Incidencia;
+							$scope.Comun = $scope.Incidencias[i].Comun;
 						}
 						else {
 							$scope.IncidenciaSeleccionada = null;
+							$scope.Comun = null;
 						}
 					}
 				}
@@ -151,6 +153,29 @@ angular.module("AppIncidencias")
 					$window.alert('No se ha seleccionado ninguna incidencia.');
 			}
 		};
+
+		$scope.setUnsetComun = function() {
+			if ( $rootScope.Rol == '1' ) {
+				if ( $scope.Comun == 'Sí' ) {
+					$scope.Comun = 'No';
+				}
+				else {
+					$scope.Comun = 'Sí';
+				}
+
+				$http.post('/Incidencia/' + $scope.IncidenciaSeleccionada + '/setUnsetComun', {Comun: $scope.Comun})
+					.success(function(data) {
+						$route.reload();
+					})
+					.error(function(error) {
+						console.log(error);
+					});	
+
+				$timeout(function() {
+					$route.reload();
+				}, 50 );
+			}
+		}
 
 		$scope.BorrarIncidencia = function () {
 			if ( $rootScope.Rol == '1' ) {

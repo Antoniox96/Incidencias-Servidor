@@ -39,6 +39,10 @@ module.exports.routes = {
 
 	'POST r|^/EstadisticaInstalacion':[
 		'IncidenciaController.estadisticaByInstalacion'
+	],
+
+	'POST r|^/Incidencia/(\\d+)/setUnsetComun$|IncidenciaId':[
+		'IncidenciaController.updateComun'
 	]
 
 };

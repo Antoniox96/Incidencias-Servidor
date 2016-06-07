@@ -75,6 +75,8 @@ module.exports = {
 	beforeCreate: function (values, cb){
 		if ( values.Operador && values.FechaInicio == null || values.FechaInicio == null ) {
 			values.FechaInicio = new Date();
+			values.FechaPrevista = new Date();
+			values.FechaFin = new Date();
 			cb();
 		}
 
@@ -85,36 +87,41 @@ module.exports = {
 	},
 
 	beforeUpdate: function (values, cb) {
+		/*if ( values.Rol == '1' ) {
 
-		if ( values.Rol == '1' ) {
+			Incidencia.findOne(Number(values.id)).populateAll().then(function(Incidencia) {
 
-			if ( values.Operador != 'Sin Asignar' ) {
-				values.FechaInicio = new Date();
+				if (Incidencia){
+					if ( !Incidencia.FechaInicio || values.Operador != 0 && Incidencia.Operador != undefined && ( Incidencia.Operador.id != values.Operador) ) {
+						values.FechaInicio = new Date();
+					}
+					else {
+						values.FechaInicio = Incidencia.FechaInicio;
+					}
+
+				}
+
+				delete values.id;
+				delete values.Rol;
 				cb();
-			}
+			});
 
-			else{ 
-				cb(); 
-			}
-			
 		}
 
-		else if ( values.Rol == '2' ) {
+		else */if ( values.Rol == '2' ) {
 
 			if ( values.Estado == 'Completada' ) {
 			    	values.FechaFin = new Date();
-			    	cb();
 		    	}
 
-		    	else{ 
-		    		cb(); 
-		    	}
+		    	delete values.Rol;
+		    	cb();
 		}
 
-		else{
-	    		cb();
-	    	}
-	    
+		else {
+			cb();
+		}
+
 	}
 
 };
