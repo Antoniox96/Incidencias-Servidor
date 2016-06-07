@@ -1,18 +1,19 @@
 angular.module("AppIncidencias")
 
-	.controller('OperadorController', function ($scope, $route, $routeParams, $http, $timeout, $uibModalInstance, IncidenciaID) {
+	.controller('OperadorController', function ($scope, $route, $routeParams, $http, $timeout, $uibModalInstance, IncidenciaID, OperadorService) {
 
-		$scope.EstadosIncidencia;
-		$scope.EstadoSeleccionado;
+		$scope.cargarDatos = function() {
 
-		$scope.getEstadosIncidencia = function() {
-			$http.get('/EstadosIncidencia')
+			OperadorService.getEstadosIncidencia()
+
 				.success(function(data) {
 					$scope.EstadosIncidencia = data.Estados;
 				})
+
 				.error(function(error) {
 					console.log(error);
 				})
+
 		};
 
 		$scope.setEstadoIncidencia = function(Estado) {
@@ -23,33 +24,24 @@ angular.module("AppIncidencias")
 			}
 		}
 
-		$scope.getIncidencia = function () {
-			$http.get('/Incidencia/' + IncidenciaID)
-				.success(function(data) {
-					$scope.Titulo = data.Titulo;
-					$scope.Descripcion = data.Descripcion;
-					$scope.Instalacion = data.Instalacion;
-					$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
-					$scope.setDepartamento(data.Instalacion.id);
-					$scope.setTipoIncidencia(data.Tipo);
-				})
-				.error(function(error) {
-					console.log(error);
-				});
-		};
-
 		$scope.EditarIncidencia = function (Estado) {
+
 			$scope.setEstadoIncidencia(Estado);
 			
 			if ( $scope.EstadoSeleccionado != null ) {
-				$http.post('/Incidencia/' + IncidenciaID, { Estado: $scope.EstadoSeleccionado })
-					.success(function(data) {
+
+				OperadorService.EditarIncidencia($scope, IncidenciaID)
+
+					.success(function(data) {	
 						$route.reload();
 				          })
+
 				          .error(function(error) {
 				          	$route.reload();
 				          });
+
 			}
+
 		};
 
 		$scope.Cancelar = function () {
