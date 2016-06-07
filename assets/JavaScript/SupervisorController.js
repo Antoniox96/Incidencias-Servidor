@@ -1,8 +1,6 @@
 angular.module("AppIncidencias")
 
-	.controller('SupervisorController', function ($scope, $filter, $route, $routeParams, $http, $timeout, $uibModalInstance, IncidenciaID, SupervisorService) {
-
-		$scope.DatosCargados = false;
+	.controller('SupervisorController', function ($scope, $http, $route, $uibModalInstance, SupervisorService, IncidenciaID) {
 
 		$scope.cargarDatos = function() {
 
@@ -67,6 +65,9 @@ angular.module("AppIncidencias")
 																console.log(error);
 															});
 													}
+													else {
+														$scope.DatosCargados = true;
+													}	
 
 												})
 												.error(function(error) {

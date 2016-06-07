@@ -1,22 +1,10 @@
 angular.module("AppIncidencias")
 
-	.factory('SupervisorService', function($http) {
+	.factory('ColaboradorService', function($http) {
 		return {
 
 			getDepartamentos: function() {
 				return $http.get('/Departamento');
-			},
-
-			getOperadores: function() {
-				return $http.get('/Operadores');
-			},
-
-			getEstadosIncidencia: function() {
-				return $http.get('/EstadosIncidencia');
-			},
-
-			getPrioridadesIncidencia: function() {
-				return $http.get('/PrioridadesIncidencia');
 			},
 
 			getTiposIncidencia: function() {
@@ -30,33 +18,19 @@ angular.module("AppIncidencias")
 			CrearIncidencia: function($scope) {
 				return $http.post('/Incidencia', { 
 								Titulo: $scope.Titulo, 
-						    		Descripcion: $scope.Descripcion, 
-					    			Departamento: $scope.DepartamentoSeleccionado, 
-					    			Ubicacion: $scope.UbicacionSeleccionada, 
-					    			Instalacion: $scope.InstalacionSeleccionada, 
-					    			Tipo: $scope.TipoSeleccionado, 
-					    			Prioridad: $scope.PrioridadSeleccionada, 
-					    			Estado: $scope.EstadoSeleccionado, 
-					    			Operador: $scope.OperadorSeleccionado.ID, 
-					    			FechaInicio: $scope.FechaInicio, 
-					    			FechaPrevista: $scope.FechaPrevista, 
-					    			FechaFin: $scope.FechaFin
-    							});
+								Descripcion: $scope.Descripcion, 
+								Tipo: $scope.TipoSeleccionado, 
+								Instalacion: $scope.InstalacionSeleccionada.id
+			       				})
 			},
 
 			EditarIncidencia: function($scope, IncidenciaID) {
 				return $http.post('/Incidencia/' + IncidenciaID, { 
 								Titulo: $scope.Titulo, 
-						    		Descripcion: $scope.Descripcion, 
-					    			Instalacion: $scope.InstalacionSeleccionada.id, 
-					    			Tipo: $scope.TipoSeleccionado, 
-					    			Prioridad: $scope.PrioridadSeleccionada, 
-					    			Estado: $scope.EstadoSeleccionado, 
-					    			Operador: $scope.OperadorSeleccionado.ID, 
-					    			FechaInicio: $scope.FechaInicio, 
-					    			FechaPrevista: $scope.FechaPrevista, 
-					    			FechaFin: $scope.FechaFin
-					    		});
+								Descripcion: $scope.Descripcion, 
+								Tipo: $scope.TipoSeleccionado, 
+								Instalacion: $scope.InstalacionSeleccionada.id
+			       				})
 			}
 
 		}
