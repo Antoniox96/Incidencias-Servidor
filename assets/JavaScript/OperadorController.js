@@ -44,24 +44,16 @@ angular.module("AppIncidencias")
 			if ( $scope.EstadoSeleccionado != null ) {
 				$http.post('/Incidencia/' + IncidenciaID, { Estado: $scope.EstadoSeleccionado })
 					.success(function(data) {
-						console.log(data);
 						$route.reload();
-					})
-					.error(function(error) {
-						console.log(error);
-					});	
-
-				$timeout(function() {
-					$route.reload();
-				}, 10 );
+				          })
+				          .error(function(error) {
+				          	$route.reload();
+				          });
 			}
 		};
 
 		$scope.Cancelar = function () {
 			$uibModalInstance.dismiss('cancel');
-			$timeout(function() {
-				$route.reload();
-			}, 10 );
 		};
 
 	});

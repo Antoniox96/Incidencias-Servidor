@@ -61,7 +61,6 @@ module.exports = {
 						return [IncidenciasJSON, FindUbicacion, Ubicaciones, Departamentos];
 					}
 					else { 
-						return null;
 						res.json(404, {err: 'No se han encontrado Incidencias.'});
 					}
 
@@ -279,7 +278,7 @@ module.exports = {
 			).exec(function (err, Incidencia) {
 
 				if (err) {
-					return res.json(err.status, {err: err});
+					return res.json(404, {err: err});
 				}
 
 				if (Incidencia) {
@@ -393,8 +392,8 @@ module.exports = {
 		if ( incidencia ) {	
 
 			if ( req.Rol == '1' ) {
-
 				Incidencia.update(
+
 							{ id: Number(req.params.id) }, 		
 							{
 								id: 			req.params.id,
@@ -413,7 +412,7 @@ module.exports = {
 				).exec(function (err, updated){
 
 					if (err) {
-						return err;
+						res.json(404, { msg: 'Error al actualizar la incidencia.' });
 					}
 
 					if (updated) {
@@ -435,7 +434,7 @@ module.exports = {
 				).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated) {
 
 					if (err) {
-					 	return err;
+						res.json(404, { msg: 'Error al actualizar la incidencia.' });
 					}
 
 					if (updated) {
@@ -459,7 +458,7 @@ module.exports = {
 				).exec(function (err, updated) {
 
 					if (err) {
-					 	return err;
+						res.json(404, { msg: 'Error al actualizar la incidencia.' });
 					}
 
 					if (updated) {

@@ -85,42 +85,41 @@ angular.module("AppIncidencias")
 		};
 
 		$scope.CrearIncidencia = function () {
-			$http.post('/Incidencia', { Titulo: $scope.Titulo, Descripcion: $scope.Descripcion, Tipo: $scope.TipoSeleccionado, Instalacion: $scope.InstalacionSeleccionada })
+			$http.post('/Incidencia', { 
+											Titulo: $scope.Titulo, 
+											Descripcion: $scope.Descripcion, 
+											Tipo: $scope.TipoSeleccionado, 
+											Instalacion: $scope.InstalacionSeleccionada.id
+									       })
 				.success(function(data) {
 					$route.reload();
-				})
-				.error(function(error) {
-					console.log(error);
-				});
-
-			$timeout(function() {
-				$route.reload();
-			}, 50 );
+			          })
+			          .error(function(error) {
+			          	$route.reload();
+			          });
 
 			$uibModalInstance.close();
 		};
 
 		$scope.EditarIncidencia = function () {
-			$http.post('/Incidencia/' + IncidenciaID, { Titulo: $scope.Titulo, Descripcion: $scope.Descripcion, Tipo: $scope.TipoSeleccionado, Instalacion: $scope.InstalacionSeleccionada })
+			$http.post('/Incidencia/' + IncidenciaID, { 
+											Titulo: $scope.Titulo, 
+											Descripcion: $scope.Descripcion, 
+											Tipo: $scope.TipoSeleccionado, 
+											Instalacion: $scope.InstalacionSeleccionada.id
+									       })
 				.success(function(data) {
 					$route.reload();
-				})
-				.error(function(error) {
-					console.log(error);
-				});	
-
-			$timeout(function() {
-				$route.reload();
-			}, 50 );
+			          })
+			          .error(function(error) {
+			          	$route.reload();
+			          });
 
 			$uibModalInstance.close();
 		};
 
 		$scope.Cancelar = function () {
 			$uibModalInstance.dismiss('cancel');
-			$timeout(function() {
-				$route.reload();
-			}, 50 );
 		};
 
 	});
