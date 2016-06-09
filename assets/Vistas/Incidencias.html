@@ -57,24 +57,24 @@
 			</div>
 	  	</div>
 	  	<div class="panel-body text-center">
-			<button id="AddButton" type="button" class="btn" ng-click="CrearIncidencia()">
+			<button id="AddButton" type="button" class="btn" ng-click="CrearIncidencia()" title="Crear Incidencia">
 				<i class="fa fa-plus"/>
 			</button>
 		</div>
 		<div class="panel-body text-center">
-			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)">
+			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)" title="Editar Incidencia">
 				<i class="fa fa-pencil"/>
 			</button>
 		</div>
 		<div class="panel-body text-center">
-			<button id="ComunButton" type="button" class="btn" ng-click="setUnsetComun()">
+			<button id="ComunButton" type="button" class="btn" ng-click="setUnsetComun()" title="Común/No Común">
 				<i ng-if="IncidenciaSeleccionada == null" class="fa fa-gears"/>
 				<i ng-if="Comun == 'Sí'" class="fa fa-lock"/>
 				<i ng-if="Comun == 'No'" class="fa fa-unlock-alt"/>
 			</button>
 		</div>
 		<div class="panel-body text-center">
-			<button id="DeleteButton" type="button" class="btn" ng-click="BorrarIncidencia()">
+			<button id="DeleteButton" type="button" class="btn" ng-click="BorrarIncidencia()" title="Borrar Incidencia">
 				<i class="fa fa-trash"/>
 			</button>
 		</div>
@@ -137,16 +137,16 @@
 			</div>
 	  	</div>
 		<div class="panel-body text-center">
-			<button id="SinIniciarButton" type="button" class="btn" ng-click="EditarIncidencia('Sin Iniciar')">
+			<button id="SinIniciarButton" type="button" class="btn" ng-click="EditarIncidencia('Sin Iniciar')" title="Estado &#10142; Sin Iniciar">
 				<i class="glyphicon glyphicon-ban-circle"/>
 			</button>
-			<button id="EnProcesoButton" type="button" class="btn" ng-click="EditarIncidencia('En Proceso')">
+			<button id="EnProcesoButton" type="button" class="btn" ng-click="EditarIncidencia('En Proceso')" title="Estado &#10142; En Proceso">
 				<i class="glyphicon glyphicon-chevron-right"/>
 			</button>
-			<button id="PendienteButton" type="button" class="btn" ng-click="EditarIncidencia('Pendiente')">
+			<button id="PendienteButton" type="button" class="btn" ng-click="EditarIncidencia('Pendiente')" title="Estado &#10142; Pendiente">
 				<i class="glyphicon glyphicon-alert"/>
 			</button>
-			<button id="CompletadaButton" type="button" class="btn" ng-click="EditarIncidencia('Completada')">
+			<button id="CompletadaButton" type="button" class="btn" ng-click="EditarIncidencia('Completada')" title="Estado &#10142; Completada">
 				<i class="glyphicon glyphicon-ok"/>
 			</button>
 		</div>
@@ -207,12 +207,12 @@
 			</div>
 	  	</div>
 	  	<div class="panel-body text-center">
-			<button id="AddButton" type="button" class="btn" ng-click="CrearIncidencia()">
+			<button id="AddButton" type="button" class="btn" ng-click="CrearIncidencia()" title="Crear Incidencia">
 				<i class="glyphicon glyphicon-plus"/>
 			</button>
 		</div>
 		<div class="panel-body text-center">
-			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)">
+			<button id="EditButton" type="button" class="btn" ng-click="EditarIncidencia(null)" title="Editar Incidencia">
 				<i class="fa fa-pencil"/>
 			</button>
 		</div>

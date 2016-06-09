@@ -150,30 +150,35 @@ angular.module("AppIncidencias")
 				}
 			}
 			else {
-					$window.alert('No se ha seleccionado ninguna incidencia.');
+				$window.alert('No se ha seleccionado ninguna incidencia.');
 			}
 		};
 
 		$scope.setUnsetComun = function() {
 			if ( $rootScope.Rol == '1' ) {
-				if ( $scope.Comun == 'Sí' ) {
-					$scope.Comun = 'No';
+				if ( $scope.IncidenciaSeleccionada != null ) {
+					if ( $scope.Comun == 'Sí' ) {
+						$scope.Comun = 'No';
+					}
+					else {
+						$scope.Comun = 'Sí';
+					}
+
+					$http.post('/Incidencia/' + $scope.IncidenciaSeleccionada + '/setUnsetComun', {Comun: $scope.Comun})
+						.success(function(data) {
+							$route.reload();
+						})
+						.error(function(error) {
+							console.log(error);
+						});	
+
+					$timeout(function() {
+						$route.reload();
+					}, 50 );
 				}
 				else {
-					$scope.Comun = 'Sí';
+					$window.alert('No se ha seleccionado ninguna incidencia.');
 				}
-
-				$http.post('/Incidencia/' + $scope.IncidenciaSeleccionada + '/setUnsetComun', {Comun: $scope.Comun})
-					.success(function(data) {
-						$route.reload();
-					})
-					.error(function(error) {
-						console.log(error);
-					});	
-
-				$timeout(function() {
-					$route.reload();
-				}, 50 );
 			}
 		}
 
