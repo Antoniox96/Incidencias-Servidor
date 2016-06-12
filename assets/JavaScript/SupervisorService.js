@@ -67,7 +67,7 @@ angular.module("AppIncidencias")
 				return $http.post('/EstadisticaColaborador', { 
 								FechaInicio: $scope.Fechas.Inicio, 
 						    		FechaFin: $scope.Fechas.Fin, 
-					    			Colaborador: $scope.ColaboradorSeleccionado.ID
+					    			Colaborador: $scope.Colaborador.Seleccionado.ID
 					    		});
 			}
 

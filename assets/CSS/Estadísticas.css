@@ -62,3 +62,26 @@
 #Estadisticas form.tab-form-demo .tab-pane {
     	margin: 20px 20px;
 }
+
+#Estadisticas .pie-legend, #Estadisticas .doughnut-legend {
+	width: 500px;
+}
+
+#Estadisticas .pie-legend li:nth-child(2n+1), #Estadisticas .doughnut-legend li:nth-child(2n+1) {
+	float: left;
+	margin: 10px;
+}
+
+#Estadisticas .pie-legend li:nth-child(2n+2), #Estadisticas .doughnut-legend li:nth-child(2n+2) {
+	float: right;
+	margin: 10px;
+}
+
+#Estadisticas chart-legend, #Estadisticas doughnut-legend {
+	position: absolute;
+	bottom: 30px;
+}
+
+#GraficoEstadisticas {
+	margin-top: 50px;
+}

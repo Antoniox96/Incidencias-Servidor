@@ -15,7 +15,7 @@
 							<ng-form name="EstadisticasColaboradores">
 								<div class="form-group">
 									<p>Colaborador</p>
-									<select id="Colaborador" class="form-control" ng-model="ColaboradorSeleccionado" ng-options="Colaborador.Nombre + ' ' + Colaborador.Apellidos for Colaborador in Colaboradores track by Colaborador.ID"></select>
+									<select id="Colaborador" class="form-control" ng-model="Colaborador.Seleccionado" ng-options="Colaborador.Nombre + ' ' + Colaborador.Apellidos for Colaborador in Colaboradores track by Colaborador.ID"></select>
 									<p>Rango de Fecha</p>
 									<div class="clearfix"></div>
 									<input id="FechaInicio" type="date" class="form-control" ng-model="Fechas.Inicio"/>
@@ -32,7 +32,7 @@
 							<ng-form name="EstadisticasOperadores">
 								<div class="form-group">
 									<p>Operador</p>
-									<select id="Operador" class="form-control" ng-model="OperadorSeleccionado" ng-options="Operador.Nombre + ' ' + Operador.Apellidos for Operador in Operadores track by Operador.ID"></select>
+									<select id="Operador" class="form-control" ng-model="Operador.Seleccionado" ng-options="Operador.Nombre + ' ' + Operador.Apellidos for Operador in Operadores track by Operador.ID"></select>
 									<p>Rango de Fecha</p>
 									<div class="clearfix"></div>
 									<input id="FechaInicio" type="date" class="form-control" ng-model="Fechas.Inicio"/>
@@ -63,8 +63,21 @@
 				</div>
 	  		</div>
 		 	<div class="panel-body">
-		 		<canvas id="GraficoEstadisticas" class="chart-base" chart-data="Datos" chart-labels="Secciones" chart-legend="true" chart-type="TipoGrafico.Seleccionado.Value" ng-show="EstadisticasCargadas"/>
+			 	<div id="errorbox" ng-show="Error" class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title">Error</div>
+					</div>
+					<div class="panel-body">
+						{{ Error }}
+					</div>
+				</div>
+		 		<span us-spinner="{{ RadiusOptions }}" ng-show="!EstadisticasCargadas && !Error"/>
+		 		<span us-spinner="{{ RadiusOptionsError }}" ng-show="!EstadisticasCargadas && Error"/>
+		 		<canvas id="GraficoEstadisticas"  class="chart-base" chart-data="Datos" chart-labels="Secciones" chart-legend="true" chart-type="TipoGrafico.Seleccionado.Value" ng-show="EstadisticasCargadas && !Error"/>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+$
+</script>

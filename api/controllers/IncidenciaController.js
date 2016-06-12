@@ -1,5 +1,3 @@
-var moment = require('moment');
-
 module.exports = {
 
 	find: function (req, res, next) {
@@ -647,8 +645,8 @@ module.exports = {
 	totalIncidenciasFiltro: function (req, res, next) {
 		Incidencia.find().where({
 
-					createdAt: 	{ '>=': req.body.FechaInicio	},
-					createdAt: 	{ '<=': req.body.FechaFin	}
+					createdAt: 	{ '>=': req.body.FechaInicio },
+					createdAt: 	{ '<=': req.body.FechaFin }
 
 				}).then(function(Incidencias){
 
@@ -703,7 +701,7 @@ module.exports = {
 
 						Total: 			Incidencias.length,
 						SinIniciar: 			estado1,
-						EnProceso: 		estado2,
+						EnProceso: 			estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 
@@ -725,11 +723,10 @@ module.exports = {
 	estadisticaByColaborador: function(req, res, next) {
 
 		if( req.Rol == '1' ){
-
 			Incidencia.find().where({
 
-					createdAt: 		{ '>=': req.body.FechaUno	},
-					createdAt: 		{ '<=': req.body.FechaDos	},
+					createdAt: 		{ '>=': req.body.FechaInicio },
+					createdAt: 		{ '<=': req.body.FechaFin },
 					Propietario: 	req.body.Colaborador	
 
 				}).then(function(Incidencias){
@@ -742,7 +739,6 @@ module.exports = {
 						TotalColaborador: 	TotalColaborador
 
 					}
-
 					res.json(200, { Estadisticas: estadisticaByColaborador });
 
 			}).catch(function(error){ next(error); });
