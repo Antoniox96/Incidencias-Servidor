@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = {
 
 	find: function (req, res, next) {
@@ -83,9 +85,11 @@ module.exports = {
 
 		else if ( req.Rol == '2' ) {
 
-			Incidencia.find().where({ or: [ { "Operador": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
+			Incidencia.find().where({ or: [ { "Operador": req.Usuario.id }, { "Comun": "Sí" }] }).populateAll()
 
 				.then(function(Incidencias) {
+
+					var IncidenciasFiltro = [];
 					
 					var IncidenciasJSON = [];
 					var Ubicaciones = [];
@@ -94,7 +98,17 @@ module.exports = {
 
 					if (Incidencias) {
 
-						Incidencias.forEach(function(Incidencia) {
+						Incidencias.forEach(function(Inc){
+
+							if( Inc.Tipo == req.tipoOperador ) {
+
+								IncidenciasFiltro.push(Inc);
+
+							}
+
+						});
+
+						IncidenciasFiltro.forEach(function(Incidencia) {
 
 							var Propietario = "Usuario Eliminado";
 
@@ -102,17 +116,11 @@ module.exports = {
 								Propietario = Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos;
 							}
 
-							var ComunEditable = 'No';
-
-							if ( Incidencia.Operador.id == req.Usuario.id && Incidencia.Comun == "Sí" ) {
-								ComunEditable = 'Sí';
-							}
-
 							IncidenciaJSON = {
 								"id": 			Incidencia.id,
 								"Titulo": 		Incidencia.Titulo, 
 								"Descripcion": 	Incidencia.Descripcion, 
-								"Departamento": 	"", 
+								"Departamento": "", 
 								"Ubicacion": 	"",
 								"Instalacion": 	Incidencia.Instalacion.Nombre,
 								"Tipo": 		Incidencia.Tipo, 
@@ -120,12 +128,7 @@ module.exports = {
 								"Estado": 		Incidencia.Estado,
 								"Prioridad": 	Incidencia.Prioridad,
 								"FechaPrevista": 	Incidencia.FechaPrevista,
-								"Comun": 		Incidencia.Comun,
-								"ComunEditable": ComunEditable
-							}
-
-							if ( Incidencia.Comun == 'No' ) {
-								delete IncidenciaJSON.ComunEditable;
+								"Comun": 		Incidencia.Comun
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
@@ -167,7 +170,7 @@ module.exports = {
 
 		else if ( req.Rol == '3' ) {
 
-			Incidencia.find().where({ or: [ { "Propietario": req.Usuario.id }, { "Comun": "Sí" } ] }).populateAll()
+			Incidencia.find().where({"Propietario": req.Usuario.id }).populateAll()
 
 				.then(function(Incidencias) {
 					
@@ -185,12 +188,6 @@ module.exports = {
 								Operador = Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos;
 							}
 
-							var ComunEditable = 'No';
-
-							if ( Incidencia.Propietario.id == req.Usuario.id && Incidencia.Comun == "Sí" ) {
-								ComunEditable = 'Sí';
-							}
-
 							IncidenciaJSON = {
 								"id": Incidencia.id,
 								"Titulo": Incidencia.Titulo, 
@@ -202,12 +199,7 @@ module.exports = {
 								"Operador": Operador,
 								"Estado": Incidencia.Estado,
 								"FechaCreacion": Incidencia.createdAt,
-								"Comun": Incidencia.Comun,
-								"ComunEditable": ComunEditable
-							}
-
-							if ( Incidencia.Comun == 'No' ) {
-								delete IncidenciaJSON.ComunEditable;
+								"Comun": Incidencia.Comun
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
@@ -414,8 +406,8 @@ module.exports = {
 		if ( incidencia ) {	
 
 			if ( req.Rol == '1' ) {
-				Incidencia.update(
 
+				Incidencia.update(
 							{ id: Number(req.params.id) }, 		
 							{
 								id: 			req.params.id,
@@ -453,10 +445,10 @@ module.exports = {
 								Estado: 	req.body.Estado,
 								Rol: 		req.Rol
 							}
-				).exec(function (err, updated) {
+				).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated) {
 
 					if (err) {
-						res.json(404, { msg: 'Error al actualizar la incidencia.' });
+					 	res.json(404, { msg: 'Error al actualizar la incidencia.' });
 					}
 
 					if (updated) {
@@ -480,7 +472,7 @@ module.exports = {
 				).exec(function (err, updated) {
 
 					if (err) {
-						res.json(404, { msg: 'Error al actualizar la incidencia.' });
+					 	res.json(404, { msg: 'Error al actualizar la incidencia.' });
 					}
 
 					if (updated) {
@@ -641,7 +633,7 @@ module.exports = {
 
 					}
 
-					res.json(200, { informe });
+					res.json(200, { Estadisticas: informe });
 				}
 
 			}).catch(function(error){ next(error); });
@@ -652,14 +644,35 @@ module.exports = {
 		}
 	},
 	
-	estadisticaByUsuario: function(req, res, next) {
+	totalIncidenciasFiltro: function (req, res, next) {
+		Incidencia.find().where({
+
+					createdAt: 	{ '>=': req.body.FechaInicio	},
+					createdAt: 	{ '<=': req.body.FechaFin	}
+
+				}).then(function(Incidencias){
+
+				req.IncidenciaCreadas;
+
+				if(Incidencias){
+
+					req.IncidenciasCreadas = Incidencias.length;
+					next();
+				}
+					
+
+			}).catch(function(error){ next(error); });
+				
+	},
+
+	estadisticaByOperador: function(req, res, next) {
 
 		if( req.Rol == '1' ){
 
 			Incidencia.find().where({
 
-					FechaInicio: 	{ '>=': req.body.FechaInicio	},
-					FechaFin: 		{ '<=': req.body.FechaFin	},
+					createdAt: 	{ '>=': req.body.FechaInicio	},
+					createdAt: 	{ '<=': req.body.FechaFin	},
 					Operador: 		  req.body.Operador	
 
 				}).then(function(Incidencias){
@@ -690,13 +703,47 @@ module.exports = {
 
 						Total: 			Incidencias.length,
 						SinIniciar: 			estado1,
-						EnProceso: 			estado2,
+						EnProceso: 		estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 
 					}
 
-					res.json(200, { estadisticaByOperador });
+					res.json(200, { Estadisticas: estadisticaByOperador });
+
+			}).catch(function(error){ next(error); });
+
+		}
+		else {
+
+			return res.json(403, {err: 'Permiso denegado.'});
+
+		}
+			
+	},
+
+	estadisticaByColaborador: function(req, res, next) {
+
+		if( req.Rol == '1' ){
+
+			Incidencia.find().where({
+
+					createdAt: 		{ '>=': req.body.FechaUno	},
+					createdAt: 		{ '<=': req.body.FechaDos	},
+					Propietario: 	req.body.Colaborador	
+
+				}).then(function(Incidencias){
+
+					var TotalColaborador = Incidencias.length;
+
+					var estadisticaByColaborador = {
+
+						TotalTodos: 		req.IncidenciasCreadas,
+						TotalColaborador: 	TotalColaborador
+
+					}
+
+					res.json(200, { Estadisticas: estadisticaByColaborador });
 
 			}).catch(function(error){ next(error); });
 
@@ -715,9 +762,9 @@ module.exports = {
 		
 			Incidencia.find().where({
 
-					FechaInicio: 	{ '>=': req.body.FechaInicio	},
-					FechaFin: 		{ '<=': req.body.FechaFin	},
-					Instalacion: 		  req.body.Instalacion	
+					createdAt: 	{ '>=': req.body.FechaInicio	},
+					createdAt: 	{ '<=': req.body.FechaFin	},
+					Instalacion: 	  req.body.Instalacion
 
 				}).then(function(Incidencias){
 
@@ -759,13 +806,13 @@ module.exports = {
 						DeSistemas: 		sistemas,
 						DeMantenimiento: 	mantenimiento,
 						SinIniciar: 			estado1,
-						EnProceso: 			estado2,
+						EnProceso: 		estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 
 					}
 
-					res.json(200, { estadisticaByInstalacion });
+					res.json(200, { Estadisticas: estadisticaByInstalacion });
 
 			}).catch(function(error){ next(error); });
 
@@ -776,6 +823,6 @@ module.exports = {
 
 		}
 
-	}	
+	}		
 
 }

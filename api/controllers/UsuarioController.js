@@ -5,7 +5,7 @@ module.exports = {
 		if ( req.Rol =='1' ) {
 
 			Usuario.find({
-				where:{ Rol:2 }
+				where:{ Rol: 2 }
 			}).then(function(Operadores) {
 
 				if (Operadores) {
@@ -36,18 +36,57 @@ module.exports = {
 		
 		}
 	},
+
+	findColaboradores: function(req, res, next) { 
+
+		if ( req.Rol =='1' ) {
+
+			Usuario.find({
+				where:{ Rol: 3 }
+			}).then(function(Colaboradores) {
+
+				if (Colaboradores) {
+					var ColaboradoresJSON = [];
+					Colaboradores.forEach(function(Colaborador) {
+						ColaboradorJSON = {
+							"ID":Colaborador.id,
+							"Nombre":Colaborador.Nombre,
+							"Apellidos":Colaborador.Apellidos
+						}
+						ColaboradoresJSON.push(ColaboradorJSON);
+					});
+
+					res.json(200, { Colaboradores: ColaboradoresJSON });
+				}
+				else { 
+					return null;
+					res.json(404, {err: 'No se han encontrado Incidencias.'});
+				}
+				
+
+			}).catch(function(error) { next(error); });
+
+		}
+		else {
+
+			return res.json(403, {err: 'Permiso denegado.'});
+		
+		}
+	},
+
 	create: function (req, res) {
 
 		if ( req.Rol == '1' ) {
 
 			Usuario.create({
 
-						NickName: 	req.body.NickName,
-						Password: 	req.body.Password,
-						Rol: 		req.body.Rol,
-						Nombre: 	req.body.Nombre,
-						Apellidos: 	req.body.Apellidos,
-						Email: 	req.body.Email
+						NickName: 		req.body.NickName,
+						Password: 		req.body.Password,
+						tipoOperador: 	req.body.tipoOperador,
+						Rol: 			req.body.Rol,
+						Nombre: 		req.body.Nombre,
+						Apellidos: 		req.body.Apellidos,
+						Email: 		req.body.Email
 
 
 			}).exec(function (err, user) {
@@ -98,12 +137,13 @@ module.exports = {
 				Usuario.update(
 							{ id: req.body.UsuarioID },
 							{ 
-								NickName: 	req.body.NickName,
-								Password: 	req.body.Password,
-								Rol: 		req.body.Rol,
-								Nombre: 	req.body.Nombre,
-								Apellidos: 	req.body.Apellidos,
-								Email: 	req.body.Email
+								NickName: 		req.body.NickName,
+								Password: 		req.body.Password,
+								tipoOperador: 	req.body.tipoOperador,
+								Rol: 			req.body.Rol,
+								Nombre: 		req.body.Nombre,
+								Apellidos: 		req.body.Apellidos,
+								Email: 		req.body.Email
 
 							}
 				).exec(function(err, updated) {
@@ -121,12 +161,13 @@ module.exports = {
 				Usuario.update(
 							{ id: req.Usuario.id },
 							{ 
-								NickName: 	req.body.NickName,
-								Password: 	req.body.Password,
-								Rol: 		req.body.Rol,
-								Nombre: 	req.body.Nombre,
-								Apellidos: 	req.body.Apellidos,
-								Email: 	req.body.Email
+								NickName: 		req.body.NickName,
+								Password: 		req.body.Password,
+								tipoOperador: 	req.body.tipoOperador,
+								Rol: 			req.body.Rol,
+								Nombre: 		req.body.Nombre,
+								Apellidos: 		req.body.Apellidos,
+								Email: 		req.body.Email
 							 }
 
 				).exec(function(err,updated) {

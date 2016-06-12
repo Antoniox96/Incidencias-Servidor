@@ -1,0 +1,70 @@
+<div ng-if="Rol == '1'">
+	<div id="Estadisticas" ng-init="cargarDatos();" ng-show="DatosCargados">
+		<div id="DatosEstadisticas" class="panel panel-default panel-table col col-xs-6">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-12">
+						<h1 class="panel-title">Opciones del Gráfico</h1>
+					</div>
+				</div>
+	  		</div>
+		 	<div class="panel-body">
+				<form class="tab-form-demo">
+					<uib-tabset active="activeForm">
+						<uib-tab index="0" heading="Colaboradores">
+							<ng-form name="EstadisticasColaboradores">
+								<div class="form-group">
+									<p>Colaborador</p>
+									<select id="Colaborador" class="form-control" ng-model="ColaboradorSeleccionado" ng-options="Colaborador.Nombre + ' ' + Colaborador.Apellidos for Colaborador in Colaboradores track by Colaborador.ID"></select>
+									<p>Rango de Fecha</p>
+									<div class="clearfix"></div>
+									<input id="FechaInicio" type="date" class="form-control" ng-model="Fechas.Inicio"/>
+									<p id="Guion">-</p>
+									<input id="FechaFin" type="date" class="form-control" ng-model="Fechas.Fin"/>
+									<div class="clearfix"></div>
+									<p>Tipo de Gráfico</p>
+									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
+									<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaColaborador()">Ver Gráfico</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="1" heading="Operadores">
+							<ng-form name="EstadisticasOperadores">
+								<div class="form-group">
+									<p>Operador</p>
+									<select id="Operador" class="form-control" ng-model="OperadorSeleccionado" ng-options="Operador.Nombre + ' ' + Operador.Apellidos for Operador in Operadores track by Operador.ID"></select>
+									<p>Rango de Fecha</p>
+									<div class="clearfix"></div>
+									<input id="FechaInicio" type="date" class="form-control" ng-model="Fechas.Inicio"/>
+									<p id="Guion">-</p>
+									<input id="FechaFin" type="date" class="form-control" ng-model="Fechas.Fin"/>
+									<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaOperador()">Ver Gráfico</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="2" heading="Instalaciones">
+							<ng-form name="EstadisticasInstalaciones">
+								<div class="form-group">
+									<p>Instalación</p>
+									<select id="Colaborador" class="form-control" ng-model="ColaboradorSeleccionado" ng-options="Colaborador.Nombre + ' ' + Colaborador.Apellidos for Colaborador in Colaboradores track by Colaborador.ID"></select>
+								</div>
+							</ng-form>
+						</uib-tab>
+					</uib-tabset>
+				</form>
+			</div>
+		</div>
+		<div id="Grafico" class="panel panel-default panel-table col col-xs-5">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-12">
+						<h1 class="panel-title">Gráfico</h1>
+					</div>
+				</div>
+	  		</div>
+		 	<div class="panel-body">
+		 		<canvas id="GraficoEstadisticas" class="chart-base" chart-data="Datos" chart-labels="Secciones" chart-legend="true" chart-type="TipoGrafico.Seleccionado.Value" ng-show="EstadisticasCargadas"/>
+			</div>
+		</div>
+	</div>
+</div>

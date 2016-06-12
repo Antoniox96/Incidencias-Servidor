@@ -13,6 +13,10 @@
     padding-top: 0;
 }
 
+.navbar-brand {
+	margin-left: 10px !important;
+}
+
 .navbar-header a {
 	 color: white !important;
 }

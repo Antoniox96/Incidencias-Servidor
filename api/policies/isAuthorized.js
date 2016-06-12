@@ -29,6 +29,7 @@ module.exports = function (req, res, next) {
 		Usuario.findOne(token.id).then(function (Usuario) {
 			req.Usuario = Usuario;
 			req.Rol = Usuario.Rol;
+			req.tipoOperador = Usuario.tipoOperador;
 			next();
 		})
 	});

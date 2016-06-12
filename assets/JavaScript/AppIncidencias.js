@@ -1,4 +1,4 @@
-﻿angular.module("AppIncidencias", ["ngRoute", "ui.bootstrap"])
+﻿angular.module("AppIncidencias", ["ngRoute", "ui.bootstrap", "chart.js"])
 	.config(function($httpProvider, $routeProvider) {
 		$httpProvider.interceptors.push("TokenInterceptor"),
 		$routeProvider
@@ -12,8 +12,13 @@
 			 	templateUrl: "Vistas/Incidencias.html",
 	 	            	access: { requiredLogin: true }
 			})
+			.when("/estadisticas", {
+			 	controller: "EstadisticasController",
+			 	templateUrl: "Vistas/Estadísticas.html",
+	 	            	access: { requiredLogin: true }
+			})
 			.otherwise({
-            			redirectTo: "/login"
+            			redirectTo: "/"
 			});
 	})
 	.run(function($rootScope, $location, $window, $log, AuthenticationService, UserService) {

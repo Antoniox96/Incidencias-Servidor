@@ -1,0 +1,64 @@
+#Estadisticas #DatosEstadisticas, #Grafico {
+	-webkit-border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	border-radius: 5px !important;
+	-webkit-box-shadow: 2px 3px 5px black;
+	-moz-box-shadow: 2px 3px 5px black;
+	box-shadow: 2px 3px 5px black;
+	padding: 0;
+	float: left;
+}
+
+#Estadisticas p {
+	font-size: 15px;
+	margin-top: 5%;
+	margin-bottom: 2%;
+	margin-left: 1px;
+}
+
+#Estadisticas #Grafico {
+	float: right;
+}
+
+#Estadisticas .panel-body {
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+
+#Estadisticas #Grafico .panel-body {
+	padding: 20px;
+}
+
+#Estadisticas #Grafico {
+	height: 500px;
+}
+
+#Estadisticas #DatosEstadisticas {
+	height: 500px;
+}
+
+#Estadisticas input[type='date'] {
+	width: 30%;
+	float: left;
+}
+
+#Estadisticas label {
+	margin-top: 10px;
+}
+
+#Estadisticas #Guion {
+	width: 5%;
+	height: 34px;
+	padding: 6px 12px;
+	text-align: center;
+	float: left;
+	margin-top: initial;
+}
+
+#Estadisticas #VerGrafico {
+	margin-top: 2%;
+}
+
+#Estadisticas form.tab-form-demo .tab-pane {
+    	margin: 20px 20px;
+}

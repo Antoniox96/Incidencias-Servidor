@@ -25,16 +25,25 @@ module.exports.routes = {
 		'UsuarioController.findOperadores'
 	],
 
+	'GET r|^/Colaboradores': [
+		'UsuarioController.findColaboradores'
+	],
+
 	'POST r|^/ActualizarDatos':[
 		'UsuarioController.updateUsuario'
 	],
 
-	'GET r|^/Estadistica':[
+	'POST r|^/Estadistica':[
 		'IncidenciaController.estadistica'
 	],
 
-	'POST r|^/EstadisticaUsuario':[
-		'IncidenciaController.estadisticaByUsuario'
+	'POST r|^/EstadisticaOperador':[
+		'IncidenciaController.estadisticaByOperador'
+	],
+
+	'POST r|^/EstadisticaColaborador':[
+		'IncidenciaController.totalIncidenciasFiltro',
+		'IncidenciaController.estadisticaByColaborador'
 	],
 
 	'POST r|^/EstadisticaInstalacion':[

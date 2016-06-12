@@ -11,6 +11,10 @@ angular.module("AppIncidencias")
 				return $http.get('/Operadores');
 			},
 
+			getColaboradores: function() {
+				return $http.get('/Colaboradores');
+			},
+
 			getEstadosIncidencia: function() {
 				return $http.get('/EstadosIncidencia');
 			},
@@ -56,6 +60,14 @@ angular.module("AppIncidencias")
 					    			FechaInicio: $scope.FechaInicio, 
 					    			FechaPrevista: $scope.FechaPrevista, 
 					    			FechaFin: $scope.FechaFin
+					    		});
+			},
+
+			EstadisticasColaborador: function($scope) {
+				return $http.post('/EstadisticaColaborador', { 
+								FechaInicio: $scope.Fechas.Inicio, 
+						    		FechaFin: $scope.Fechas.Fin, 
+					    			Colaborador: $scope.ColaboradorSeleccionado.ID
 					    		});
 			}
 
