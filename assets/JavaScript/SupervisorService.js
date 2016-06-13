@@ -69,6 +69,14 @@ angular.module("AppIncidencias")
 						    		FechaFin: $scope.Fechas.Fin, 
 					    			Colaborador: $scope.Colaborador.Seleccionado.ID
 					    		});
+			},
+
+			EstadisticasOperador: function($scope) {
+				return $http.post('/EstadisticaOperador', { 
+								FechaInicio: $scope.Fechas.Inicio, 
+						    		FechaFin: $scope.Fechas.Fin, 
+					    			Operador: $scope.Operador.Seleccionado.ID
+					    		});
 			}
 
 		}

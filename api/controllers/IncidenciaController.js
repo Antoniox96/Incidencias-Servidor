@@ -699,7 +699,7 @@ module.exports = {
 
 					var estadisticaByOperador = {
 
-						Total: 			Incidencias.length,
+						TotalAsignadas: 		Incidencias.length,
 						SinIniciar: 			estado1,
 						EnProceso: 			estado2,
 						Pendiente: 			estado3,
@@ -798,11 +798,11 @@ module.exports = {
 					var estadisticaByInstalacion = {
 
 						Total: 			Incidencias.length,
-						SinAsignar: 		IncidenciaSinAsignar,
+						SinAsignar: 			IncidenciaSinAsignar,
 						DeSistemas: 		sistemas,
 						DeMantenimiento: 	mantenimiento,
 						SinIniciar: 			estado1,
-						EnProceso: 		estado2,
+						EnProceso: 			estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 

@@ -82,6 +82,6 @@
 	bottom: 30px;
 }
 
-#GraficoEstadisticas {
-	margin-top: 50px;
+#Estadisticas chart-legend  li, #Estadisticas doughnut-legend li {
+	width: 150px;
 }

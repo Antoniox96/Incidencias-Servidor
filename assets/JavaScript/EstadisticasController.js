@@ -1,6 +1,6 @@
 angular.module("AppIncidencias")
 
-	.controller('EstadisticasController', function ($scope, $http, SupervisorService) {
+	.controller('EstadisticasController', function ($scope, $http, $timeout, SupervisorService) {
 
 		$scope.Colaborador = {};
 		$scope.Operador = {};
@@ -67,7 +67,6 @@ angular.module("AppIncidencias")
 		  					$scope.Estadisticas = data.Estadisticas;
 		  					$scope.Secciones[0] = "Incidencias Creadas por Otros";
 		  					$scope.Secciones[1] = "Incidencias Creadas por " + $scope.Colaborador.Seleccionado.Nombre;
-		  					console.log($scope.Secciones[1]);
 							$scope.Datos[0] = $scope.Estadisticas.TotalTodos - $scope.Estadisticas.TotalColaborador;
 							$scope.Datos[1] = $scope.Estadisticas.TotalColaborador;
 							
@@ -78,24 +77,97 @@ angular.module("AppIncidencias")
 							else {
 								$scope.EstadisticasCargadas = false;
 								$scope.Error = "No hay datos suficientes para crear el gráfico, es posible que no haya suficientes incidencias creadas en el rango de fecha introducido, pruebe con un rango de fecha más amplio.";
-								angular.element($("chart-legend")).css({ 'display': 'none' });
+								$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+						    		}, 1);
 							}
 		  				})
 
 		  				.error(function(error) {
-							console.log(error);
+		  					$scope.EstadisticasCargadas = false;
+							$scope.Error = "No hay datos suficientes para crear el gráfico, es posible que no haya suficientes incidencias creadas en el rango de fecha introducido, pruebe con un rango de fecha más amplio.";
+							$timeout(function() {
+								angular.element($("chart-legend")).css({ 'display': 'none' });
+				    			}, 1);
 						})
 				}
 				else {
 					$scope.EstadisticasCargadas = false;
 					$scope.Error = "La primera fecha debe ser inferior a la segunda.";
-					angular.element($("chart-legend")).css({ 'display': 'none' });
+					$timeout(function() {
+						angular.element($("chart-legend")).css({ 'display': 'none' });
+			    		}, 1);
 				}
 			}
 			else {
 				$scope.EstadisticasCargadas = false;
 				$scope.Error = "El rango de fecha es incorrecto.";
-				angular.element($("chart-legend")).css({ 'display': 'none' });
+				$timeout(function() {
+					angular.element($("chart-legend")).css({ 'display': 'none' });
+		    		}, 1);
+			}
+
+  		};
+
+  		$scope.getEstadisticaOperador = function() {
+  			
+  			if ( $scope.Fechas.Inicio != null && $scope.Fechas.Fin != null ) {
+
+  				delete $scope.Error;
+
+  				if ( $scope.Fechas.Inicio < $scope.Fechas.Fin ) {
+
+		  			SupervisorService.EstadisticasOperador($scope)
+
+		  				.success(function(data) {
+		  					$scope.Estadisticas = data.Estadisticas;
+		  					$scope.Secciones[0] = "Incidencias Asignadas a " + $scope.Operador.Seleccionado.Nombre;
+		  					$scope.Secciones[1] = "Incidencias Sin Iniciar";
+		  					$scope.Secciones[2] = "Incidencias En Proceso";
+		  					$scope.Secciones[3] = "Incidencias Pendientes";
+		  					$scope.Secciones[4] = "Incidencias Completadas";
+							$scope.Datos[0] = $scope.Estadisticas.TotalAsignadas;
+							$scope.Datos[1] = $scope.Estadisticas.SinIniciar;
+							$scope.Datos[2] = $scope.Estadisticas.EnProceso;
+							$scope.Datos[3] = $scope.Estadisticas.Pendiente;
+							$scope.Datos[4] = $scope.Estadisticas.Completadas;
+
+							if ( $scope.Datos[0] > 0 ) {
+								$scope.EstadisticasCargadas = true;
+								angular.element($("chart-legend")).css({ 'display': 'block' });
+							}
+							else {
+								$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+						    		}, 1);
+								$scope.EstadisticasCargadas = false;
+								$scope.Error = "No hay datos suficientes para crear el gráfico, es posible que no haya suficientes incidencias creadas en el rango de fecha introducido, pruebe con un rango de fecha más amplio.";
+
+							}
+		  				})
+
+		  				.error(function(error) {
+		  					$scope.EstadisticasCargadas = false;
+							$scope.Error = "No hay datos suficientes para crear el gráfico, es posible que no haya suficientes incidencias creadas en el rango de fecha introducido, pruebe con un rango de fecha más amplio.";
+							$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+					    		}, 1);
+						})
+				}
+				else {
+					$scope.EstadisticasCargadas = false;
+					$scope.Error = "La primera fecha debe ser inferior a la segunda.";
+					$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+			    		}, 1);
+				}
+			}
+			else {
+				$scope.EstadisticasCargadas = false;
+				$scope.Error = "El rango de fecha es incorrecto.";
+				$timeout(function() {
+					angular.element($("chart-legend")).css({ 'display': 'none' });
+		    		}, 1);
 			}
 
   		};
