@@ -755,7 +755,7 @@ module.exports = {
 	estadisticaByInstalacion: function(req, res, next){
 
 		if( req.Rol == '1' ){
-		
+
 			Incidencia.find().where({
 
 					createdAt: 	{ '>=': req.body.FechaInicio	},
@@ -770,7 +770,6 @@ module.exports = {
 					var IncidenciaSinAsignar = 0;
 
 					Incidencias.forEach(function(incidencia){
-						console.log(incidencia);
 						if(incidencia.Tipo == 'Sistemas'){
 							sistemas++;
 						}

@@ -4,6 +4,9 @@ angular.module("AppIncidencias")
 
 		$scope.Colaborador = {};
 		$scope.Operador = {};
+		$scope.Departamento = {};
+		$scope.Ubicacion = {};
+		$scope.Instalacion = {};
 		$scope.TiposGrafico = [ { Nombre: "Queso", Value: "Pie" }, { Nombre: "Dónut", Value: "Doughnut" } ];
 		$scope.TipoGrafico = {};
 		$scope.TipoGrafico.Seleccionado = $scope.TiposGrafico[0];
@@ -25,17 +28,26 @@ angular.module("AppIncidencias")
 
   			SupervisorService.getColaboradores()
 
+				.success(function(data) {
+
+					$scope.Colaboradores = data.Colaboradores;
+					$scope.Colaborador.Seleccionado = $scope.Colaboradores[0];
+
+					SupervisorService.getOperadores()
+
 						.success(function(data) {
 
-							$scope.Colaboradores = data.Colaboradores;
-							$scope.Colaborador.Seleccionado = $scope.Colaboradores[0];
+							$scope.Operadores = data.Operadores;
+							$scope.Operador.Seleccionado = $scope.Operadores[0];
 
-							SupervisorService.getOperadores()
+							SupervisorService.getDepartamentos()
 
 								.success(function(data) {
 
-									$scope.Operadores = data.Operadores;
-									$scope.Operador.Seleccionado = $scope.Operadores[0];
+									$scope.Departamentos = data.DepartamentosJSON;
+									$scope.Departamento.Seleccionado = $scope.Departamentos[0];
+									$scope.Ubicacion.Seleccionada = $scope.Departamentos[0].Ubicaciones[0];
+									$scope.Instalacion.Seleccionada = $scope.Departamentos[0].Ubicaciones[0].Instalaciones[0];
 
 									$scope.DatosCargados = true;
 
@@ -50,6 +62,12 @@ angular.module("AppIncidencias")
 						.error(function(error) {
 							console.log(error);
 						})
+
+				})
+
+				.error(function(error) {
+					console.log(error);
+				})
 
   		};
 
@@ -110,7 +128,7 @@ angular.module("AppIncidencias")
   		};
 
   		$scope.getEstadisticaOperador = function() {
-  			
+
   			if ( $scope.Fechas.Inicio != null && $scope.Fechas.Fin != null ) {
 
   				delete $scope.Error;
@@ -171,5 +189,83 @@ angular.module("AppIncidencias")
 			}
 
   		};
+
+  		$scope.getEstadisticaInstalacion = function() {
+
+  			if ( $scope.Fechas.Inicio != null && $scope.Fechas.Fin != null ) {
+
+  				delete $scope.Error;
+
+  				if ( $scope.Fechas.Inicio < $scope.Fechas.Fin ) {
+
+		  			SupervisorService.EstadisticasInstalacion($scope)
+
+		  				.success(function(data) {
+		  					$scope.Estadisticas = data.Estadisticas;
+		  					$scope.Secciones[0] = "Incidencias Totales en " + $scope.Instalacion.Seleccionada.Nombre;
+		  					$scope.Secciones[1] = "Incidencias Sin Asignar";
+		  					$scope.Secciones[2] = "Incidencias de Sistemas";
+		  					$scope.Secciones[3] = "Incidencias de Mantenimiento";
+		  					$scope.Secciones[4] = "Incidencias Sin Iniciar";
+		  					$scope.Secciones[5] = "Incidencias En Proceso";
+		  					$scope.Secciones[6] = "Incidencias Pendientes";
+		  					$scope.Secciones[7] = "Incidencias Completadas";
+							$scope.Datos[0] = $scope.Estadisticas.Total;
+							$scope.Datos[1] = $scope.Estadisticas.SinAsignar;
+							$scope.Datos[2] = $scope.Estadisticas.DeSistemas;
+							$scope.Datos[3] = $scope.Estadisticas.DeMantenimiento;
+							$scope.Datos[4] = $scope.Estadisticas.SinIniciar;
+							$scope.Datos[5] = $scope.Estadisticas.EnProceso;
+							$scope.Datos[6] = $scope.Estadisticas.Pendiente;
+							$scope.Datos[7] = $scope.Estadisticas.Completadas;
+
+							if ( $scope.Datos[0] > 0 ) {
+								$scope.EstadisticasCargadas = true;
+								angular.element($("chart-legend")).css({ 'display': 'block' });
+							}
+							else {
+								$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+						    		}, 1);
+								$scope.EstadisticasCargadas = false;
+								$scope.Error = "No hay datos suficientes para crear el gráfico, es posible que no haya suficientes incidencias creadas en el rango de fecha introducido, pruebe con un rango de fecha más amplio.";
+
+							}
+		  				})
+
+		  				.error(function(error) {
+		  					$scope.EstadisticasCargadas = false;
+							$scope.Error = "No hay datos suficientes para crear el gráfico, es posible que no haya suficientes incidencias creadas en el rango de fecha introducido, pruebe con un rango de fecha más amplio.";
+							$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+					    		}, 1);
+						})
+				}
+				else {
+					$scope.EstadisticasCargadas = false;
+					$scope.Error = "La primera fecha debe ser inferior a la segunda.";
+					$timeout(function() {
+  									angular.element($("chart-legend")).css({ 'display': 'none' });
+			    		}, 1);
+				}
+			}
+			else {
+				$scope.EstadisticasCargadas = false;
+				$scope.Error = "El rango de fecha es incorrecto.";
+				$timeout(function() {
+					angular.element($("chart-legend")).css({ 'display': 'none' });
+		    		}, 1);
+			}
+
+  		};
+
+		$scope.setUbicacion = function() {
+			$scope.Ubicacion.Seleccionada = $scope.Departamentos[$scope.Departamento.Seleccionado.id - 1].Ubicaciones[0];
+			$scope.setInstalacion();
+		};
+
+		$scope.setInstalacion = function() {
+			$scope.Instalacion.Seleccionada =$scope.Ubicacion.Seleccionada.Instalaciones[0];		
+		};
 
 	});

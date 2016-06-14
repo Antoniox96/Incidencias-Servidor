@@ -77,6 +77,14 @@ angular.module("AppIncidencias")
 						    		FechaFin: $scope.Fechas.Fin, 
 					    			Operador: $scope.Operador.Seleccionado.ID
 					    		});
+			},
+
+			EstadisticasInstalacion: function($scope) {
+				return $http.post('/EstadisticaInstalacion', { 
+								FechaInicio: $scope.Fechas.Inicio, 
+						    		FechaFin: $scope.Fechas.Fin, 
+					    			Instalacion: $scope.Instalacion.Seleccionada.id
+					    		});
 			}
 
 		}

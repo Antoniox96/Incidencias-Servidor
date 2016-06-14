@@ -50,8 +50,32 @@
 						<uib-tab index="3" heading="Instalaciones">
 							<ng-form name="EstadisticasInstalaciones">
 								<div class="form-group">
-									<p>Instalación</p>
-									<select id="Colaborador" class="form-control" ng-model="ColaboradorSeleccionado" ng-options="Colaborador.Nombre + ' ' + Colaborador.Apellidos for Colaborador in Colaboradores track by Colaborador.ID"></select>
+									<div>
+										<p>Departamento</p>
+										<select id="Departamento" class="form-control" ng-model="Departamento.Seleccionado" ng-change="setUbicacion()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+									</div>
+									<div>
+										<p>Ubicación</p>
+										<select id="Ubicacion" class="form-control" ng-model="Ubicacion.Seleccionada" ng-change="setInstalacion()" ng-options="Ubicacion.Nombre for Ubicacion in Departamento.Seleccionado.Ubicaciones track by Ubicacion.id">
+										</select>
+									</div>
+									<div>
+										<p>Instalación</p>
+										<select id="Instalacion" class="form-control" ng-model="Instalacion.Seleccionada" ng-options="Instalacion.Nombre for Instalacion in Ubicacion.Seleccionada.Instalaciones track by Instalacion.id"></select>
+									</div>
+									<div>
+										<p>Tipo de Gráfico</p>
+										<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
+									</div>
+									<div id="RangoDeFecha">
+										<p>Rango de Fecha</p>
+										<input id="FechaInicio" type="date" class="form-control" ng-model="Fechas.Inicio"/>
+										<p id="Guion">-</p>
+										<input id="FechaFin" type="date" class="form-control" ng-model="Fechas.Fin"/>
+									</div>
+									<div id="Boton">
+										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaInstalacion()">Ver Gráfico</button>
+									</div>
 								</div>
 							</ng-form>
 						</uib-tab>

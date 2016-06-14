@@ -39,7 +39,7 @@
 
 #Estadisticas input[type='date'] {
 	width: 30%;
-	float: left;
+	display: inline-block;
 }
 
 #Estadisticas label {
@@ -47,11 +47,10 @@
 }
 
 #Estadisticas #Guion {
-	width: 5%;
 	height: 34px;
 	padding: 6px 12px;
 	text-align: center;
-	float: left;
+	display: inline-block;
 	margin-top: initial;
 }
 
@@ -79,9 +78,33 @@
 
 #Estadisticas chart-legend, #Estadisticas doughnut-legend {
 	position: absolute;
-	bottom: 30px;
+	bottom: 10px;
 }
 
 #Estadisticas chart-legend  li, #Estadisticas doughnut-legend li {
 	width: 150px;
+}
+
+ng-form[name="EstadisticasInstalaciones"] div div {
+	float: left;
+}
+
+ng-form[name="EstadisticasInstalaciones"] div div:nth-child(2n+2) {
+	float: right;
+}
+
+
+ng-form[name="EstadisticasInstalaciones"] div div{
+	width: 45%;
+}
+
+#RangoDeFecha {
+	width: 100%;
+	text-align: center;
+}
+
+#Boton {
+	text-align: center;
+	float: none;
+	width: 100%;
 }
