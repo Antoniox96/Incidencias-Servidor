@@ -30,11 +30,11 @@
 }
 
 #Estadisticas #Grafico {
-	height: 500px;
+	min-height: 500px;
 }
 
 #Estadisticas #DatosEstadisticas {
-	height: 500px;
+	min-height: 500px;
 }
 
 #Estadisticas input[type='date'] {
@@ -76,11 +76,6 @@
 	margin: 10px;
 }
 
-#Estadisticas chart-legend, #Estadisticas doughnut-legend {
-	position: absolute;
-	bottom: 10px;
-}
-
 #Estadisticas chart-legend  li, #Estadisticas doughnut-legend li {
 	width: 150px;
 }
@@ -107,4 +102,20 @@ ng-form[name="EstadisticasInstalaciones"] div div{
 	text-align: center;
 	float: none;
 	width: 100%;
+}
+
+#infobox .panel-heading {
+	background-color: #009900 !important;
+}
+
+#infobox {
+	border: 1px solid #009900;
+	box-shadow: #009900 1px 1px 5px;
+	font-size: 16px !important;
+	font-weight: normal;
+	text-align: center;
+}
+
+#infobox .panel-body {
+	padding-top: 10px;
 }

@@ -49,6 +49,7 @@
 	box-shadow: #CC0000 1px 1px 5px;
 	font-size: 16px !important;
 	font-weight: normal;
+	text-align: center;
 }
 
 #errorbox .panel-body {

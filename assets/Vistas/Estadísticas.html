@@ -11,9 +11,16 @@
 		 	<div class="panel-body">
 				<form class="tab-form-demo">
 					<uib-tabset active="activeForm">
-						<uib-tab index="0" heading="Globales">
+						<uib-tab index="0" heading="Globales" select="clear();">
+							<ng-form name="EstadisticasGlobales">
+								<div class="form-group">
+									<p>Tipo de Gráfico</p>
+									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
+									<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaGlobal()">Ver Gráfico</button>
+								</div>
+							</ng-form>
 						</uib-tab>
-						<uib-tab index="1" heading="Colaboradores">
+						<uib-tab index="1" heading="Colaboradores" select="clear();">
 							<ng-form name="EstadisticasColaboradores">
 								<div class="form-group">
 									<p>Colaborador</p>
@@ -30,7 +37,7 @@
 								</div>
 							</ng-form>
 						</uib-tab>
-						<uib-tab index="2" heading="Operadores">
+						<uib-tab index="2" heading="Operadores" select="clear();">
 							<ng-form name="EstadisticasOperadores">
 								<div class="form-group">
 									<p>Operador</p>
@@ -47,7 +54,7 @@
 								</div>
 							</ng-form>
 						</uib-tab>
-						<uib-tab index="3" heading="Instalaciones">
+						<uib-tab index="3" heading="Instalaciones" select="clear();">
 							<ng-form name="EstadisticasInstalaciones">
 								<div class="form-group">
 									<div>
@@ -92,6 +99,14 @@
 				</div>
 	  		</div>
 		 	<div class="panel-body">
+		 		<div id="infobox" ng-show="!Error && !EstadisticasCargadas" class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title">Información</div>
+					</div>
+					<div class="panel-body">
+						{{ Informacion }}
+					</div>
+				</div>
 			 	<div id="errorbox" ng-show="Error" class="panel panel-info">
 					<div class="panel-heading">
 						<div class="panel-title">Error</div>

@@ -619,14 +619,14 @@ module.exports = {
 					var informe = {
 
 						Total: 			req.count,
-						SinAsignar: 		IncidenciaSinAsignar,
+						SinAsignar: 			IncidenciaSinAsignar,
 						DeSistemas: 		tipo1,
 						DeMantenimiento: 	tipo2,
-						ComunesSi: 		comunSi,
-						ComunesNo: 		comunNo,
+						Comunes: 			comunSi,
+						NoComunes: 		comunNo,
 						SinIniciar: 			estado1,
-						EnProceso: 		estado2,
-						Pendiente: 			estado3,
+						EnProceso: 			estado2,
+						Pendientes: 		estado3,
 						Completadas: 		estado4
 
 					}

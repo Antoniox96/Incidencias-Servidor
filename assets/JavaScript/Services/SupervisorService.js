@@ -63,6 +63,10 @@ angular.module("AppIncidencias")
 					    		});
 			},
 
+			EstadisticasGlobales: function($scope) {
+				return $http.post('/Estadistica');
+			},
+
 			EstadisticasColaborador: function($scope) {
 				return $http.post('/EstadisticaColaborador', { 
 								FechaInicio: $scope.Fechas.Inicio, 
