@@ -31,8 +31,6 @@ module.exports = {
 				} 
 				else {
 					res.json({ user: user, token: JWToken.issue({id : user.id }) });
-					sails.config.globals.Rol = user.Rol;
-					sails.config.globals.Usuario = user;
 				}	
 			});
 

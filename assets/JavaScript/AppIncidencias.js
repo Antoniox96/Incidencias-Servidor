@@ -34,6 +34,7 @@
 						$rootScope.Apellidos = data.Apellidos;
 						$rootScope.Email = data.Email;
 			    			$rootScope.Rol = data.Rol;
+			    			$rootScope.ID = data.id;
 			    		})
 			    		.error(function(error){
 			    			$log.info(500, { err: 'Error al obtener datos del usuario.' });

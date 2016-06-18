@@ -108,6 +108,12 @@ module.exports = {
 
 						IncidenciasFiltro.forEach(function(Incidencia) {
 
+							var Operador = 0;
+
+							if ( Incidencia.Operador != null ) {
+								Operador = Incidencia.Operador.id;
+							}
+
 							var Propietario = "Usuario Eliminado";
 
 							if ( Incidencia.Propietario != null ) {
@@ -123,6 +129,7 @@ module.exports = {
 								"Instalacion": 	Incidencia.Instalacion.Nombre,
 								"Tipo": 		Incidencia.Tipo, 
 								"Propietario": 	Propietario,
+								"Operador": 	Operador,
 								"Estado": 		Incidencia.Estado,
 								"Prioridad": 	Incidencia.Prioridad,
 								"FechaPrevista": 	Incidencia.FechaPrevista,
@@ -319,7 +326,7 @@ module.exports = {
 						var Operador = "Sin Asignar";
 
 						if ( Incidencia.Operador != null ) {
-							Operador = { ID: Incidencia.Operador.id ,Nombre: Incidencia.Operador.Nombre, Apellidos: Incidencia.Operador.Apellidos };
+							Operador = { ID: Incidencia.Operador.id, Nombre: Incidencia.Operador.Nombre, Apellidos: Incidencia.Operador.Apellidos };
 						}
 
 						var Propietario = "Usuario Eliminado";
@@ -443,7 +450,7 @@ module.exports = {
 								Estado: 	req.body.Estado,
 								Rol: 		req.Rol
 							}
-				).where( { id: req.params.id }, { Operador: req.Usuario }).exec(function (err, updated) {
+				).exec(function (err, updated) {
 
 					if (err) {
 					 	res.json(404, { msg: 'Error al actualizar la incidencia.' });

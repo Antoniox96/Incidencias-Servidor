@@ -9,6 +9,7 @@ angular.module("AppIncidencias")
 			$http.get("/Incidencia")
 				.success(function (data) {
 					$scope.Incidencias = data.IncidenciasJSON;
+					console.log
 				})
 				.error(function (error) {
 					$scope.Error = error;
@@ -17,7 +18,7 @@ angular.module("AppIncidencias")
 
 		$scope.setIncidenciaSeleccionada = function(Incidencia) {
 
-			if ( $rootScope.Rol == '1' ) {
+			if ( $rootScope.Rol == '1' || $rootScope.Rol == '3' ) {
 				for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
 					if ( $scope.Incidencias[i].id == Incidencia ) {
 						if ( Incidencia != $scope.IncidenciaSeleccionada) {
@@ -31,10 +32,10 @@ angular.module("AppIncidencias")
 					}
 				}
 			}
-			else {
+			else if ( $rootScope.Rol == '2' ) {
 				for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
 					if ( $scope.Incidencias[i].id == Incidencia ) {
-						if ( $scope.Incidencias[i].Comun == 'No' || $scope.Incidencias[i].ComunEditable == 'Sí' ) {
+						if ( $scope.Incidencias[i].Operador.ID == $rootScope.ID ) {
 							if ( Incidencia != $scope.IncidenciaSeleccionada) {
 								$scope.IncidenciaSeleccionada = Incidencia;
 							}
