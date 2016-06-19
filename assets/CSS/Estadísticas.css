@@ -30,15 +30,15 @@
 }
 
 #Estadisticas #Grafico {
-	min-height: 500px;
+	min-height: 350px;
 }
 
 #Estadisticas #DatosEstadisticas {
-	min-height: 500px;
+	min-height: 350px;
 }
 
 #Estadisticas input[type='date'] {
-	width: 30%;
+	width: 40%;
 	display: inline-block;
 }
 
@@ -60,24 +60,6 @@
 
 #Estadisticas form.tab-form-demo .tab-pane {
     	margin: 20px 20px;
-}
-
-#Estadisticas .pie-legend, #Estadisticas .doughnut-legend {
-	width: 500px;
-}
-
-#Estadisticas .pie-legend li:nth-child(2n+1), #Estadisticas .doughnut-legend li:nth-child(2n+1) {
-	float: left;
-	margin: 10px;
-}
-
-#Estadisticas .pie-legend li:nth-child(2n+2), #Estadisticas .doughnut-legend li:nth-child(2n+2) {
-	float: right;
-	margin: 10px;
-}
-
-#Estadisticas chart-legend  li, #Estadisticas doughnut-legend li {
-	width: 150px;
 }
 
 ng-form[name="EstadisticasInstalaciones"] div div {
@@ -102,6 +84,7 @@ ng-form[name="EstadisticasInstalaciones"] div div{
 	text-align: center;
 	float: none;
 	width: 100%;
+	clear: both;
 }
 
 #infobox .panel-heading {
@@ -118,4 +101,16 @@ ng-form[name="EstadisticasInstalaciones"] div div{
 
 #infobox .panel-body {
 	padding-top: 10px;
+}
+
+.graphicbox .panel-heading {
+	background-color: #0000CC !important;
+}
+
+.graphicbox {
+	border: 1px solid #0000CC;
+	box-shadow: #0000CC 1px 1px 5px;
+	font-size: 16px !important;
+	font-weight: normal;
+	text-align: center;
 }

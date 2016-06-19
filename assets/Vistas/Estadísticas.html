@@ -1,10 +1,10 @@
 <div ng-if="Rol == '1'">
-	<div id="Estadisticas" ng-init="cargarDatos();" ng-show="DatosCargados">
-		<div id="DatosEstadisticas" class="panel panel-default panel-table col col-xs-6">
+	<div id="Estadisticas" class="col col-xs-12" ng-init="cargarDatos();" ng-show="DatosCargados">
+		<div id="DatosEstadisticas" class="panel panel-default panel-table col col-xs-5">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col col-xs-12">
-						<h1 class="panel-title">Opciones del Gráfico</h1>
+						<h1 class="panel-title">Opciones</h1>
 					</div>
 				</div>
 	  		</div>
@@ -16,7 +16,9 @@
 								<div class="form-group">
 									<p>Tipo de Gráfico</p>
 									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
-									<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaGlobal()">Ver Gráfico</button>
+									<div id="Boton">
+										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaGlobal()">Ver Gráfico</button>
+									</div>
 								</div>
 							</ng-form>
 						</uib-tab>
@@ -33,7 +35,9 @@
 									<div class="clearfix"></div>
 									<p>Tipo de Gráfico</p>
 									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
-									<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaColaborador()">Ver Gráfico</button>
+									<div id="Boton">
+										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaColaborador()">Ver Gráfico</button>
+									</div>
 								</div>
 							</ng-form>
 						</uib-tab>
@@ -50,7 +54,9 @@
 									<div class="clearfix"></div>
 									<p>Tipo de Gráfico</p>
 									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
-									<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaOperador()">Ver Gráfico</button>
+									<div id="Boton">
+										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaOperador()">Ver Gráfico</button>
+									</div>
 								</div>
 							</ng-form>
 						</uib-tab>
@@ -94,7 +100,7 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col col-xs-12">
-						<h1 class="panel-title">Gráfico</h1>
+						<h1 class="panel-title">Gráficos</h1>
 					</div>
 				</div>
 	  		</div>
@@ -115,9 +121,44 @@
 						{{ Error }}
 					</div>
 				</div>
-		 		<span us-spinner="{{ RadiusOptions }}" ng-show="!EstadisticasCargadas && !Error"/>
-		 		<span us-spinner="{{ RadiusOptionsError }}" ng-show="!EstadisticasCargadas && Error"/>
-		 		<canvas id="GraficoEstadisticas"  class="chart-base" chart-data="Datos" chart-labels="Secciones" chart-legend="true" chart-type="TipoGrafico.Seleccionado.Value" ng-show="EstadisticasCargadas && !Error"/>
+		 		<span us-spinner="{{ RadiusOptions }}" ng-show="!Error && !EstadisticasCargadas"/>
+		 		<span us-spinner="{{ RadiusOptionsError }}" ng-show="Error"/>
+
+		 		<div ng-show="!Error && EstadisticasTipoCargadas" class="panel panel-info graphicbox">
+					<div class="panel-heading">
+						<div class="panel-title">Tipos</div>
+					</div>
+					<div class="panel-body">
+						<canvas id="GraficoEstadisticas1" style="display:inline-block" class="chart-base" chart-data="Graficos.TipoIncidencia.Datos" chart-colors ="Graficos.Colores" chart-labels="Graficos.TipoIncidencia.Secciones" chart-type="TipoGrafico.Seleccionado.Value" chart-options="Graficos.Opciones">
+					</div>
+				</div>
+		 		
+		 		<div ng-show="!Error && EstadisticasComunCargadas" class="panel panel-info graphicbox">
+					<div class="panel-heading">
+						<div class="panel-title">Comunes / No Comunes</div>
+					</div>
+					<div class="panel-body">
+						<canvas id="GraficoEstadisticas2" style="display:inline-block" class="chart-base" chart-data="Graficos.TipoComun.Datos" chart-colors ="Graficos.Colores" chart-labels="Graficos.TipoComun.Secciones" chart-type="TipoGrafico.Seleccionado.Value" chart-options="Graficos.Opciones">
+					</div>
+				</div>
+
+		 		<div ng-show="!Error && EstadisticasEstadoCargadas" class="panel panel-info graphicbox">
+					<div class="panel-heading">
+						<div class="panel-title">Estados</div>
+					</div>
+					<div class="panel-body">
+						<canvas id="GraficoEstadisticas3" style="display:inline-block" class="chart-base" chart-data="Graficos.TipoEstado.Datos" chart-colors ="Graficos.Colores" chart-labels="Graficos.TipoEstado.Secciones" chart-type="TipoGrafico.Seleccionado.Value" chart-options="Graficos.Opciones">
+					</div>
+				</div>
+
+				<div ng-show="!Error && EstadisticasColaboradorCargadas" class="panel panel-info graphicbox">
+					<div class="panel-heading">
+						<div class="panel-title">Creadas</div>
+					</div>
+					<div class="panel-body">
+						<canvas id="GraficoEstadisticas3" style="display:inline-block" class="chart-base" chart-data="Graficos.Colaborador.Datos" chart-colors ="Graficos.Colores" chart-labels="Graficos.Colaborador.Secciones" chart-type="TipoGrafico.Seleccionado.Value" chart-options="Graficos.Opciones">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
