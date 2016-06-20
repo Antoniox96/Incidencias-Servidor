@@ -41,7 +41,8 @@ angular.module("AppIncidencias")
 					    			Tipo: $scope.TipoSeleccionado, 
 					    			Prioridad: $scope.PrioridadSeleccionada, 
 					    			Estado: $scope.EstadoSeleccionado, 
-					    			Operador: $scope.OperadorSeleccionado.ID, 
+					    			Operador: $scope.OperadorSeleccionado.ID,
+					    			Comentario: $scope.Comentario,
 					    			FechaInicio: $scope.FechaInicio, 
 					    			FechaPrevista: $scope.FechaPrevista, 
 					    			FechaFin: $scope.FechaFin
@@ -57,6 +58,7 @@ angular.module("AppIncidencias")
 					    			Prioridad: $scope.PrioridadSeleccionada, 
 					    			Estado: $scope.EstadoSeleccionado, 
 					    			Operador: $scope.OperadorSeleccionado.ID, 
+					    			Comentario: $scope.Comentario,
 					    			FechaInicio: $scope.FechaInicio, 
 					    			FechaPrevista: $scope.FechaPrevista, 
 					    			FechaFin: $scope.FechaFin

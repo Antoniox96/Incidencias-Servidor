@@ -54,6 +54,7 @@ angular.module("AppIncidencias")
 																$scope.setPrioridadIncidencia(data.IncidenciaJSON.Prioridad);
 																$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
 																$scope.setOperadorIncidencia(data.IncidenciaJSON.Operador);
+																$scope.Comentario = data.IncidenciaJSON.Comentario;
 																$scope.FechaInicio = new Date(data.IncidenciaJSON.FechaInicio);
 																$scope.FechaPrevista = new Date(data.IncidenciaJSON.FechaPrevista);
 																$scope.FechaFin = new Date(data.IncidenciaJSON.FechaFin);

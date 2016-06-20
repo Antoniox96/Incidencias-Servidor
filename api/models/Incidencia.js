@@ -40,6 +40,11 @@ module.exports = {
 			defaultsTo: 	'No'
 		},
 
+		Comentario: {
+			type: 		'string',
+			size: 		255
+		},
+
 		FechaInicio: {
 			type: 		'date',
 			defaulsTo: 	null

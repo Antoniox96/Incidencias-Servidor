@@ -28,6 +28,7 @@
     "sails": "~0.12.3",
     "sails-disk": "~0.10.9",
     "sails-fixtures": "^1.0.8",
+    "sails-mysql": "^0.11.5",
     "textarea-autosize": "^0.4.2"
   },
   "scripts": {

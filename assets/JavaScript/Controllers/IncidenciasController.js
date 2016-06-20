@@ -35,7 +35,7 @@ angular.module("AppIncidencias")
 			else if ( $rootScope.Rol == '2' ) {
 				for ( var i = 0 ; i < $scope.Incidencias.length ; i++ ) {
 					if ( $scope.Incidencias[i].id == Incidencia ) {
-						if ( $scope.Incidencias[i].Operador.ID == $rootScope.ID ) {
+						if ( $scope.Incidencias[i].Operador == $rootScope.ID ) {
 							if ( Incidencia != $scope.IncidenciaSeleccionada) {
 								$scope.IncidenciaSeleccionada = Incidencia;
 							}
@@ -98,13 +98,7 @@ angular.module("AppIncidencias")
 					$scope.EstadoSeleccionado = "";
 
 					$scope.getEstadosIncidencia = function() {
-						$http.get('/EstadosIncidencia')
-							.success(function(data) {
-								$scope.EstadosIncidencia = data.Estados;
-							})
-							.error(function(error) {
-								console.log(error);
-							})
+						return $http.get('/EstadosIncidencia');
 					};
 
 					$scope.setEstadoIncidencia = function(Estado) {
@@ -115,27 +109,45 @@ angular.module("AppIncidencias")
 						}
 					}
 
-					$scope.getEstadosIncidencia();
+					$scope.updateEstadoIncidencia = function() {
+						return $http.post('/Incidencia/' + $scope.IncidenciaSeleccionada, { Estado: $scope.EstadoSeleccionado });
+					}
 
-					$timeout(function() {
-						$scope.setEstadoIncidencia(Estado);
-					}, 50);
+					$scope.getEstadosIncidencia()
 
-					$timeout(function() {
-						if ( $scope.EstadoSeleccionado != null && $scope.EstadoSeleccionado != "" ) {
-							$http.post('/Incidencia/' + $scope.IncidenciaSeleccionada, { Estado: $scope.EstadoSeleccionado })
-								.success(function(data) {
-									$route.reload();
-								})
-								.error(function(error) {
-									console.log(error);
-								});	
+						.success(function(data) {
+							$scope.EstadosIncidencia = data.Estados;
+							$scope.setEstadoIncidencia(Estado);
 
-							$timeout(function() {
-								$route.reload();
-							}, 10 );
-						}
-					}, 50);
+							if ( $scope.EstadoSeleccionado != null && $scope.EstadoSeleccionado != "" ) {
+								if ( $scope.EstadoSeleccionado == 'Pendiente' ) {
+									$uibModal.open({
+										templateUrl: "Vistas/Formularios/Operador/Editar Incidencia.html",
+										controller: 'OperadorController',
+										scope: $scope,
+										size: 'md',
+										resolve: {
+											IncidenciaID: $scope.IncidenciaSeleccionada
+										}
+									});
+								}
+								else {				
+									$scope.updateEstadoIncidencia()
+
+										.success(function(data) {
+											$route.reload();
+										})
+
+										.error(function(error) {
+											console.log(error);
+										});
+								}
+							}
+						})
+
+						.error(function(error) {
+							console.log(error);
+						})
 
 				}
 

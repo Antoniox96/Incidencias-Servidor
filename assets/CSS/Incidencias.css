@@ -182,3 +182,7 @@ table td:nth-child(1) {
 .Seleccionado {
 	background-color: #9CC2E0;
 }
+
+#Comment {
+	width: 100% !important;
+}

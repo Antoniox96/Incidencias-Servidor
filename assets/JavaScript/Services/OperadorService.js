@@ -7,8 +7,12 @@ angular.module("AppIncidencias")
 				return $http.get('/EstadosIncidencia');
 			},
 
+			getComentarioIncidencia: function($scope, IncidenciaID) {
+				return $http.get('/Incidencia/' + IncidenciaID);
+			},
+
 			EditarIncidencia: function($scope, IncidenciaID) {
-				return $http.post('/Incidencia/' + IncidenciaID, { Estado: $scope.EstadoSeleccionado });
+				return $http.post('/Incidencia/' + IncidenciaID, { Estado: $scope.EstadoSeleccionado, Comentario: $scope.Comentario });
 			}
 
 		}

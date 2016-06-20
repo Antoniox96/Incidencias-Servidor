@@ -16,6 +16,22 @@ angular.module("AppIncidencias")
 
 		};
 
+		$scope.cargarComentario = function() {
+
+			OperadorService.getComentarioIncidencia($scope, IncidenciaID)
+
+				.success(function(data) {
+					$scope.Comentario = data.Comentario;
+
+					$scope.ComentarioCargado = true;
+				})
+
+				.error(function(error) {
+					console.log(error);
+				})
+
+		}
+
 		$scope.setEstadoIncidencia = function(Estado) {
 			for ( var i = 0 ; i < $scope.EstadosIncidencia.length ; i++ ) {
 				if ( Estado == $scope.EstadosIncidencia[i] ) {
