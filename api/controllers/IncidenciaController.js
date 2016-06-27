@@ -33,7 +33,7 @@ module.exports = {
 								"id": 			Incidencia.id,
 								"Titulo": 		Incidencia.Titulo, 
 								"Descripcion": 	Incidencia.Descripcion, 
-								"Departamento": 	"",
+								"Departamento": "",
 								"Ubicacion": 	"", 
 								"Instalacion": 	Incidencia.Instalacion.Nombre,
 								"Tipo": 		Incidencia.Tipo, 
@@ -41,12 +41,13 @@ module.exports = {
 								"Propietario": 	Propietario,
 								"Estado": 		Incidencia.Estado,
 								"Prioridad": 	Incidencia.Prioridad,
+								"Guardia": 		Incidencia.Guardia,
 								"Comun": 		Incidencia.Comun,
 								"Comentario": 	Incidencia.Comentario,
-								"FechaCreacion": 	Incidencia.createdAt,
+								"FechaCreacion": Incidencia.createdAt,
 								"FechaInicio": 	Incidencia.FechaInicio,
 								"FechaPrevista": 	Incidencia.FechaPrevista,
-								"FechaFin": 		Incidencia.FechaFin
+								"FechaFin": 	Incidencia.FechaFin
 							}
 
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
@@ -196,16 +197,16 @@ module.exports = {
 							}
 
 							IncidenciaJSON = {
-								"id": Incidencia.id,
-								"Titulo": Incidencia.Titulo, 
-								"Descripcion": Incidencia.Descripcion, 
+								"id": 			Incidencia.id,
+								"Titulo": 		Incidencia.Titulo, 
+								"Descripcion": 	Incidencia.Descripcion, 
 								"Departamento": "", 
-								"Ubicacion":"",
-								"Instalacion": Incidencia.Instalacion.Nombre,
-								"Tipo": Incidencia.Tipo, 
-								"Operador": Operador,
-								"Estado": Incidencia.Estado,
-								"Comun": Incidencia.Comun,
+								"Ubicacion": 	"",
+								"Instalacion": 	Incidencia.Instalacion.Nombre,
+								"Tipo": 		Incidencia.Tipo, 
+								"Operador": 	Operador,
+								"Estado": 		Incidencia.Estado,
+								"Comun": 		Incidencia.Comun,
 								"FechaCreacion": Incidencia.createdAt
 							}
 
@@ -263,6 +264,7 @@ module.exports = {
 							Tipo: req.body.Tipo,
 							Estado: req.body.Estado,
 							Prioridad: req.body.Prioridad,
+							Guardia: req.body.Guardia,
 							Comun: req.body.Comun,
 							FechaInicio: req.body.FechaInicio,
 							FechaPrevista: req.body.FechaPrevista,
@@ -328,7 +330,7 @@ module.exports = {
 						var Operador = "Sin Asignar";
 
 						if ( Incidencia.Operador != null ) {
-							Operador = { ID: Incidencia.Operador.id, Nombre: Incidencia.Operador.Nombre, Apellidos: Incidencia.Operador.Apellidos };
+							Operador = { ID: Incidencia.Operador.id , Nombre: Incidencia.Operador.Nombre, Apellidos: Incidencia.Operador.Apellidos };
 						}
 
 						var Propietario = "Usuario Eliminado";
@@ -339,17 +341,18 @@ module.exports = {
 
 						var IncidenciaJSON = {
 							"ID": 				Incidencia.id,
-							"Titulo":      			Incidencia.Titulo, 
+							"Titulo":      		Incidencia.Titulo, 
 							"Descripcion": 		Incidencia.Descripcion, 
 							"Instalacion": 		{ "ID": Incidencia.Instalacion.id, "Nombre": Incidencia.Instalacion.Nombre },
 							"Tipo": 			Incidencia.Tipo, 
 							"Operador": 		Operador,
 							"Estado": 			Incidencia.Estado,
 							"Prioridad": 		Incidencia.Prioridad,
+							"Guardia": 			Incidencia.Guardia,
 							"Comentario": 		Incidencia.Comentario,
 							"FechaInicio": 		Incidencia.FechaInicio,
 							"FechaPrevista": 		Incidencia.FechaPrevista,
-							"FechaFin": 			Incidencia.FechaFin,
+							"FechaFin": 		Incidencia.FechaFin,
 							"Comun": 			Incidencia.Comun,
 							"Propietario": 		Propietario
 						}
@@ -424,6 +427,7 @@ module.exports = {
 								Tipo: 			req.body.Tipo,
 								Estado: 		req.body.Estado,
 								Prioridad: 		req.body.Prioridad,
+								Guardia: 		req.body.Guardia,
 								Comentario: 	req.body.Comentario,
 								FechaInicio: 	req.body.FechaInicio,
 								FechaPrevista: 	req.body.FechaPrevista,
@@ -451,9 +455,9 @@ module.exports = {
 				Incidencia.update(
 	 						{ id: Number(req.params.id), Operador: Number(req.Usuario.id) }, 		
 							{ 	
-								Estado: 		req.body.Estado,
+								Estado: 	req.body.Estado,
 								Comentario: 	req.body.Comentario,
-								Rol: 			req.Rol
+								Rol: 		req.Rol
 							}
 				).exec(function (err, updated) {
 
@@ -538,6 +542,15 @@ module.exports = {
 
 	},
 
+	TiposGuardia: function (req, res) {
+		var tiposGuardia = Incidencia.attributes.Guardia.enum;	
+
+		if ( req.Rol == '1' ) {
+			res.json(200, { tiposGuardia });	
+		}
+
+	},
+
 	tiposIncidencia: function (req, res) {
 		var Tipos = Incidencia.attributes.Tipo.enum;	
 
@@ -551,7 +564,7 @@ module.exports = {
 		var Estados = Incidencia.attributes.Estado.enum;
 
 		if ( req.Rol == '1' || req.Rol == '2' || req.Rol == '3' ) {
-			res.json(200, { Estados });	
+			res.json(200, { Estados });
 		}
 	},
 
@@ -591,13 +604,21 @@ module.exports = {
 			Incidencia.find().then(function(Incidencias){
 
 				if(Incidencias){
-	
+					
+					var guardia = 0; var noGuardia = 0;
 					var tipo1 = 0; var tipo2 = 0;
 					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
 					var comunSi = 0; var comunNo = 0;
 					var IncidenciaSinAsignar = 0;
 
 					Incidencias.forEach(function(incidencia){
+
+						if(incidencia.Guardia == 'No' ){
+							noGuardia++;
+						}
+						else {
+							guardia++;
+						}
 
 						if(incidencia.Tipo == 'Sistemas'){
 							tipo1++;
@@ -631,13 +652,15 @@ module.exports = {
 					var informe = {
 
 						Total: 			req.count,
-						SinAsignar: 			IncidenciaSinAsignar,
+						Guardia: 			guardia,
+						NoGuardia: 		noGuardia,
+						SinAsignar: 		IncidenciaSinAsignar,
 						DeSistemas: 		tipo1,
 						DeMantenimiento: 	tipo2,
 						Comunes: 			comunSi,
 						NoComunes: 		comunNo,
 						SinIniciar: 			estado1,
-						EnProceso: 			estado2,
+						EnProceso: 		estado2,
 						Pendientes: 		estado3,
 						Completadas: 		estado4
 
@@ -657,8 +680,8 @@ module.exports = {
 	totalIncidenciasFiltro: function (req, res, next) {
 		Incidencia.find().where({
 
-					createdAt: 	{ '>=': req.body.FechaInicio },
-					createdAt: 	{ '<=': req.body.FechaFin }
+					createdAt: 	{ '>=': req.body.FechaInicio	},
+					createdAt: 	{ '<=': req.body.FechaFin	}
 
 				}).then(function(Incidencias){
 
@@ -677,13 +700,13 @@ module.exports = {
 
 	estadisticaByOperador: function(req, res, next) {
 
-		if( req.Rol == '1' ){
+		if( req.Rol == '1' && req.body.Operador != null ){
 
 			Incidencia.find().where({
 
 					createdAt: 	{ '>=': req.body.FechaInicio	},
 					createdAt: 	{ '<=': req.body.FechaFin	},
-					Operador: 		  req.body.Operador	
+					Operador: 		  req.body.Operador
 
 				}).then(function(Incidencias){
 
@@ -713,7 +736,7 @@ module.exports = {
 
 						TotalAsignadas: 		Incidencias.length,
 						SinIniciar: 			estado1,
-						EnProceso: 			estado2,
+						EnProceso: 		estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 
@@ -734,23 +757,25 @@ module.exports = {
 
 	estadisticaByColaborador: function(req, res, next) {
 
-		if( req.Rol == '1' ){
+		if( req.Rol == '1' && req.body.Colaborador != null ){
+
 			Incidencia.find().where({
 
-					createdAt: 		{ '>=': req.body.FechaInicio },
-					createdAt: 		{ '<=': req.body.FechaFin },
+					createdAt: 	{ '>=': req.body.FechaInicio	},
+					createdAt: 	{ '<=': req.body.FechaFin	},
 					Propietario: 	req.body.Colaborador	
 
 				}).then(function(Incidencias){
 
-					var TotalColaborador = Incidencias.length;
+					var total = Incidencias.length;
 
 					var estadisticaByColaborador = {
 
-						TotalTodos: 		req.IncidenciasCreadas,
-						TotalColaborador: 	TotalColaborador
+						TotalTodos: 	req.IncidenciasCreadas,
+						TotalColaborador: 	total
 
 					}
+
 					res.json(200, { Estadisticas: estadisticaByColaborador });
 
 			}).catch(function(error){ next(error); });
@@ -767,21 +792,22 @@ module.exports = {
 	estadisticaByInstalacion: function(req, res, next){
 
 		if( req.Rol == '1' ){
-
+		
 			Incidencia.find().where({
 
 					createdAt: 	{ '>=': req.body.FechaInicio	},
 					createdAt: 	{ '<=': req.body.FechaFin	},
-					Instalacion: 	  req.body.Instalacion
+					Instalacion: 	  req.body.Instalacion	
 
 				}).then(function(Incidencias){
-
+					
 					var total = 0;
 					var sistemas = 0; var mantenimiento = 0;
 					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
 					var IncidenciaSinAsignar = 0;
 
 					Incidencias.forEach(function(incidencia){
+
 						if(incidencia.Tipo == 'Sistemas'){
 							sistemas++;
 						}
@@ -809,11 +835,11 @@ module.exports = {
 					var estadisticaByInstalacion = {
 
 						Total: 			Incidencias.length,
-						SinAsignar: 			IncidenciaSinAsignar,
+						SinAsignar: 		IncidenciaSinAsignar,
 						DeSistemas: 		sistemas,
 						DeMantenimiento: 	mantenimiento,
 						SinIniciar: 			estado1,
-						EnProceso: 			estado2,
+						EnProceso: 		estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 
@@ -830,6 +856,6 @@ module.exports = {
 
 		}
 
-	}		
+	}	
 
 }

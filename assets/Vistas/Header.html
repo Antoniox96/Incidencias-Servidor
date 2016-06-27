@@ -1,41 +1,55 @@
 <div id="Header" class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
-		 <div class="navbar-header">
+		 <!--<div class="navbar-header">
 			<a class="navbar-brand" href="/#/">Incidencias</a>
-			<a ng-if="Rol == '1'" class="navbar-brand" href="/#/estadisticas">Estadísticas</a>
-		 </div>
-		 <ul class="nav navbar-nav navbar-right" uib-dropdown-menu>
-			<li class="dropdown" uib-dropdown>
-				<a href uib-dropdown-toggle class="dropdown-toggle">
-					<span class="glyphicon glyphicon-user"></span> 
-					<span>{{ NickName }}</span>
-					<span class="glyphicon glyphicon-chevron-down"></span>
-				</a>
-				<ul class="dropdown-menu" uib-dropdown-menu">
-					<li>
-						<div class="navbar-login">
-							<div class="row">
-								<div class="col-lg-12">
-									<p class="text-center"><i class="glyphicon glyphicon-education"/>{{ Nombre + " " + Apellidos }}</p>
-									<p class="text-center"><i class="glyphicon glyphicon-envelope"/>{{ Email }}</p>
+			<a ng-if="Rol == '1'" class="navbar-brand" href="/#/estadisticas">Estadísticas</a>-->
+
+	 	<div class="collapse navbar-collapse" id="navbar-collapse-1">
+	                <ul class="nav navbar-nav">
+	                   	<li ><a class="menu" href="/#/">Incidencias</a></li>
+	                    	<li ng-if="Rol == '1'"><a  class="menu" href="/#/estadisticas">Estadísticas</a></li>
+				<li ng-if="Rol == '1'" class="dropdown"><a href="" class="dropdown-toggle menu" data-toggle="dropdown">Administrador <b class="caret"></b></a>
+		                        <ul class="dropdown-menu">
+		                            <li><a class="accion" href="/#/crear" ng-if="Rol == '1'" >Crear</a></li>
+		                            <li><a class="accion" href="/#/editar" ng-if="Rol == '1'" >Editar</a></li>
+		                            <li><a class="accion" href="/#/eliminar" ng-if="Rol == '1'" >Eliminar</a></li>
+		                         </ul>
+	                    	</li>
+	                   </ul> 	
+			
+			 <ul class="nav navbar-nav navbar-right" uib-dropdown-menu>
+				<li class="dropdown" uib-dropdown>
+					<a href uib-dropdown-toggle class="dropdown-toggle">
+						<span class="glyphicon glyphicon-user"></span> 
+						<span>{{ NickName }}</span>
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</a>
+					<ul class="dropdown-menu" uib-dropdown-menu>
+						<li>
+							<div class="navbar-login">
+								<div class="row">
+									<div class="col-lg-12">
+										<p class="text-center"><i class="glyphicon glyphicon-education"/>{{ Nombre + " " + Apellidos }}</p>
+										<p class="text-center"><i class="glyphicon glyphicon-envelope"/>{{ Email }}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<div class="navbar-login navbar-login-session">
-							<div class="row">
-								<div class="col-lg-12">
-									<p>
-										<a href class="btn btn-danger btn-block" ng-click="LogOut();">Cerrar Sesión</a>
-									</p>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<div class="navbar-login navbar-login-session">
+								<div class="row">
+									<div class="col-lg-12">
+										<p>
+											<a href class="btn btn-danger btn-block" ng-click="LogOut();">Cerrar Sesión</a>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</li>
-				</ul>
-			</li>
-		</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+	 	</div>
 	</div>
 </div>

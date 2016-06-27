@@ -1,0 +1,37 @@
+<div id="Formulario" ng-init="getDatosUsuario();" ng-show="DatosUsuarioCargado">
+	<div class="modal-header">
+		<h3 class="modal-title text-center">Editar Usuario</h3>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<p>NickName</p>
+			<input type="text" class="form-control" ng-model="Usuario.NickName"/>
+		</div>
+		<div class="form-group">
+			<p>Nombre</p>
+			<input type="text" class="form-control" ng-model="Usuario.Nombre"/>
+		</div>
+		<div class="form-group">
+			<p>Apellidos</p>
+			<input type="text" class="form-control" ng-model="Usuario.Apellidos"/>
+		</div>
+		<div class="form-group">
+			<p>Email</p>
+			<input type="text" class="form-control" ng-model="Usuario.Email"/>
+		</div>
+		<div class="form-group" ng-if="Usuario.Rol == '2'">
+			<p>Categoria</p>
+			<select class="form-control" ng-model="Usuario.tipoOperador" ng-options="tipoOperador for tipoOperador in tiposOperador track by tipoOperador"></select>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button id="Editar" class="btn btn-primary" type="button" ng-click="EditarSupervisor()" ng-if="Usuario.Rol == '1'">Editar Supervisor</button>
+		<button id="Editar" class="btn btn-primary" type="button" ng-click="EditarOperador()" ng-if="Usuario.Rol == '2'">Editar Operador</button>
+		<button id="Editar" class="btn btn-primary" type="button" ng-click="EditarColaborador()" ng-if="Usuario.Rol == '3'">Editar Colaborador</button>
+		<button id="Cancelar" class="btn btn-danger" type="button" ng-click="Cancelar()">Cancelar</button>
+	</div>
+</div>
+<script>
+	$('textarea.js-auto-size').textareaAutoSize();
+	$('.modal-body .form-group').css({ 'width': '50%', 'margin-left': '25%' });
+</script>

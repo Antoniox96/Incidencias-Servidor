@@ -1,0 +1,145 @@
+<div ng-if="Rol == '1'" ng-init="getDatosParaAdmin();" ng-show="DatosCargados">
+	<div id="Crear">
+		<div id="CrearZona" class="panel panel-default panel-table col col-xs-6">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-12">
+						<h1 class="panel-title">Crear Zona</h1>
+					</div>
+				</div>
+	  		</div>
+		 	<div class="panel-body">
+				<form class="tab-form-demo">
+					<uib-tabset active="activeForm">
+						<uib-tab index="0" heading="Departamento">
+							<ng-form name="CrearDepartamentoForm">
+								<div class="form-group">
+
+									<p>Nombre Departamento:</p>
+									<input type="text" class="form-control" ng-model="newDepartamento.Nombre" placeholder="Introduzca un nombre" />
+								
+								</div>
+								<div class="modal-footer" ng-if="newDepartamento.Nombre">
+									<button class="btn btn-primary BotonCrear" type="button" ng-click="CrearDepartamento()">Crear Departamento</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="1" heading="Ubicacion">
+							<ng-form name="CrearUbicacionForm">
+								<div class="form-group">
+
+									<p>Asignar Departamento</p>
+									<select class="form-control" ng-model="newUbicacion.Departamento" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+									<p>Nombre Ubicacion:</p>
+									<input type="text" class="form-control" ng-model="newUbicacion.Nombre"/>
+
+								</div>
+								<div class="modal-footer" ng-if="newUbicacion.Nombre">
+									<button class="btn btn-primary BotonCrear" type="button" ng-click="CrearUbicacion()">Crear Ubicacion</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="2" heading="Instalacion">
+							<ng-form name="CrearInstalacionForm">
+								<div class="form-group">
+
+									<p>Asignar Departamento</p>
+									<select class="form-control Departamento" ng-model="newInstalacion.Departamento" ng-change="setUbicacionAdminCrear()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+									<p>Asignar Ubicacion</p>
+									<select  class="form-control Ubicacion" ng-model="newInstalacion.Ubicacion" ng-options="Ubicacion.Nombre for Ubicacion in newInstalacion.Departamento.Ubicaciones track by Ubicacion.id">
+									</select>
+									<p>Nombre Instalación:</p>
+									<input type="text" class="form-control" ng-model="newInstalacion.Nombre"/>
+
+								</div>
+								<div class="modal-footer" ng-if="newInstalacion.Nombre">
+									<button class="btn btn-primary BotonCrear" type="button" ng-click="CrearInstalacion()">Crear Instalacion</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+					</uib-tabset>
+				</form>
+			</div>
+		</div>
+		<div id="CrearUsuario" class="panel panel-default panel-table col col-xs-5">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-12">
+						<h1 class="panel-title">Crear Usuario</h1>
+					</div>
+				</div>
+	  		</div>
+		 	<div class="panel-body">
+				<form class="tab-form-demo">
+					<uib-tabset active="activeForm2">
+						<uib-tab index="0" heading="Supervisor">
+							<ng-form name="CrearSupervisorForm">
+								<div class="form-group">
+
+									<p>NickName:</p>
+									<input type="text" class="form-control" ng-model="newSupervisor.NickName"/>
+									<p>Password:</p>
+									<input type="password" class="form-control" ng-model="newSupervisor.Password"/>
+									<p>Nombre:</p>
+									<input type="text" class="form-control" ng-model="newSupervisor.Nombre"/>
+									<p>Apellidos:</p>
+									<input type="text" class="form-control" ng-model="newSupervisor.Apellidos"/>
+									<p>Email:</p>
+									<input type="text" class="form-control" ng-model="newSupervisor.Email"/>
+
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary BotonCrear" type="button" ng-click="CrearSupervisor()">Crear Supervisor</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="1" heading="Operador">
+							<ng-form name="CrearOperadorForm">
+								<div class="form-group">
+
+									<p>NickName:</p>
+									<input type="text" class="form-control" ng-model="newOperador.NickName"/>
+									<p>Password:</p>
+									<input type="password" class="form-control" ng-model="newOperador.Password"/>
+									<p>Tipo Operador:</p>
+									<select class="tipoOperador" ng-model="newOperador.tipoOperador" ng-options="tipoOperador for tipoOperador in tiposOperador track by tipoOperador"></select>
+									<p>Nombre:</p>
+									<input type="text" class="form-control" ng-model="newOperador.Nombre"/>
+									<p>Apellidos:</p>
+									<input type="text" class="form-control" ng-model="newOperador.Apellidos"/>
+									<p>Email:</p>
+									<input type="text" class="form-control" ng-model="newOperador.Email"/>
+
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary BotonCrear" type="button" ng-click="CrearOperador()">Crear Operador</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="2" heading="Colaborador">
+							<ng-form name="CrearColaboradorForm">
+								<div class="form-group">
+
+									<p>NickName:</p>
+									<input type="text" class="form-control" ng-model="newColaborador.NickName"/>
+									<p>Password:</p>
+									<input type="password" class="form-control" ng-model="newColaborador.Password"/>
+									<p>Nombre:</p>
+									<input type="text" class="form-control" ng-model="newColaborador.Nombre"/>
+									<p>Apellidos:</p>
+									<input type="text" class="form-control" ng-model="newColaborador.Apellidos"/>
+									<p>Email:</p>
+									<input type="text" class="form-control" ng-model="newColaborador.Email"/>
+
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary BotonCrear" type="button" ng-click="CrearColaborador()">Crear Colaborador</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+					</uib-tabset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

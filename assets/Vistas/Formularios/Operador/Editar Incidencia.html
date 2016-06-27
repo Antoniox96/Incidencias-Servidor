@@ -1,16 +1,16 @@
 <div id="Formulario" ng-init="cargarComentario();" ng-show="ComentarioCargado">
-	<div class="modal-header">
-		<h3 class="modal-title text-center">Agregar Comentario</h3>
-	</div>
-	<div class="modal-body">
-		<div id="Comment" class="form-group">
-			<p>Comentario</p>
-			<textarea class="form-control js-auto-size" id="Comentario" ng-model="Comentario" placeholder="Introduzca un comentario descriptivo indicando por qué la incidencia se encuentra en estado pendiente y qué necesita para solucionar dicho estado."/>
-		</div>
-	</div>
-	  <div style="clear: both"></div>
-	<div class="modal-footer">
-		<button id="Editar" class="btn btn-primary" type="button" ng-click="EditarIncidencia()">Comentar</button>
+ 	<div class="modal-header">
+ 		<h3 class="modal-title text-center">Agregar Comentario</h3>
+ 	</div>
+ 	<div class="modal-body">
+ 		<div id="Comment" class="form-group">
+ 			<p>Comentario</p>
+ 			<textarea class="form-control js-auto-size" id="Comentario" ng-model="Comentario" placeholder="Introduzca un comentario descriptivo indicando por qué la incidencia se encuentra en estado pendiente y qué necesita para solucionar dicho estado."/>
+ 		</div>
+ 	</div>
+ 	  <div style="clear: both"></div>
+ 	<div class="modal-footer">
+ 		<button id="Editar" class="btn btn-primary" type="button" ng-click="EditarIncidencia()">Comentar</button>
 		<button id="Cancelar" class="btn btn-danger" type="button" ng-click="Cancelar()">Cancelar</button>
 	</div>
 </div>

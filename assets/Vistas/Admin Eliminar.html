@@ -1,0 +1,152 @@
+<div ng-if="Rol == '1'" ng-init="getDatosParaAdmin();" ng-show="DatosCargados">
+	<div id="Eliminar">
+		<div id="EliminarZona" class="DatosZona panel panel-default panel-table col col-xs-6">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-12">
+						<h1 class="panel-title">Eliminar Zona</h1>
+					</div>
+				</div>
+	  		</div>
+		 	<div class="panel-body">
+				<form class="tab-form-demo">
+					<uib-tabset active="activeForm5">
+						<uib-tab index="0" heading="Departamento">
+							<ng-form name="EliminarDepartamentoForm">
+								<div class="form-group">
+									<table class="table table-bordered table-list">
+									<tr 	ng-click="setDepartamentoSeleccionado(Departamento.id);"
+										ng-class="{Seleccionado: DepartamentoSeleccionado === Departamento.id}" 
+										ng-repeat="Departamento in Departamentos">
+										<td>{{ Departamento.Nombre }}</td>	
+									</tr>
+									</table>
+								</div>
+								<div class="modal-footer" ng-if="DepartamentoSeleccionado">
+									<button class="btn btn-primary BotonEliminar" type="button" ng-click="EliminarDepartamento()">Eliminar Departamento</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="1" heading="Ubicacion">
+							<ng-form name="EliminarUbicacionForm">
+								<div class="form-group">
+									<table class="table table-bordered table-list">
+									<tbody ng-hide="Departamentos.length < 0">
+									<p>Seleccionar Departamento</p>
+									<select class="form-control Departamento" ng-model="deleteUbicacion.Departamento" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+									<tr 	ng-click="setUbicacionSeleccionada(Ubicacion.id);"
+										ng-class="{Seleccionado: UbicacionSeleccionada === Ubicacion.id}" 
+										ng-repeat="Ubicacion in deleteUbicacion.Departamento.Ubicaciones track by Ubicacion.id">
+										<td>{{ Ubicacion.Nombre }}</td>	
+									</tr>
+									</tbody>
+									</table>
+								</div>
+								<div class="modal-footer" ng-if="UbicacionSeleccionada">
+									<button class="btn btn-primary BotonEliminar" type="button" ng-click="EliminarUbicacion()">Eliminar Ubicacion</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="2" heading="Instalacion">
+							<ng-form name="EliminarInstalacionForm">
+								<div class="form-group">
+								<p>Seleccionar Departamento</p>
+								<select class="form-control Departamento" ng-model="deleteInstalacion.Departamento" ng-change="setUbicacionAdminEliminar()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
+								<p>Seleccionar Ubicacion</p>
+								<select  class="form-control Ubicacion" ng-model="deleteInstalacion.Ubicacion" ng-options="Ubicacion.Nombre for Ubicacion in deleteInstalacion.Departamento.Ubicaciones track by Ubicacion.id">
+								</select>
+								<input ng-model="filtro" id="search" class="form-control" placeholder="Filtrar Instalaciones">
+								<div class="listado">
+									<table class="table table-bordered table-list">
+									<tr 	ng-click="setInstalacionSeleccionada(Instalacion.id);"
+										ng-class="{Seleccionado: InstalacionSeleccionada === Instalacion.id}"
+										ng-repeat="Instalacion in deleteInstalacion.Ubicacion.Instalaciones | filter:filtro">
+										<td>{{Instalacion.Nombre}}</td>
+									</tr>
+									</table>
+								</div>
+								</div>
+								<div class="modal-footer" ng-if="InstalacionSeleccionada">
+									<button class="btn btn-primary BotonEliminar" type="button" ng-click="EliminarInstalacion()">Eliminar Instalacion</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+					</uib-tabset>
+				</form>
+			</div>
+		</div>
+		<div id="EliminarUsuario" class="DatosUsuario panel panel-default panel-table col col-xs-5">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-12">
+						<h1 class="panel-title">Eliminar Usuario</h1>
+					</div>
+				</div>
+	  		</div>
+		 	<div class="panel-body">
+				<form class="tab-form-demo">
+					<uib-tabset active="activeForm6">
+						<uib-tab index="0" heading="Supervisor">
+							<ng-form name="EliminarSupervisorForm">
+								<div class="form-group">
+									<input ng-model="filtroUser" id="search" class="form-control" placeholder="Filtrar Supervisores">
+									<div class="listado">
+									<table class="table table-bordered table-list">
+									<tr 	ng-click="setSupervisorSeleccionado(Supervisor.ID);"
+										ng-class="{Seleccionado: SupervisorSeleccionado === Supervisor.ID}"
+										ng-repeat="Supervisor in Supervisores | filter:filtroUser">
+										<td>{{Supervisor.Nombre}}</td>
+									</tr>
+									</table>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary BotonEliminar" type="button" ng-click="BorrarSupervisor()" ng-show="Restriccion">Eliminar Supervisor</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="1" heading="Operador">
+							<ng-form name="EliminarOperadorForm">
+								<div class="form-group">
+									<input ng-model="filtroUser" id="search" class="form-control" placeholder="Filtrar Instalaciones">
+									<div class="listado">
+									<table class="table table-bordered table-list">
+									<tr 	ng-click="setOperadorSeleccionado(Operador.ID);"
+										ng-class="{Seleccionado: OperadorSeleccionado === Operador.ID}"
+										ng-repeat="Operador in Operadores | filter:filtroUser">
+										<td>{{Operador.Nombre}}</td>
+									</tr>
+									</table>
+									</div>
+								</div>
+								<div class="modal-footer" ng-if="OperadorSeleccionado">
+									<button class="btn btn-primary BotonEliminar" type="button" ng-click="BorrarOperador()">Eliminar Operador</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+						<uib-tab index="2" heading="Colaborador">
+							<ng-form name="EliminarColaboradorForm">
+								<div class="form-group">
+									<input ng-model="filtroUser" id="search" class="form-control" placeholder="Filtrar Colaboradores">
+									<div class="listado">
+									<table class="table table-bordered table-list">
+									<tr 	ng-click="setColaboradorSeleccionado(Colaborador.ID);"
+										ng-class="{Seleccionado: ColaboradorSeleccionado === Colaborador.ID}"
+										ng-repeat="Colaborador in Colaboradores | filter:filtroUser">
+										<td>{{Colaborador.Nombre}}</td>
+									</tr>
+									</table>
+									</div>
+									
+								</div>
+								<div class="modal-footer" ng-if="ColaboradorSeleccionado">
+									<button class="btn btn-primary BotonEliminar" type="button" ng-click="BorrarColaborador()">Eliminar Colaborador</button>
+								</div>
+							</ng-form>
+						</uib-tab>
+					</uib-tabset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

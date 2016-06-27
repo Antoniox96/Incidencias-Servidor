@@ -1,0 +1,173 @@
+.listado{
+  height: 120px;
+  overflow: auto;
+}
+#Crear #CrearZona, #CrearUsuario {
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  -webkit-box-shadow: 2px 3px 5px black;
+  -moz-box-shadow: 2px 3px 5px black;
+  box-shadow: 2px 3px 5px black;
+  padding: 0;
+  float: left;
+}
+
+#Crear p {
+  font-size: 15px;
+  margin-top: 5%;
+  margin-bottom: 2%;
+  margin-left: 1px;
+}
+
+#Crear #CrearUsuario {
+  float: right;
+}
+
+#Crear .panel-body {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+#Crear #CrearUsuario .panel-body {
+  padding: 20px;
+}
+/*CREAR*/
+#Crear #CrearUsuario {
+  height: 100%;
+}
+
+#Crear #CrearZona {
+  height: 100%;
+}
+
+#Crear label {
+  margin-top: 10px;
+}
+
+#Crear form.tab-form-demo .tab-pane {
+      margin: 20px 20px;
+}
+
+#Boton {
+  text-align: center;
+  float: none;
+  width: 100%;
+}
+.BotonCrear {
+  margin-top: 2%;
+}
+/*EDITAR*/
+#Editar #EditarZona, #EditarUsuario {
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  -webkit-box-shadow: 2px 3px 5px black;
+  -moz-box-shadow: 2px 3px 5px black;
+  box-shadow: 2px 3px 5px black;
+  padding: 0;
+  float: left;
+}
+
+#Editar p {
+  font-size: 15px;
+  margin-top: 5%;
+  margin-bottom: 2%;
+  margin-left: 1px;
+}
+
+#Editar #EditarUsuario {
+  float: right;
+}
+
+#Editar .panel-body {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+#Editar #EditarUsuario .panel-body {
+  padding: 20px;
+}
+#Editar #EditarUsuario {
+  height: 100%;
+}
+
+#Editar #EditarZona {
+  height: 100%;
+}
+
+#Editar label {
+  margin-top: 10px;
+}
+
+#Editar form.tab-form-demo .tab-pane {
+      margin: 20px 20px;
+}
+
+#Boton {
+  text-align: center;
+  float: none;
+  width: 100%;
+}
+.BotonEditar {
+  margin-top: 2%;
+}
+
+.Seleccionado {
+  background-color: #9CC2E0;
+}
+/*ELIMINAR*/
+#Eliminar #EliminarZona, #EliminarUsuario {
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  -webkit-box-shadow: 2px 3px 5px black;
+  -moz-box-shadow: 2px 3px 5px black;
+  box-shadow: 2px 3px 5px black;
+  padding: 0;
+  float: left;
+}
+
+#Eliminar p {
+  font-size: 15px;
+  margin-top: 5%;
+  margin-bottom: 2%;
+  margin-left: 1px;
+}
+
+#Eliminar #EliminarUsuario {
+  float: right;
+}
+
+#Eliminar .panel-body {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+#Eliminar #EliminarUsuario .panel-body {
+  padding: 20px;
+}
+#Eliminar #EliminarUsuario {
+  height: 100%;
+}
+
+#Eliminar #EliminarZona {
+  height: 100%;
+}
+
+#Eliminar label {
+  margin-top: 10px;
+}
+
+#Eliminar form.tab-form-demo .tab-pane {
+      margin: 20px 20px;
+}
+
+#Boton {
+  text-align: center;
+  float: none;
+  width: 100%;
+}
+.BotonEliminar {
+  margin-top: 2%;
+}

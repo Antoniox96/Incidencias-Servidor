@@ -36,38 +36,23 @@ module.exports = {
 
 		if ( req.Rol == '1' ) {
 
-			Instalacion.findOne(req.params.id).then(function(Instalacion) {	
-
-			if ( Instalacion ) {	
-
-					var UbicacionID = Number(Instalacion.Ubicacion.id);
-					
-					if( UbicacionID != req.body.Ubicacion ){
-
-						UbicacionID = req.body.Ubicacion;
-					}
-
-					Instalacion.update(
-								{ 	id: Number(req.params.id) }, 		
-								{
-									Nombre: 	req.body.Nombre,
-									Ubicacion: 	UbicacionID
-								}
-					).exec(function (err, updated){
-
-						if (err) {
-							return err;
+			Instalacion.update(
+						{ 	id: Number(req.params.id) }, 		
+						{
+							Nombre: 	req.body.Nombre,
+							Ubicacion: 	req.body.Ubicacion
 						}
+			).exec(function (err, updated){
 
-						if (updated) {
-							res.json(200, { msg: 'La instalación ha sido actualizada satisfactoriamente.' });
-						}
+				if (err) {
+					res.json(404, { msg: 'Error al actualizar Instalacion.' });
+				}
 
-					});
+				if (updated) {
+					res.json(200, { msg: 'La instalación ha sido actualizada satisfactoriamente.' });
+				}
 
-			}
-
-			}).catch(function(error){ next(error); });
+			});
 
 		}
 

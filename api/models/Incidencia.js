@@ -34,6 +34,12 @@ module.exports = {
 			defaultsTo: 	'Baja'
 		},
 
+		Guardia: {
+			type: 		'string',
+			enum: 	['No','Sí'],
+			defaultsTo: 	'No'
+		},
+
 		Comun: {
 			type: 		'string',
 			enum: 	['Sí', 'No'],
@@ -41,9 +47,9 @@ module.exports = {
 		},
 
 		Comentario: {
-			type: 		'string',
-			size: 		255
-		},
+ 			type: 		'string',
+ 			size: 		255
+ 		},
 
 		FechaInicio: {
 			type: 		'date',

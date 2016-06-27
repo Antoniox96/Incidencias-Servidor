@@ -78,38 +78,30 @@ module.exports = {
 
 	update: function (req, res) {
 
-			if ( req.Rol == '1' ) {
+		if ( req.Rol == '1' ) {
 
-				Departamento.findOne(req.params.id).then(function(Departamento) {	
+			Departamento.update(
+						{ id: Number(req.params.id) }, 		
+						{
+							Nombre: req.body.Nombre
+						}
+			).exec(function (err, updated){
 
-					if ( Departamento ) {	
+				if (err) {
+					res.json(404, { msg: 'Error al actualizar Departamento.' });
+				}
 
-						Departamento.update(
-									{ id: Number(req.params.id) }, 		
-									{
-										Nombre: req.body.Nombre
-									}
-						).exec(function (err, updated){
+				if (updated) {
+					res.json(200, { msg: 'El departamento ha sido actualizado satisfactoriamente.' });
+				}
 
-							if (err) {
-								return err;
-							}
+			});
 
-							if (updated) {
-								res.json(200, { msg: 'El departamento ha sido actualizado satisfactoriamente.' });
-							}
+		}
 
-						});
-
-					}
-
-				}).catch(function(error){ next(error); });	
-
-			}
-
-			else {
-				return res.json(403, {err: 'Permiso denegado.'});
-			}
+		else {
+			return res.json(403, {err: 'Permiso denegado.'});
+		}
 
 	},
 

@@ -17,8 +17,7 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  connection: 'DiscoDuro'
-  //connection: 'MySQL',
+  connection: 'DiscoDuro',
 
   /***************************************************************************
   *                                                                          *

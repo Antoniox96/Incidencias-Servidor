@@ -58,7 +58,7 @@ table td:nth-child(1) {
 	color: white !important;
 }
 
-#AddButton, #EditButton, #SinIniciarButton, #EnProcesoButton, #PendienteButton, #CompletadaButton, #DeleteButton, #ComunButton {
+#Filter, #AddButton, #EditButton, #SinIniciarButton, #EnProcesoButton, #PendienteButton, #CompletadaButton, #DeleteButton, #ComunButton {
 	padding: 10px 15px 10px 15px;
 	width: 100%;
 	border-radius: 0px;
@@ -83,6 +83,9 @@ table td:nth-child(1) {
 #ComunButton {
 	background-color: #993399;
 }
+#Filter {
+	background-color: #BDBDBD;
+}
 
 #SinIniciarButton:hover, #DeleteButton:hover {
 	background-color: #B32400;
@@ -102,6 +105,10 @@ table td:nth-child(1) {
 
 #ComunButton:hover {
 	background-color: #602060;
+}
+
+#Filter:hover {
+	background-color: #848484;
 }
 
 .glyphicon {

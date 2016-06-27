@@ -4,8 +4,16 @@ module.exports.routes = {
 		'UsuarioController.currentUser'
 	],
 
+	'GET r|^/TiposGuardia': [
+		'IncidenciaController.TiposGuardia'
+	],
+
 	'GET r|^/TiposIncidencia': [
 		'IncidenciaController.tiposIncidencia'
+	],
+
+	'GET r|^/TiposOperador': [
+		'UsuarioController.TiposOperador'
 	],
 
 	'GET r|^/EstadosIncidencia': [
@@ -21,16 +29,20 @@ module.exports.routes = {
  		'DepartamentoController.find'
 	],
 
+	'GET r|^/Usuarios': [
+		'UsuarioController.findUsuarios'
+	],
+
+	'GET r|^/Supervisores': [
+		'UsuarioController.findSupervisores'
+	],
+
 	'GET r|^/Operadores': [
 		'UsuarioController.findOperadores'
 	],
 
 	'GET r|^/Colaboradores': [
 		'UsuarioController.findColaboradores'
-	],
-
-	'POST r|^/ActualizarDatos':[
-		'UsuarioController.updateUsuario'
 	],
 
 	'POST r|^/Estadistica':[

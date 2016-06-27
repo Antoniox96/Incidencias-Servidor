@@ -17,6 +17,21 @@
 			 	templateUrl: "Vistas/Estadísticas.html",
 	 	            	access: { requiredLogin: true }
 			})
+			.when("/crear", {
+			 	controller: "AdminController",
+			 	templateUrl: "Vistas/Admin Crear.html",
+	 	            	access: { requiredLogin: true }
+			})
+			.when("/editar", {
+			 	controller: "AdminController",
+			 	templateUrl: "Vistas/Admin Editar.html",
+	 	            	access: { requiredLogin: true }
+			})
+			.when("/eliminar", {
+			 	controller: "AdminController",
+			 	templateUrl: "Vistas/Admin Eliminar.html",
+	 	            	access: { requiredLogin: true }
+			})
 			.otherwise({
             			redirectTo: "/"
 			});
