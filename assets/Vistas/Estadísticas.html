@@ -18,6 +18,7 @@
 									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
 									<div id="Boton">
 										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaGlobal()">Ver Gráfico</button>
+										<button id="Exportar" class="btn btn-primary" type="button" ng-show="EstadisticasCargadas" ng-csv="Incidencias" filename="Incidencias InterContinental.csv" field-separator=";"decimal-separator="locale"add-bom="true" csv-header="Headers">Exportar</button>
 									</div>
 								</div>
 							</ng-form>
@@ -37,6 +38,7 @@
 									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
 									<div id="Boton">
 										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaColaborador()">Ver Gráfico</button>
+										<button id="Exportar" class="btn btn-primary" type="button" ng-show="EstadisticasCargadas" ng-csv="Incidencias" filename="Incidencias InterContinental.csv" field-separator=";"decimal-separator="locale"add-bom="true" csv-header="Headers">Exportar</button>
 									</div>
 								</div>
 							</ng-form>
@@ -56,6 +58,7 @@
 									<select id="TipoGrafico" class="form-control" ng-model="TipoGrafico.Seleccionado" ng-change="setClassGrafico();" ng-options="TipoGrafico.Nombre for TipoGrafico in TiposGrafico track by TipoGrafico.Value"></select>
 									<div id="Boton">
 										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaOperador()">Ver Gráfico</button>
+										<button id="Exportar" class="btn btn-primary" type="button" ng-show="EstadisticasCargadas" ng-csv="Incidencias" filename="Incidencias InterContinental.csv" field-separator=";"decimal-separator="locale"add-bom="true" csv-header="Headers">Exportar</button>
 									</div>
 								</div>
 							</ng-form>
@@ -88,6 +91,7 @@
 									</div>
 									<div id="Boton">
 										<button id="VerGrafico" class="btn btn-primary" type="button" ng-click="getEstadisticaInstalacion()">Ver Gráfico</button>
+										<button id="Exportar" class="btn btn-primary" type="button" ng-show="EstadisticasCargadas" ng-csv="Incidencias" filename="Incidencias InterContinental.csv" field-separator=";"decimal-separator="locale"add-bom="true" csv-header="Headers">Exportar</button>
 									</div>
 								</div>
 							</ng-form>

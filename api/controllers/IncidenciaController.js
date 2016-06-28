@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = {
 
 	find: function (req, res, next) {
@@ -601,7 +603,7 @@ module.exports = {
 				req.count = count;
 			}).catch(function(error){ next(error); });
 
-			Incidencia.find().then(function(Incidencias){
+			Incidencia.find().populateAll().then(function(Incidencias){
 
 				if(Incidencias){
 					
@@ -610,8 +612,40 @@ module.exports = {
 					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
 					var comunSi = 0; var comunNo = 0;
 					var IncidenciaSinAsignar = 0;
+					var IncidenciasJSON = [];
 
 					Incidencias.forEach(function(incidencia){
+
+						var Operador = "Sin Asignar";
+
+						if ( incidencia.Operador != null ) {
+							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
+						}
+
+						var Propietario = "Usuario no encontrado";
+
+						if ( incidencia.Propietario != null ) {
+							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
+						}
+
+						IncidenciaJSON = {
+							"id": 	incidencia.id,
+							"Guardia": 	incidencia.Guardia,
+							"Titulo": 	incidencia.Titulo,
+							"Descripcion": 	incidencia.Descripcion,
+							"Instalacion": 	incidencia.Instalacion.Nombre,
+							"Tipo": 	incidencia.Tipo,
+							"Creador": Propietario,
+							"Operador": Operador,
+							"Estado": incidencia.Estado,
+							"Prioridad": incidencia.Prioridad,
+							"Fecha de Creacion": moment(incidencia.createdAt).locale("es").format('LLL'), 
+							"Fecha de Inicio": moment(incidencia.FechaInicio).locale("es").format('LLL'), 
+							"Fecha Prevista": moment(incidencia.FechaPrevista).locale("es").format('LLL'), 
+							"Fecha de Finalización": moment(incidencia.FechaFin).locale("es").format('LLL')
+						};
+
+						IncidenciasJSON.push(IncidenciaJSON);
 
 						if(incidencia.Guardia == 'No' ){
 							noGuardia++;
@@ -666,7 +700,7 @@ module.exports = {
 
 					}
 
-					res.json(200, { Estadisticas: informe });
+					res.json(200, { Estadisticas: informe, Incidencias: IncidenciasJSON });
 				}
 
 			}).catch(function(error){ next(error); });
@@ -702,19 +736,51 @@ module.exports = {
 
 		if( req.Rol == '1' && req.body.Operador != null ){
 
-			Incidencia.find().where({
+			Incidencia.find().populateAll().where({
 
 					createdAt: 	{ '>=': req.body.FechaInicio	},
 					createdAt: 	{ '<=': req.body.FechaFin	},
 					Operador: 		  req.body.Operador
 
 				}).then(function(Incidencias){
+					var IncidenciasJSON = [];
 
 					var total = 0;
 					var sistemas = 0; var mantenimiento = 0;
 					var estado1 = 0; var estado2 = 0; var estado3 = 0; var estado4 = 0;
 
 					Incidencias.forEach(function(incidencia){
+
+						var Operador = "Sin Asignar";
+
+						if ( incidencia.Operador != null ) {
+							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
+						}
+
+						var Propietario = "Usuario no encontrado";
+
+						if ( incidencia.Propietario != null ) {
+							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
+						}
+
+						IncidenciaJSON = {
+							"id": 	incidencia.id,
+							"Guardia": 	incidencia.Guardia,
+							"Titulo": 	incidencia.Titulo,
+							"Descripcion": 	incidencia.Descripcion,
+							"Instalacion": 	incidencia.Instalacion.Nombre,
+							"Tipo": 	incidencia.Tipo,
+							"Creador": Propietario,
+							"Operador": Operador,
+							"Estado": incidencia.Estado,
+							"Prioridad": incidencia.Prioridad,
+							"Fecha de Creacion": moment(incidencia.createdAt).locale("es").format('LLL'), 
+							"Fecha de Inicio": moment(incidencia.FechaInicio).locale("es").format('LLL'), 
+							"Fecha Prevista": moment(incidencia.FechaPrevista).locale("es").format('LLL'), 
+							"Fecha de Finalización": moment(incidencia.FechaFin).locale("es").format('LLL')
+						};
+
+						IncidenciasJSON.push(IncidenciaJSON);
 
 						if(incidencia.Estado == 'Sin Iniciar'){
 							estado1++;
@@ -742,7 +808,7 @@ module.exports = {
 
 					}
 
-					res.json(200, { Estadisticas: estadisticaByOperador });
+					res.json(200, { Estadisticas: estadisticaByOperador, Incidencias: IncidenciasJSON });
 
 			}).catch(function(error){ next(error); });
 
@@ -759,15 +825,51 @@ module.exports = {
 
 		if( req.Rol == '1' && req.body.Colaborador != null ){
 
-			Incidencia.find().where({
+			Incidencia.find().populateAll().where({
 
 					createdAt: 	{ '>=': req.body.FechaInicio	},
 					createdAt: 	{ '<=': req.body.FechaFin	},
 					Propietario: 	req.body.Colaborador	
 
 				}).then(function(Incidencias){
+					var IncidenciasJSON = [];
 
 					var total = Incidencias.length;
+
+					Incidencias.forEach(function(incidencia){
+
+						var Operador = "Sin Asignar";
+
+						if ( incidencia.Operador != null ) {
+							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
+						}
+
+						var Propietario = "Usuario no encontrado";
+
+						if ( incidencia.Propietario != null ) {
+							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
+						}
+
+						IncidenciaJSON = {
+							"id": 	incidencia.id,
+							"Guardia": 	incidencia.Guardia,
+							"Titulo": 	incidencia.Titulo,
+							"Descripcion": 	incidencia.Descripcion,
+							"Instalacion": 	incidencia.Instalacion.Nombre,
+							"Tipo": 	incidencia.Tipo,
+							"Creador": Propietario,
+							"Operador": Operador,
+							"Estado": incidencia.Estado,
+							"Prioridad": incidencia.Prioridad,
+							"Fecha de Creacion": moment(incidencia.createdAt).locale("es").format('LLL'), 
+							"Fecha de Inicio": moment(incidencia.FechaInicio).locale("es").format('LLL'), 
+							"Fecha Prevista": moment(incidencia.FechaPrevista).locale("es").format('LLL'), 
+							"Fecha de Finalización": moment(incidencia.FechaFin).locale("es").format('LLL')
+						};
+
+						IncidenciasJSON.push(IncidenciaJSON);
+
+					});
 
 					var estadisticaByColaborador = {
 
@@ -776,7 +878,7 @@ module.exports = {
 
 					}
 
-					res.json(200, { Estadisticas: estadisticaByColaborador });
+					res.json(200, { Estadisticas: estadisticaByColaborador, Incidencias: IncidenciasJSON });
 
 			}).catch(function(error){ next(error); });
 
@@ -793,13 +895,14 @@ module.exports = {
 
 		if( req.Rol == '1' ){
 		
-			Incidencia.find().where({
+			Incidencia.find().populateAll().where({
 
 					createdAt: 	{ '>=': req.body.FechaInicio	},
 					createdAt: 	{ '<=': req.body.FechaFin	},
 					Instalacion: 	  req.body.Instalacion	
 
 				}).then(function(Incidencias){
+					var IncidenciasJSON = [];
 					
 					var total = 0;
 					var sistemas = 0; var mantenimiento = 0;
@@ -807,6 +910,37 @@ module.exports = {
 					var IncidenciaSinAsignar = 0;
 
 					Incidencias.forEach(function(incidencia){
+
+						var Operador = "Sin Asignar";
+
+						if ( incidencia.Operador != null ) {
+							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
+						}
+
+						var Propietario = "Usuario no encontrado";
+
+						if ( incidencia.Propietario != null ) {
+							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
+						}
+
+						IncidenciaJSON = {
+							"id": 	incidencia.id,
+							"Guardia": 	incidencia.Guardia,
+							"Titulo": 	incidencia.Titulo,
+							"Descripcion": 	incidencia.Descripcion,
+							"Instalacion": 	incidencia.Instalacion.Nombre,
+							"Tipo": 	incidencia.Tipo,
+							"Creador": Propietario,
+							"Operador": Operador,
+							"Estado": incidencia.Estado,
+							"Prioridad": incidencia.Prioridad,
+							"Fecha de Creacion": moment(incidencia.createdAt).locale("es").format('LLL'), 
+							"Fecha de Inicio": moment(incidencia.FechaInicio).locale("es").format('LLL'), 
+							"Fecha Prevista": moment(incidencia.FechaPrevista).locale("es").format('LLL'), 
+							"Fecha de Finalización": moment(incidencia.FechaFin).locale("es").format('LLL')
+						};
+						
+						IncidenciasJSON.push(IncidenciaJSON);
 
 						if(incidencia.Tipo == 'Sistemas'){
 							sistemas++;
@@ -839,13 +973,13 @@ module.exports = {
 						DeSistemas: 		sistemas,
 						DeMantenimiento: 	mantenimiento,
 						SinIniciar: 			estado1,
-						EnProceso: 		estado2,
+						EnProceso: 			estado2,
 						Pendiente: 			estado3,
 						Completadas: 		estado4
 
 					}
 
-					res.json(200, { Estadisticas: estadisticaByInstalacion });
+					res.json(200, { Estadisticas: estadisticaByInstalacion, Incidencias: IncidenciasJSON });
 
 			}).catch(function(error){ next(error); });
 

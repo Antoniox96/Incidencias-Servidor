@@ -32,6 +32,8 @@ angular.module("AppIncidencias")
   		$scope.Fechas = {};
   		$scope.Informacion = "Esperando a que introduzca la configuración para el gráfico.";
 
+  		$scope.Headers = ['ID', 'Guardia', 'Titulo', 'Descripcion', 'Instalacion', 'Tipo', 'Creador', 'Operador', 'Estado', 'Prioridad', 'Fecha de Creacion', 'Fecha de Inicio', 'Fecha Prevista', 'Fecha de Finalización']
+
   		$scope.cargarDatos = function() {
 
   			SupervisorService.getColaboradores()
@@ -85,6 +87,7 @@ angular.module("AppIncidencias")
 
   				.success(function(data) {
   					$scope.Estadisticas = data.Estadisticas;
+  					$scope.Incidencias = data.Incidencias;
 
   					$scope.Graficos.TipoIncidencia.Secciones[0] = "De Sistemas";
   					$scope.Graficos.TipoIncidencia.Secciones[1] = "De Mantenimiento";
@@ -145,6 +148,7 @@ angular.module("AppIncidencias")
 
 		  				.success(function(data) {
 		  					$scope.Estadisticas = data.Estadisticas;
+  							$scope.Incidencias = data.Incidencias;
 
 		  					$scope.Graficos.Colaborador.Secciones[0] = "Creadas por Otros";
 		  					$scope.Graficos.Colaborador.Secciones[1] = "Creadas por " + $scope.Colaborador.Seleccionado.Nombre;
@@ -195,6 +199,7 @@ angular.module("AppIncidencias")
 
 		  				.success(function(data) {
 		  					$scope.Estadisticas = data.Estadisticas;
+  							$scope.Incidencias = data.Incidencias;
 
 	  						$scope.Graficos.TipoEstado.Secciones[0] = "Sin Iniciar";
 		  					$scope.Graficos.TipoEstado.Secciones[1] = "En Proceso";
@@ -251,6 +256,7 @@ angular.module("AppIncidencias")
 		  				.success(function(data) {
 
 		  					$scope.Estadisticas = data.Estadisticas;
+  							$scope.Incidencias = data.Incidencias;
 
 							$scope.Graficos.TipoIncidencia.Secciones[0] = "De Sistemas";
 		  					$scope.Graficos.TipoIncidencia.Secciones[1] = "De Mantenimiento";

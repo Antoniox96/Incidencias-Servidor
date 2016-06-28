@@ -1,4 +1,4 @@
-﻿angular.module("AppIncidencias", ["ngRoute", "ui.bootstrap", "chart.js", "angularSpinner"])
+﻿angular.module("AppIncidencias", ["ngRoute", "ui.bootstrap", "chart.js", "angularSpinner", "ngSanitize", "ngCsv"])
 	.config(function($httpProvider, $routeProvider) {
 		$httpProvider.interceptors.push("TokenInterceptor"),
 		$routeProvider
