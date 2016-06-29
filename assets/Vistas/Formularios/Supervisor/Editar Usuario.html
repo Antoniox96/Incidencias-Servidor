@@ -4,19 +4,19 @@
 	</div>
 	<div class="modal-body">
 		<div class="form-group">
-			<p>NickName</p>
+			<p>NickName<span style="color: red">*</span></p>
 			<input type="text" class="form-control" ng-model="Usuario.NickName"/>
 		</div>
 		<div class="form-group">
-			<p>Nombre</p>
+			<p>Nombre<span style="color: red">*</span></p>
 			<input type="text" class="form-control" ng-model="Usuario.Nombre"/>
 		</div>
 		<div class="form-group">
-			<p>Apellidos</p>
+			<p>Apellidos<span style="color: red">*</span></p>
 			<input type="text" class="form-control" ng-model="Usuario.Apellidos"/>
 		</div>
 		<div class="form-group">
-			<p>Email</p>
+			<p>Email<span style="color: red">*</span></p>
 			<input type="text" class="form-control" ng-model="Usuario.Email"/>
 		</div>
 		<div class="form-group" ng-if="Usuario.Rol == '2'">

@@ -73,11 +73,12 @@ angular.module("AppIncidencias")
 																				SupervisorService.getIncidencia(IncidenciaID)
 
 																					.success(function(data) {
+																						$scope.setTipoIncidencia(data.IncidenciaJSON.Tipo);
+																						$scope.Empleado = data.IncidenciaJSON.Empleado;
 																						$scope.Titulo = data.IncidenciaJSON.Titulo;
 																						$scope.Descripcion = data.IncidenciaJSON.Descripcion;
 																						$scope.Instalacion = data.IncidenciaJSON.Instalacion;
 																						$scope.setDepartamento(data.IncidenciaJSON.Instalacion.ID);
-																						$scope.setTipoIncidencia(data.IncidenciaJSON.Tipo);
 																						$scope.setTipoGuardia(data.IncidenciaJSON.Guardia);
 																						$scope.setPrioridadIncidencia(data.IncidenciaJSON.Prioridad);
 																						$scope.setEstadoIncidencia(data.IncidenciaJSON.Estado);
@@ -258,31 +259,47 @@ angular.module("AppIncidencias")
 
 		$scope.CrearIncidencia = function () {
 
-			SupervisorService.CrearIncidencia($scope)
+		          if ( $scope.Titulo != null && $scope.Titulo.trim() != "" && $scope.Descripcion != null && $scope.Descripcion.trim() != "" && $scope.Empleado != null && $scope.Empleado.trim() != "" ) {
 
-				.success(function(data) {
-					$uibModalInstance.close();
-					$route.reload();
-			          })
-			          .error(function(error) {
-       					$uibModalInstance.close();
-			          	$route.reload();
-			          });
+				delete $scope.Error;
+
+				SupervisorService.CrearIncidencia($scope)
+
+					.success(function(data) {
+						$uibModalInstance.close();
+						$route.reload();
+				          })
+				          .error(function(error) {
+	       					$uibModalInstance.close();
+				          	$route.reload();
+				          });
+		         }
+		         else {
+		         	$scope.Error = "Debe rellenar todos los campos obligatorios.";
+		         }
 
 		};
 
 		$scope.EditarIncidencia = function () {
 
-			SupervisorService.EditarIncidencia($scope, IncidenciaID)
+			if ( $scope.Titulo != null && $scope.Titulo.trim() != "" && $scope.Descripcion != null && $scope.Descripcion.trim() != "" && $scope.Empleado != null && $scope.Empleado.trim() != "" ) {
+
+				delete $scope.Error;
+
+				SupervisorService.EditarIncidencia($scope, IncidenciaID)
 			
-				.success(function(data) {
-					$uibModalInstance.close();
-					$route.reload();
-			          })
-			          .error(function(error) {
-       					$uibModalInstance.close();
-			          	$route.reload();
-			          });
+					.success(function(data) {
+						$uibModalInstance.close();
+						$route.reload();
+				          })
+				          .error(function(error) {
+	       					$uibModalInstance.close();
+				          	$route.reload();
+				          });
+		         }
+		         else {
+		         	$scope.Error = "Debe rellenar todos los campos obligatorios.";
+		         }
 
 		};
 

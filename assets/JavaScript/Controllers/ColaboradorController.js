@@ -24,12 +24,13 @@ angular.module("AppIncidencias")
 								ColaboradorService.getIncidencia(IncidenciaID)
 
 									.success(function(data) {
+										$scope.setTipoIncidencia(data.Tipo);
+										$scope.Empleado = data.Empleado;
 										$scope.Titulo = data.Titulo;
 										$scope.Descripcion = data.Descripcion;
 										$scope.Instalacion = data.Instalacion;
 										$scope.DepartamentoSeleccionado = $scope.Departamentos[0];
 										$scope.setDepartamento(data.Instalacion.id);
-										$scope.setTipoIncidencia(data.Tipo);
 
 										$scope.DatosCargados = true;
 									})
@@ -89,33 +90,48 @@ angular.module("AppIncidencias")
 
 		$scope.CrearIncidencia = function () {
 
-			ColaboradorService.CrearIncidencia($scope)
+			if ( $scope.Titulo != null && $scope.Titulo.trim() != "" && $scope.Descripcion != null && $scope.Descripcion.trim() != "" && $scope.Empleado != null && $scope.Empleado.trim() != "" ) {
 
-				.success(function(data) {
-					$uibModalInstance.close();
-					$route.reload();
-			          })
+				delete $scope.Error;
 
-			          .error(function(error) {
-					$uibModalInstance.close();
-			          	$route.reload();
-			          });
+				ColaboradorService.CrearIncidencia($scope)
+
+					.success(function(data) {
+						$uibModalInstance.close();
+						$route.reload();
+				          })
+
+				          .error(function(error) {
+						$uibModalInstance.close();
+				          	$route.reload();
+				          });
+		         }
+		         else {
+		         	$scope.Error = "Debe rellenar todos los campos.";
+		         }
 
 		};
 
 		$scope.EditarIncidencia = function () {
+			if ( $scope.Titulo != null && $scope.Titulo.trim() != "" && $scope.Descripcion != null && $scope.Descripcion.trim() != "" && $scope.Empleado != null && $scope.Empleado.trim() != "" ) {
 
-			ColaboradorService.EditarIncidencia($scope, IncidenciaID)
+				delete $scope.Error;
 
-				.success(function(data) {
-					$uibModalInstance.close();
-					$route.reload();
-			          })
+				ColaboradorService.EditarIncidencia($scope, IncidenciaID)
 
-			          .error(function(error) {
-					$uibModalInstance.close();
-			          	$route.reload();
-			          });
+					.success(function(data) {
+						$uibModalInstance.close();
+						$route.reload();
+				          })
+
+				          .error(function(error) {
+						$uibModalInstance.close();
+				          	$route.reload();
+				          });
+		         }
+		         else {
+		         	$scope.Error = "Debe rellenar todos los campos.";
+		         }
 
 		};
 

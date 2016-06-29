@@ -15,7 +15,7 @@
 							<ng-form name="CrearDepartamentoForm">
 								<div class="form-group">
 
-									<p>Nombre Departamento:</p>
+									<p>Nombre Departamento<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newDepartamento.Nombre" placeholder="Introduzca un nombre" />
 								
 								</div>
@@ -30,7 +30,7 @@
 
 									<p>Asignar Departamento</p>
 									<select class="form-control" ng-model="newUbicacion.Departamento" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
-									<p>Nombre Ubicacion:</p>
+									<p>Nombre Ubicacion<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newUbicacion.Nombre"/>
 
 								</div>
@@ -48,7 +48,7 @@
 									<p>Asignar Ubicacion</p>
 									<select  class="form-control Ubicacion" ng-model="newInstalacion.Ubicacion" ng-options="Ubicacion.Nombre for Ubicacion in newInstalacion.Departamento.Ubicaciones track by Ubicacion.id">
 									</select>
-									<p>Nombre Instalación:</p>
+									<p>Nombre Instalación<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newInstalacion.Nombre"/>
 
 								</div>
@@ -76,15 +76,15 @@
 							<ng-form name="CrearSupervisorForm">
 								<div class="form-group">
 
-									<p>NickName:</p>
+									<p>NickName:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newSupervisor.NickName"/>
-									<p>Password:</p>
+									<p>Password:<span style="color: red">*</span></p>
 									<input type="password" class="form-control" ng-model="newSupervisor.Password"/>
-									<p>Nombre:</p>
+									<p>Nombre:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newSupervisor.Nombre"/>
-									<p>Apellidos:</p>
+									<p>Apellidos:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newSupervisor.Apellidos"/>
-									<p>Email:</p>
+									<p>Email:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newSupervisor.Email"/>
 
 								</div>
@@ -97,17 +97,17 @@
 							<ng-form name="CrearOperadorForm">
 								<div class="form-group">
 
-									<p>NickName:</p>
+									<p>NickName:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newOperador.NickName"/>
-									<p>Password:</p>
+									<p>Password:<span style="color: red">*</span></p>
 									<input type="password" class="form-control" ng-model="newOperador.Password"/>
 									<p>Tipo Operador:</p>
 									<select class="tipoOperador" ng-model="newOperador.tipoOperador" ng-options="tipoOperador for tipoOperador in tiposOperador track by tipoOperador"></select>
-									<p>Nombre:</p>
+									<p>Nombre:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newOperador.Nombre"/>
-									<p>Apellidos:</p>
+									<p>Apellidos:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newOperador.Apellidos"/>
-									<p>Email:</p>
+									<p>Email:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newOperador.Email"/>
 
 								</div>
@@ -120,15 +120,15 @@
 							<ng-form name="CrearColaboradorForm">
 								<div class="form-group">
 
-									<p>NickName:</p>
+									<p>NickName:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newColaborador.NickName"/>
-									<p>Password:</p>
+									<p>Password:<span style="color: red">*</span></p>
 									<input type="password" class="form-control" ng-model="newColaborador.Password"/>
-									<p>Nombre:</p>
+									<p>Nombre:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newColaborador.Nombre"/>
-									<p>Apellidos:</p>
+									<p>Apellidos:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newColaborador.Apellidos"/>
-									<p>Email:</p>
+									<p>Email:<span style="color: red">*</span></p>
 									<input type="text" class="form-control" ng-model="newColaborador.Email"/>
 
 								</div>

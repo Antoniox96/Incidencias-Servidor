@@ -2,6 +2,12 @@ module.exports = {
 
 	attributes: {
 
+		Empleado: {
+			type: 	'string',
+			size: 		100,
+			required: 	true
+		},
+
 		Titulo: {
 			type: 		'string',
 			size: 		150,

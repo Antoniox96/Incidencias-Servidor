@@ -31,7 +31,7 @@
 				<tbody ng-hide="Incidencias.length < 0">
 					<tr 	ng-click="setIncidenciaSeleccionada(Incidencia.id);" 
 						ng-class="{Seleccionado: IncidenciaSeleccionada === Incidencia.id}" 
-						ng-repeat="Incidencia in Incidencias | filter:search">
+						ng-repeat="Incidencia in Incidencias | filter:search | orderBy: '-FechaCreacion'">
 						<td><i ng-if="Incidencia.Comun == 'Sí'" class="glyphicon glyphicon-eye-open"/></td>
 						<td>{{ $index+1 }}</td>
 						<td>{{ Incidencia.Guardia }}</td>
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 	  	</div>
-	  	<div class="panel-body text-center">
+	  	<div class="panel-body text-center" ng-if="Rol == '1'">
 			<button id="Filter" type="button" class="btn" ng-click="ActivarFiltro()" title="Filtrar listado Incidencias">
 				<i class="fa fa-search-plus"></i>
 			</button>
@@ -127,7 +127,7 @@
 						<td>{{ Incidencia.Ubicacion }}</td>
 						<td>{{ Incidencia.Instalacion }}</td>
 						<td>{{ Incidencia.Tipo }}</td>
-						<td>{{ Incidencia.Propietario }}</td>
+						<td>{{ Incidencia.Empleado }}</td>
 						<td>{{ Incidencia.Estado }}</td>
 						<td>{{ Incidencia.Prioridad }}</td>
 						<td>{{ Incidencia.FechaPrevista | date:'dd/MM/yyyy HH:mm' }}</td>

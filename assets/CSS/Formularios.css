@@ -19,6 +19,14 @@
 	width: 100%;
 }
 
+.modal-body #errorbox .panel-heading {
+	margin: 0px !important;
+}
+
+.modal-body #errorbox {
+	margin-bottom: 10px !important;
+}
+
 .modal-footer #Crear, .modal-footer #Editar {
 	float: left;
 	width: 150px;

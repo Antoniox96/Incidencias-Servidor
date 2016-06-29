@@ -17,18 +17,20 @@ angular.module("AppIncidencias")
 
 			CrearIncidencia: function($scope) {
 				return $http.post('/Incidencia', { 
+								Tipo: $scope.TipoSeleccionado,
+								Empleado: $scope.Empleado,
 								Titulo: $scope.Titulo, 
-								Descripcion: $scope.Descripcion, 
-								Tipo: $scope.TipoSeleccionado, 
+								Descripcion: $scope.Descripcion,  
 								Instalacion: $scope.InstalacionSeleccionada.id
 			       				})
 			},
 
 			EditarIncidencia: function($scope, IncidenciaID) {
 				return $http.post('/Incidencia/' + IncidenciaID, { 
+								Tipo: $scope.TipoSeleccionado,
+								Empleado: $scope.Empleado,
 								Titulo: $scope.Titulo, 
-								Descripcion: $scope.Descripcion, 
-								Tipo: $scope.TipoSeleccionado, 
+								Descripcion: $scope.Descripcion,  
 								Instalacion: $scope.InstalacionSeleccionada.id
 			       				})
 			}

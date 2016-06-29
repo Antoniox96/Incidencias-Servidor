@@ -8,7 +8,7 @@
 			<select id="Departamento" class="form-control" ng-model="DepartamentoSeleccionado" ng-change="setUbicacion()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
 		</div>
 		<div class="form-group">
-			<p>Nombre</p>
+			<p>Nombre<span style="color: red">*</span></p>
 			<input type="text" class="form-control" ng-model="Ubicacion.Nombre"/>
 		</div>
 	</div>

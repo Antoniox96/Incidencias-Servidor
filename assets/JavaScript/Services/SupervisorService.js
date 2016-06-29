@@ -49,12 +49,13 @@ angular.module("AppIncidencias")
 
 			CrearIncidencia: function($scope) {
 				return $http.post('/Incidencia', { 
+								Tipo: $scope.TipoSeleccionado,
+								Empleado: $scope.Empleado,
 								Titulo: $scope.Titulo, 
 						    		Descripcion: $scope.Descripcion, 
 					    			Departamento: $scope.DepartamentoSeleccionado, 
 					    			Ubicacion: $scope.UbicacionSeleccionada, 
-					    			Instalacion: $scope.InstalacionSeleccionada, 
-					    			Tipo: $scope.TipoSeleccionado, 
+					    			Instalacion: $scope.InstalacionSeleccionada,  
 					    			Prioridad: $scope.PrioridadSeleccionada, 
 					    			Guardia: $scope.TipoGuardiaSeleccionado,
 					    			Estado: $scope.EstadoSeleccionado, 
@@ -68,10 +69,11 @@ angular.module("AppIncidencias")
 
 			EditarIncidencia: function($scope, IncidenciaID) {
 				return $http.post('/Incidencia/' + IncidenciaID, { 
+								Tipo: $scope.TipoSeleccionado,
+								Empleado: $scope.Empleado,
 								Titulo: $scope.Titulo, 
 						    		Descripcion: $scope.Descripcion, 
-					    			Instalacion: $scope.InstalacionSeleccionada.id, 
-					    			Tipo: $scope.TipoSeleccionado, 
+					    			Instalacion: $scope.InstalacionSeleccionada.id,  
 					    			Prioridad: $scope.PrioridadSeleccionada, 
 					    			Guardia: $scope.TipoGuardiaSeleccionado,
 					    			Estado: $scope.EstadoSeleccionado, 

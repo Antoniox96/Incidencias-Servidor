@@ -3,6 +3,22 @@
 		<h3 class="modal-title text-center">Editar Incidencia</h3>
 	</div>
 	<div class="modal-body">
+		<div id="errorbox" ng-show="Error" class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Error</div>
+			</div>
+			<div class="panel-body">
+				{{ Error }}
+			</div>
+		</div>
+		<div class="form-group">
+			<p>Tipo</p>
+			<select id="Tipo" class="form-control" ng-model="TipoSeleccionado" ng-options="TipoIncidencia for TipoIncidencia in TiposIncidencia track by TipoIncidencia"></select>
+		</div>
+		<div class="form-group">
+			<p>Empleado</p>
+			<input type="text" id="Empleado" class="form-control" ng-model="Empleado"/>
+		</div>
 		<div class="form-group">
 			<p>Título</p>
 			<input type="text" id="Titulo" class="form-control" ng-model="Titulo"/>
@@ -15,7 +31,7 @@
 			<p>Departamento</p>
 			<select id="Departamento" class="form-control" ng-model="DepartamentoSeleccionado" ng-change="setUbicacion()" ng-options="Departamento.Nombre for Departamento in Departamentos track by Departamento.id"></select>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<p>Ubicación</p>
 			<select id="Ubicacion" class="form-control" ng-model="UbicacionSeleccionada" ng-change="setInstalacion()" ng-options="Ubicacion.Nombre for Ubicacion in DepartamentoSeleccionado.Ubicaciones track by Ubicacion.id">
 			</select>
@@ -23,11 +39,7 @@
 		<div class="form-group">
 			<p>Instalación</p>
 			<select id="Instalacion" class="form-control" ng-model="InstalacionSeleccionada" ng-options="Instalacion.Nombre for Instalacion in UbicacionSeleccionada.Instalaciones track by Instalacion.id"></select>
-		</div>
-		<div class="form-group">
-			<p>Tipo</p>
-			<select id="Tipo" class="form-control" ng-model="TipoSeleccionado" ng-options="TipoIncidencia for TipoIncidencia in TiposIncidencia track by TipoIncidencia"></select>
-		</div>
+		</div> -->
 	</div>
 	  <div style="clear: both"></div>
 	<div class="modal-footer">

@@ -3,12 +3,28 @@
 		<h3 class="modal-title text-center">Crear Incidencia</h3>
 	</div>
 	<div class="modal-body">
+		<div id="errorbox" ng-show="Error" class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Error</div>
+			</div>
+			<div class="panel-body">
+				{{ Error }}
+			</div>
+		</div>
 		<div class="form-group">
-			<p>Título</p>
+			<p>Empleado<span style="color: red">*</span></p>
+			<input type="text" id="Empleado" class="form-control" ng-model="Empleado"/>
+		</div>
+		<div class="form-group">
+			<p>Tipo</p>
+			<select id="Tipo" class="form-control" ng-model="TipoSeleccionado" ng-options="TipoIncidencia for TipoIncidencia in TiposIncidencia track by TipoIncidencia"></select>
+		</div>
+		<div class="form-group">
+			<p>Título<span style="color: red">*</span></p>
 			<input type="text" id="Titulo" class="form-control" ng-model="Titulo"/>
 		</div>
 		<div class="form-group">
-			<p>Descripción</p>
+			<p>Descripción<span style="color: red">*</span></p>
 			<textarea class="form-control js-auto-size" id="Descripcion" ng-model="Descripcion"/>
 		</div>
 		<div class="form-group">
@@ -23,10 +39,6 @@
 		<div class="form-group">
 			<p>Instalación</p>
 			<select id="Instalacion" class="form-control" ng-model="InstalacionSeleccionada" ng-options="Instalacion.Nombre for Instalacion in UbicacionSeleccionada.Instalaciones track by Instalacion.id"></select>
-		</div>
-		<div class="form-group">
-			<p>Tipo</p>
-			<select id="Tipo" class="form-control" ng-model="TipoSeleccionado" ng-options="TipoIncidencia for TipoIncidencia in TiposIncidencia track by TipoIncidencia"></select>
 		</div>
 		<div class="form-group">
 			<p>Prioridad</p>
@@ -56,6 +68,10 @@
 			<p>Fecha de Finalización</p>
 			<input id="FechaFin" type="datetime-local" class="form-control" ng-model="FechaFin"/>
 		</div>
+		<div id="Comment" class="form-group">
+ 			<p>Comentario</p>
+ 			<textarea class="form-control js-auto-size" id="Comentario" ng-model="Comentario"/>
+ 		</div>
 	</div>
 	  <div style="clear: both"></div>
 	<div class="modal-footer">

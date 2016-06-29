@@ -25,22 +25,16 @@ module.exports = {
 								Operador = Incidencia.Operador.Nombre + " " + Incidencia.Operador.Apellidos;
 							}
 
-							var Propietario = "Usuario Eliminado";
-
-							if ( Incidencia.Propietario != null ) {
-								Propietario = Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos;
-							}
-
 							IncidenciaJSON = { 
 								"id": 			Incidencia.id,
+								"Tipo": 		Incidencia.Tipo,
 								"Titulo": 		Incidencia.Titulo, 
 								"Descripcion": 	Incidencia.Descripcion, 
 								"Departamento": "",
 								"Ubicacion": 	"", 
-								"Instalacion": 	Incidencia.Instalacion.Nombre,
-								"Tipo": 		Incidencia.Tipo, 
+								"Instalacion": 	Incidencia.Instalacion.Nombre, 
 								"Operador": 	Operador,
-								"Propietario": 	Propietario,
+								"Empleado": 	Incidencia.Empleado,
 								"Estado": 		Incidencia.Estado,
 								"Prioridad": 	Incidencia.Prioridad,
 								"Guardia": 		Incidencia.Guardia,
@@ -118,12 +112,6 @@ module.exports = {
 								Operador = Incidencia.Operador.id;
 							}
 
-							var Propietario = "Usuario Eliminado";
-
-							if ( Incidencia.Propietario != null ) {
-								Propietario = Incidencia.Propietario.Nombre + " " + Incidencia.Propietario.Apellidos;
-							}
-
 							IncidenciaJSON = {
 								"id": 			Incidencia.id,
 								"Titulo": 		Incidencia.Titulo, 
@@ -132,7 +120,7 @@ module.exports = {
 								"Ubicacion": 	"",
 								"Instalacion": 	Incidencia.Instalacion.Nombre,
 								"Tipo": 		Incidencia.Tipo, 
-								"Propietario": 	Propietario,
+								"Empleado": 	Incidencia.Empleado,
 								"Operador": 	Operador,
 								"Estado": 		Incidencia.Estado,
 								"Prioridad": 	Incidencia.Prioridad,
@@ -200,18 +188,19 @@ module.exports = {
 
 							IncidenciaJSON = {
 								"id": 			Incidencia.id,
+								"Tipo": 		Incidencia.Tipo,
+								"Empleado": 	Incidencia.Empleado, 
 								"Titulo": 		Incidencia.Titulo, 
 								"Descripcion": 	Incidencia.Descripcion, 
 								"Departamento": "", 
 								"Ubicacion": 	"",
 								"Instalacion": 	Incidencia.Instalacion.Nombre,
-								"Tipo": 		Incidencia.Tipo, 
 								"Operador": 	Operador,
 								"Estado": 		Incidencia.Estado,
 								"Comun": 		Incidencia.Comun,
 								"FechaCreacion": Incidencia.createdAt
 							}
-
+							
 							FindUbicacion = Ubicacion.findOne(Incidencia.Instalacion.Ubicacion).populateAll()
 
 								.then(function(Ubicacion) {
@@ -261,9 +250,10 @@ module.exports = {
 			}
 
 			Incidencia.create({
+							Tipo: req.body.Tipo,
+							Empleado: 	req.body.Empleado,
 							Titulo: req.body.Titulo,
 							Descripcion: req.body.Descripcion,
-							Tipo: req.body.Tipo,
 							Estado: req.body.Estado,
 							Prioridad: req.body.Prioridad,
 							Guardia: req.body.Guardia,
@@ -272,6 +262,7 @@ module.exports = {
 							FechaPrevista: req.body.FechaPrevista,
 							FechaFin: req.body.FechaFin,
 							Instalacion: req.body.Instalacion,
+							Comentario: req.body.Comentario,
 							Operador: Operador,
 							Propietario: req.Usuario
 						}
@@ -293,9 +284,10 @@ module.exports = {
 
 			var Operador = "Sin asignar";
 			Incidencia.create({
+							Tipo: req.body.Tipo,
+							Empleado: 	req.body.Empleado,
 							Titulo: req.body.Titulo,
 							Descripcion: req.body.Descripcion,
-							Tipo: req.body.Tipo,
 							Instalacion: req.body.Instalacion,
 							Operador: Operador,
 							Propietario: req.Usuario
@@ -343,10 +335,11 @@ module.exports = {
 
 						var IncidenciaJSON = {
 							"ID": 				Incidencia.id,
+							"Tipo": 			Incidencia.Tipo, 
+							"Empleado": 		Incidencia.Empleado,
 							"Titulo":      		Incidencia.Titulo, 
 							"Descripcion": 		Incidencia.Descripcion, 
 							"Instalacion": 		{ "ID": Incidencia.Instalacion.id, "Nombre": Incidencia.Instalacion.Nombre },
-							"Tipo": 			Incidencia.Tipo, 
 							"Operador": 		Operador,
 							"Estado": 			Incidencia.Estado,
 							"Prioridad": 		Incidencia.Prioridad,
@@ -355,8 +348,7 @@ module.exports = {
 							"FechaInicio": 		Incidencia.FechaInicio,
 							"FechaPrevista": 		Incidencia.FechaPrevista,
 							"FechaFin": 		Incidencia.FechaFin,
-							"Comun": 			Incidencia.Comun,
-							"Propietario": 		Propietario
+							"Comun": 			Incidencia.Comun
 						}
 						res.json(200, { IncidenciaJSON });
 
@@ -392,9 +384,10 @@ module.exports = {
 				if (Incidencia) {
 
 					res.json({ 	"id": Incidencia.id, 
+							"Tipo": Incidencia.Tipo, 
+							"Empleado": Incidencia.Empleado,
 							"Titulo": Incidencia.Titulo, 
 							"Descripcion": Incidencia.Descripcion, 
-							"Tipo": Incidencia.Tipo, 
 							"Instalacion": { "id": Incidencia.Instalacion.id, "Nombre": Incidencia.Instalacion.Nombre }
  					});
 
@@ -424,9 +417,10 @@ module.exports = {
 							{ id: Number(req.params.id) }, 		
 							{
 								id: 			req.params.id,
+								Tipo: 			req.body.Tipo,
+								Empleado: 		req.body.Empleado,
 								Titulo: 		req.body.Titulo,
 								Descripcion: 	req.body.Descripcion,
-								Tipo: 			req.body.Tipo,
 								Estado: 		req.body.Estado,
 								Prioridad: 		req.body.Prioridad,
 								Guardia: 		req.body.Guardia,
@@ -479,9 +473,10 @@ module.exports = {
 				Incidencia.update(
 	 							{ id: Number(req.params.id), Propietario: Number(req.Usuario.id) }, 		
 	 							{
+	 								Tipo: 			req.body.Tipo,
+	 								Empleado: 		req.body.Empleado,
 									Titulo: 		req.body.Titulo,
 									Descripcion: 	req.body.Descripcion,
-									Tipo: 			req.body.Tipo,
 									Instalacion: 	req.body.Instalacion,
 									Rol: 			req.Rol
 								}
@@ -622,11 +617,7 @@ module.exports = {
 							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
 						}
 
-						var Propietario = "Usuario no encontrado";
-
-						if ( incidencia.Propietario != null ) {
-							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
-						}
+						var Propietario = incidencia.Empleado;
 
 						IncidenciaJSON = {
 							"id": 	incidencia.id,
@@ -757,11 +748,7 @@ module.exports = {
 							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
 						}
 
-						var Propietario = "Usuario no encontrado";
-
-						if ( incidencia.Propietario != null ) {
-							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
-						}
+						var Propietario = incidencia.Empleado;
 
 						IncidenciaJSON = {
 							"id": 	incidencia.id,
@@ -844,11 +831,7 @@ module.exports = {
 							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
 						}
 
-						var Propietario = "Usuario no encontrado";
-
-						if ( incidencia.Propietario != null ) {
-							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
-						}
+						var Propietario = incidencia.Empleado;
 
 						IncidenciaJSON = {
 							"id": 	incidencia.id,
@@ -917,11 +900,7 @@ module.exports = {
 							Operador = incidencia.Operador.Nombre + " " + incidencia.Operador.Apellidos;
 						}
 
-						var Propietario = "Usuario no encontrado";
-
-						if ( incidencia.Propietario != null ) {
-							Propietario = incidencia.Propietario.Nombre + " " + incidencia.Propietario.Apellidos;
-						}
+						var Propietario = incidencia.Empleado;
 
 						IncidenciaJSON = {
 							"id": 	incidencia.id,

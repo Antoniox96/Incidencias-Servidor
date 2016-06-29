@@ -5,9 +5,10 @@
 		[
 			{
 				"id":			1,
+				"Tipo": 		"Mantenimiento",
+				"Empleado":	"Usuario fuera del sistema",
 				"Titulo": 		"Falla Wi-Fi",
 				"Descripcion": 	"Contraseña Errónea.PD:esta incidencia solamente la pueden ver los Operadores de Mantenimiento",
-				"Tipo": 		"Mantenimiento",
 				"Estado": 		"Sin Iniciar",
 				"Prioridad": 	"Alta",
 				"Guardia": 		"No",
@@ -21,9 +22,10 @@
 			},
 			{
 				"id":			2,
+				"Tipo": 		"Sistemas",
+				"Empleado": 	"Usuario fuera del sistema",
 				"Titulo": 		"Cafetera Rota",
 				"Descripcion": 	"No enciende.PD:esta incidencia solamente la pueden ver los Operadores de Sistemas",
-				"Tipo": 		"Sistemas",
 				"Estado": 		"Sin Iniciar",
 				"Prioridad": 	"Media",
 				"Guardia": 		"No",
